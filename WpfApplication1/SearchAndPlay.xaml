@@ -4,7 +4,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc ="clr-namespace:Webplayer"
         xmlns:spotify="clr-namespace:Webplayer.Services.Spotify"
-        xmlns:youtube="clr-namespace:Webplayer.Services.Youtube"
         xmlns:services="clr-namespace:Webplayer.Services"        
         Title="Web Player" Height="500" Width="776.566" 
         WindowStartupLocation="CenterScreen" Loaded="frmMainWindow_Loaded">
@@ -167,13 +166,13 @@
                             </Border>
                         </DataTemplate>
 
-                        <DataTemplate  DataType="{x:Type youtube:YoutubeSong}">
+                        <!--<DataTemplate  DataType="{x:Type youtube:YoutubeSong}">
                             <Border Margin="-15,5,0,0"  CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
                                 <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Stretch">
                                     <Image Width="75" Height="75" Margin="2" Source="{Binding Path=Picture}" />
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Margin="2" FontSize="14" Text="{Binding Path=Tittel}" TextWrapping="Wrap" Width="100px" />
-                                        <!--Need som sort of max length according to width of parent element-->
+                                        --><!--Need som sort of max length according to width of parent element--><!--
                                         <TextBlock FontSize="10" MinHeight="80" Text="{Binding Path=Description}" Width="100px" TextWrapping="Wrap"/>
                                         <StackPanel Orientation="Horizontal">
                                             <Button Content="Peek" IsEnabled="False" />
@@ -199,7 +198,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                        </DataTemplate>
+                        </DataTemplate>-->
 
                         <DataTemplate DataType="{x:Type loc:buttonshow}" >
                             <Button Click="getMoreSearches" CommandParameter="{Binding BindsDirectlyToSource=True}">Get more</Button>
@@ -229,7 +228,7 @@
         <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <!--Playing info-->
         <Border  Grid.Column="4" HorizontalAlignment="Stretch" >
-            <services:Player x:Name="player" BorderBrush="#FF0E0B0B" BorderThickness="5" SongEnded="player_SongEnded"/>
+            <!--<services:Player x:Name="player" BorderBrush="#FF0E0B0B" BorderThickness="5" SongEnded="player_SongEnded"/>-->
         </Border>
     </Grid>
 </Window>

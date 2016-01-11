@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer", "WpfApplication1\Webplayer.csproj", "{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{0D108196-DDF5-45B0-83C1-331BCF8B3458}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1529B56A-7FD4-4291-A811-77980847876E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Youtube", "Webplayer.Modules.Youtube\Webplayer.Modules.Youtube.csproj", "{114E13FF-12A6-46D3-8345-CAF0FD50943A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Spotify", "Webplayer.Modules.Spotify\Webplayer.Modules.Spotify.csproj", "{C4BCD5A4-71B9-4520-90D9-3A393E89BA09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +23,24 @@ Global
 		{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D108196-DDF5-45B0-83C1-331BCF8B3458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D108196-DDF5-45B0-83C1-331BCF8B3458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D108196-DDF5-45B0-83C1-331BCF8B3458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D108196-DDF5-45B0-83C1-331BCF8B3458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{114E13FF-12A6-46D3-8345-CAF0FD50943A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{114E13FF-12A6-46D3-8345-CAF0FD50943A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{114E13FF-12A6-46D3-8345-CAF0FD50943A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{114E13FF-12A6-46D3-8345-CAF0FD50943A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4BCD5A4-71B9-4520-90D9-3A393E89BA09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4BCD5A4-71B9-4520-90D9-3A393E89BA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4BCD5A4-71B9-4520-90D9-3A393E89BA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4BCD5A4-71B9-4520-90D9-3A393E89BA09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{114E13FF-12A6-46D3-8345-CAF0FD50943A} = {1529B56A-7FD4-4291-A811-77980847876E}
+		{C4BCD5A4-71B9-4520-90D9-3A393E89BA09} = {1529B56A-7FD4-4291-A811-77980847876E}
 	EndGlobalSection
 EndGlobal

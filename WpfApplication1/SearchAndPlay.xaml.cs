@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Webplayer.Services;
 using Webplayer.Services.Spotify;
-using Webplayer.Services.Youtube;
+//using Webplayer.Services.Youtube;
 
 namespace Webplayer
 {
@@ -28,7 +28,7 @@ namespace Webplayer
         private TreeViewItem spotify = new TreeViewItem(){Header = Service.Spotify, IsExpanded = true, Visibility = Visibility.Hidden};
 
         SpotifySongSearch spotifySearch;
-        YoutubeSongSearch youtubeSearch;
+        //YoutubeSongSearch youtubeSearch;
 
         public MainWindow()
         {
@@ -74,10 +74,10 @@ namespace Webplayer
             }
 
             //add searchresult
-            foreach (YoutubeSong item in youtubeSearch.next())
-            {
-                youtube.Items.Add(item);
-            }
+            //foreach (YoutubeSong item in youtubeSearch.next())
+            //{
+            //    youtube.Items.Add(item);
+            //}
 
             //a little ugly but it werks.
             youtube.Items.Add(new buttonshow() { context = Service.Youtube });
@@ -90,7 +90,7 @@ namespace Webplayer
         /// <param name="e"></param>
         private void NextSong(object sender, RoutedEventArgs e)
         {
-            player.play(nextSong());
+            //player.play(nextSong());
 
           /*  
             //TODO: put in i funksjonen.
@@ -112,7 +112,7 @@ namespace Webplayer
         /// <param name="e"></param>
         private void PreviousSong(object sender, RoutedEventArgs e)
         {
-            player.play(previousSong());
+            //player.play(previousSong());
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Webplayer
         /// <param name="e"></param>
         private void PlayPauseSong(object sender, RoutedEventArgs e)
         {
-            player.playPause();
+            //player.playPause();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Webplayer
                     youtube.Visibility = System.Windows.Visibility.Visible;
 
                     //create a new search object with the new search creteria.
-                    youtubeSearch = new YoutubeSongSearch(Convert.ToInt16(tbYoutubeSongNr.Text), txtquery.Text,(bool)chIncludeThumbnail.IsChecked, (bool)chYoutubeIncludeUnEmddeble.IsChecked);
+                    //youtubeSearch = new YoutubeSongSearch(Convert.ToInt16(tbYoutubeSongNr.Text), txtquery.Text,(bool)chIncludeThumbnail.IsChecked, (bool)chYoutubeIncludeUnEmddeble.IsChecked);
 
                     //adds the new songs. 
                     addYoutubeSongs(false);
@@ -214,7 +214,7 @@ namespace Webplayer
                     // Do something here
                     //MessageBox.Show("A ListViewItem was double clicked!");
                     ListViewItem asd = (ListViewItem)obj;
-                    player.play((Song)asd.Content);
+                    //player.play((Song)asd.Content);
                     break;
                 }
                 obj = VisualTreeHelper.GetParent(obj);

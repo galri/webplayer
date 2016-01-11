@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Webplayer.Services.Spotify;
-using Webplayer.Services.Youtube;
+//using Webplayer.Services.Youtube;
 
 namespace Webplayer.Services
 {
@@ -57,47 +57,47 @@ namespace Webplayer.Services
 
         internal void play(Song song)
         {
-            if (song != null)
-            {
-                if (song is YoutubeSong)
-                {
-                    //pauses the spotify player incase it was a spotify song playing before.
-                    sPlayer.pause();
+            //if (song != null)
+            //{
+                //if (song is YoutubeSong)
+                //{
+                //    //pauses the spotify player incase it was a spotify song playing before.
+                //    sPlayer.pause();
 
-                    //show only yPlayer
-                    ServiceCurrentlyUsed = Service.Youtube;
+                //    //show only yPlayer
+                //    ServiceCurrentlyUsed = Service.Youtube;
 
-                    //disenabled and hide progressbar since youtube has it own
-                    //tbSongProgress.Enabled = false;
-                    //tbSongProgress.Visible = false;
+                //    //disenabled and hide progressbar since youtube has it own
+                //    //tbSongProgress.Enabled = false;
+                //    //tbSongProgress.Visible = false;
 
-                    YoutubeSong v = (YoutubeSong)song;
-                    //yPlayer.setMovie(v.Uri.ToString());
-                    yPlayer.VideoID = v.VideoID;
-                    yPlayer.play();
-                }
-                else if (song is SpotifySong)
-                {
-                    //pauses the youtube player incase it was a youtube video playing before.
-                    yPlayer.pause();
+                //    YoutubeSong v = (YoutubeSong)song;
+                //    //yPlayer.setMovie(v.Uri.ToString());
+                //    yPlayer.VideoID = v.VideoID;
+                //    yPlayer.play();
+                //}
+                //else if (song is SpotifySong)
+            //    {
+            //        //pauses the youtube player incase it was a youtube video playing before.
+            //        yPlayer.pause();
 
-                    //enables the progressbar.
-                    //tbSongProgress.Enabled = false;
-                    //tbSongProgress.Visible = true;
-                    //tbSongProgress.Maximum = (int)song.Length.TotalSeconds;
+            //        //enables the progressbar.
+            //        //tbSongProgress.Enabled = false;
+            //        //tbSongProgress.Visible = true;
+            //        //tbSongProgress.Maximum = (int)song.Length.TotalSeconds;
 
-                    ServiceCurrentlyUsed = Service.Spotify;
+            //        ServiceCurrentlyUsed = Service.Spotify;
 
-                    SpotifySong v = (SpotifySong)song;
-                    //sPlayer.getSpotifySongPlaying = v;
-                    //sPlayer.pauseStart();
-                    sPlayer.setTrack(v);
-                }
-                else
-                {
-                    MessageBox.Show("ukjent sang type. urk");
-                }
-            }
+            //        SpotifySong v = (SpotifySong)song;
+            //        //sPlayer.getSpotifySongPlaying = v;
+            //        //sPlayer.pauseStart();
+            //        sPlayer.setTrack(v);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("ukjent sang type. urk");
+            //    }
+            //}
         }
 
         /// <summary>

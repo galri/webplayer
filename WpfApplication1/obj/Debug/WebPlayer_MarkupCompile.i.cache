@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Dropbox\prosjekter\WpfApplication1\WpfApplication1\obj\Debug\
+C:\Users\stian\Documents\programming\webplayer\WpfApplication1\obj\Debug\
 Webplayer
 none
 false
 DEBUG;TRACE
-E:\Dropbox\prosjekter\WpfApplication1\WpfApplication1\App.xaml
-102057657031
+C:\Users\stian\Documents\programming\webplayer\WpfApplication1\App.xaml
+10-1153583284
 
-191372840327
-36809005994
-Player.xaml;Services\Spotify\SpotifyLocalPlayer.xaml;Styles\ControllArea.xaml;Styles\StopButton.xaml;Styles\CircualButton.xaml;SearchAndPlay.xaml;Styles\NextButton.xaml;Styles\PlayPauseButton.xaml;Styles\PreviousButton.xaml;test.xaml;
+15-1387608342
+942088335537
+Player.xaml;Shell.xaml;Styles\ControllArea.xaml;Styles\StopButton.xaml;Styles\CircualButton.xaml;SearchAndPlay.xaml;Styles\NextButton.xaml;Styles\PlayPauseButton.xaml;Styles\PreviousButton.xaml;test.xaml;
 
 False
 
