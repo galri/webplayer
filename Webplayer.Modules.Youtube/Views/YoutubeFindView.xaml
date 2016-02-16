@@ -24,7 +24,7 @@
                                         <TextBlock FontSize="10" MinHeight="80" Text="{Binding Path=Description}" Width="100px" TextWrapping="Wrap"/>
                                         <StackPanel Orientation="Horizontal">
                                             <Button Content="Peek" IsEnabled="False" />
-                                            <Button Click="AddNewSongToPlaylist" CommandParameter="{ Binding BindsDirectlyToSource=True}" >
+                                            <Button CommandParameter="{ Binding BindsDirectlyToSource=True}" >
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Style.Triggers>

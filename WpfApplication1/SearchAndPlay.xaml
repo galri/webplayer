@@ -1,4 +1,4 @@
-﻿<Window xmlns:YoutubePlayerLib="clr-namespace:YoutubePlayerLib;assembly=YoutubePlayerLib" 
+﻿<Window  
         x:Name="frmMainWindow" x:Class="Webplayer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

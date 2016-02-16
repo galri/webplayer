@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer", "WpfApplication1\Webplayer.csproj", "{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}"
 EndProject
@@ -12,6 +12,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Youtube", "Webplayer.Modules.Youtube\Webplayer.Modules.Youtube.csproj", "{114E13FF-12A6-46D3-8345-CAF0FD50943A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Spotify", "Webplayer.Modules.Spotify\Webplayer.Modules.Spotify.csproj", "{C4BCD5A4-71B9-4520-90D9-3A393E89BA09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE92F9F7-6B16-479A-BA2B-937EBAF2D5F3}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
