@@ -9,10 +9,10 @@ namespace Infrastructure
     /// <summary>
     /// Interface for service that provide search functinality against music services.
     /// </summary>
-    public interface ISearchService : IEnumerator<ISongModel>
+    public interface ISearchService<T> where T : ISongModel
     {
         string Query { get; set; }
 
-
+        IEnumerable<T> FetchNextSearchResult();
     }
 }

@@ -18,7 +18,7 @@ namespace Webplayer.Modules.Youtube.Views
     /// <summary>
     /// Interaction logic for YoutubeFindView.xaml
     /// </summary>
-    public partial class YoutubeFindView : UserControl
+    public partial class YoutubeFindView : UserControl, IYoutubeFindView
     {
         public YoutubeFindView()
         {

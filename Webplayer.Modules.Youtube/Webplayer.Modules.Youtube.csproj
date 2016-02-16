@@ -141,6 +141,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ContentType.cs" />
     <Compile Include="Models\YoutubeSong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -157,7 +158,9 @@
     </Compile>
     <Compile Include="Services\YoutubeSongSearch.cs" />
     <Compile Include="Services\IYoutubeSongSearchService.cs" />
+    <Compile Include="ViewModels\IYoutubeFindViewModel.cs" />
     <Compile Include="ViewModels\YoutubeFindViewModel.cs" />
+    <Compile Include="Views\IYoutubeFindView.cs" />
     <Compile Include="Views\YoutubeFindView.xaml.cs">
       <DependentUpon>YoutubeFindView.xaml</DependentUpon>
     </Compile>

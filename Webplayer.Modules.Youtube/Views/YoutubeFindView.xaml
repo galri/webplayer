@@ -10,14 +10,22 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="AliceBlue">
-        <ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Width="80"/>
+            <TextBox Text="{Binding SearchQuery}" DockPanel.Dock="Left" Width="auto"></TextBox>
+        </DockPanel>
+        <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}">
             <ListView.Resources>
                 <DataTemplate DataType="{x:Type models:YoutubeSong}">
                     <Border Margin="-15,5,0,0"  CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
                         <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Stretch">
                             <Image Width="75" Height="75" Margin="2" Source="{Binding Path=Picture}" />
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Margin="2" FontSize="14" Text="{Binding Path=Tittel}" TextWrapping="Wrap" Width="100px" />
+                                <TextBlock Margin="2" FontSize="14" Text="{Binding Path=Title}" TextWrapping="Wrap" Width="100px" />
                                 
                                 <!--Need som sort of max length according to width of parent element-->
                                 
