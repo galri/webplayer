@@ -1,0 +1,1 @@
+sette obj på ignore og fjerne fra svc.

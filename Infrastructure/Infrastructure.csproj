@@ -49,6 +49,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISearchService.cs" />
+    <Compile Include="ISongModel.cs" />
     <Compile Include="Models\BaseSong.cs" />
     <Compile Include="RegionNames.cs" />
   </ItemGroup>

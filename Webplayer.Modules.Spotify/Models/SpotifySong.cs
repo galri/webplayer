@@ -23,7 +23,7 @@ namespace Webplayer.Modules.Spotify.Models
 
         public override string ToString()
         {
-            return Tittel;
+            return Title;
         }
         // override object.Equals
         public override bool Equals(object obj)

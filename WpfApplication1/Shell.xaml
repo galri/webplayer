@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:local="clr-namespace:Webplayer"
-        xmlns:inf="clr-namespace:Infrastructure"
+        xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
         mc:Ignorable="d"
         Title="Shell" Height="300" Width="300">
     <Grid>
@@ -13,6 +13,9 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TabControl   />
+        <TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" />
+        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}" />
+        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

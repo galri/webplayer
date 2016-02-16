@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Webplayer.Modules.Youtube.Models
 {
-    class YoutubeSong : BaseSong
+    class YoutubeSong : BaseSong 
     {
         private string myVideoID;
         private bool myEmbeddable;
@@ -60,7 +60,7 @@ namespace Webplayer.Modules.Youtube.Models
 
         public override string ToString()
         {
-            return base.Tittel;
+            return base.Title;
         }
     }
 }

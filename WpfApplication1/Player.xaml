@@ -7,13 +7,12 @@
              xmlns:YoutubePlayerLib="clr-namespace:YoutubePlayerLib;assembly=YoutubePlayerLib"
             
              xmlns:services ="clr-namespace:Webplayer.Services"   
-             xmlns:spotify ="clr-namespace:Webplayer.Services.Spotify"
     
              x:Name="player"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid >
-        <Grid.Resources>
+        <!--<Grid.Resources>
             <Style TargetType="{x:Type spotify:SpotifyLocalPlayer}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Player}, Path=ServiceCurrentlyUsed}" Value="None" >
@@ -56,6 +55,6 @@
         </Grid.Resources>
         <YoutubePlayerLib:YoutubePlayer x:Name="yPlayer" />
         <spotify:SpotifyLocalPlayer x:Name="sPlayer" />
-        <TextBlock>No player choosen</TextBlock>
+        <TextBlock>No player choosen</TextBlock>-->
     </Grid>
 </UserControl>

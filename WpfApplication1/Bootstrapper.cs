@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Prism.Modularity;
+using Webplayer.Modules.Youtube;
 
 namespace Webplayer
 {
@@ -18,15 +20,19 @@ namespace Webplayer
             return ServiceLocator.Current.GetInstance<Shell>();
         }
 
+        protected override void InitializeShell()
+        {
+            base.InitializeShell();
+
+            Application.Current.MainWindow = (Shell)this.Shell;
+            Application.Current.MainWindow.Show();
+        }
+
         protected override void ConfigureModuleCatalog()
         {
             base.ConfigureModuleCatalog();
-        }
-
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
-
+            var module = (ModuleCatalog)ModuleCatalog;
+            module.AddModule(typeof(YoutubeModule));
         }
     }
 }

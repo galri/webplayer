@@ -4,3 +4,4 @@ C:\Users\stian\Documents\programming\webplayer\Infrastructure\obj\Debug\Infrastr
 C:\Users\stian\Documents\programming\webplayer\Infrastructure\obj\Debug\Infrastructure.csproj.GenerateResource.Cache
 C:\Users\stian\Documents\programming\webplayer\Infrastructure\obj\Debug\Infrastructure.dll
 C:\Users\stian\Documents\programming\webplayer\Infrastructure\obj\Debug\Infrastructure.pdb
+C:\Users\stian\Documents\programming\webplayer\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache

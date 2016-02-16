@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace Infrastructure.Models
 {
-    public class BaseSong
+    public class BaseSong : ISongModel
     {
         private string myTittel;
         private string myAuthor;
@@ -16,12 +16,12 @@ namespace Infrastructure.Models
 
         public BaseSong(string tittel, BitmapImage picture, TimeSpan length)
         {
-            Tittel = tittel;
+            Title = tittel;
             Picture = picture;
             myLength = length;
         }
 
-        public string Tittel
+        public string Title
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Infrastructure.Models
             }
         }
 
-        public string Author
+        public string Artist
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Infrastructure.Models
 
             // TODO: write your implementation of Equals() here
             BaseSong other = (BaseSong)obj;
-            if (Tittel != other.Tittel)
+            if (Title != other.Title)
             {
                 return false;
             }

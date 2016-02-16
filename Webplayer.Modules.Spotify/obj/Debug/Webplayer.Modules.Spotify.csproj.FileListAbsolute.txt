@@ -34,11 +34,11 @@ C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\bin\Deb
 C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.csprojResolveAssemblyReference.cache
-C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.Properties.Resources.resources
-C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.csproj.GenerateResource.Cache
-C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.dll
-C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.pdb
 C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Views\SpotifyLocalPlayer.baml
 C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Views\SpotifyLocalPlayer.g.cs
 C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify_MarkupCompile.cache
 C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.g.resources
+C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.Properties.Resources.resources
+C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.csproj.GenerateResource.Cache
+C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.dll
+C:\Users\stian\Documents\programming\webplayer\Webplayer.Modules.Spotify\obj\Debug\Webplayer.Modules.Spotify.pdb

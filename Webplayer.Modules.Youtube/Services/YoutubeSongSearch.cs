@@ -7,42 +7,27 @@ using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using System.Windows.Media.Imaging;
 using Webplayer.Modules.Youtube.Models;
+using Webplayer.Modules.Youtube.Services;
+using Infrastructure;
+using System.Collections;
+using Prism.Logging;
 
 namespace Webplayer.Services.Youtube
 {
-    class YoutubeSongSearch
+    class YoutubeSongSearch : IYoutubeSongSearchService
     {
-        private int myQuantity;
-        private string mySearch;
+        //private string mySearch;
+        private ILoggerFacade _logger;
         private bool shallFetchThumbnail;
         private SearchResource.ListRequest.VideoEmbeddableEnum videoEmbeddable;
         private YouTubeService youtubeService;
         private string nextToken;
         private string previousToken;
+        private SearchResource.ListRequest _sr;
+        private Queue<YoutubeSong> _cache = new Queue<YoutubeSong>();
 
         #region Properties
-        public int Quantity
-        {
-            get
-            {
-                return myQuantity;
-            }
-            set
-            {
-                if (value < 1)
-                {
-                    throw new ArgumentException("Quantity must be greater then zero", "Quantity");
-                }
-                myQuantity = value;
-            }
-        }
-        public string SearchWord
-        {
-            get
-            {
-                return mySearch;
-            }
-        }
+
         public bool ShallFetchThumbnail
         {
             get
@@ -54,6 +39,7 @@ namespace Webplayer.Services.Youtube
                 shallFetchThumbnail = value;
             }
         }
+
         /// <summary>
         /// false: fetch videos that can be played and videos that cannot be played.
         /// true: only fetch videos that can be played.
@@ -74,6 +60,30 @@ namespace Webplayer.Services.Youtube
                 return false;
             }
         }
+
+        #region IYoutubeSongSearchService
+        public string Query
+        {
+            get;
+
+            set;
+        }
+
+        public ISongModel Current
+        {
+            get;
+
+            private set;
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+        #endregion 
         #endregion
 
         /// <summary>
@@ -81,54 +91,54 @@ namespace Webplayer.Services.Youtube
         /// </summary>
         /// <param name="quantity">number of search results to return each next</param>
         /// <param name="search">What to search after</param>
-        /// <param name="fetchThumbnail">Wether to get album picture or not, not may save alot of time</param>
-        public YoutubeSongSearch(int quantity, string search, bool fetchThumbnail, bool emdebble)
+        /// <param name="fetchThumbnail">Wether to get album picture or not, may save time</param>
+        public YoutubeSongSearch(string search, bool fetchThumbnail, bool emdebble, ILoggerFacade logger)
         {
-            Quantity = quantity;
-            mySearch = search;
+            Query = search;
             shallFetchThumbnail = fetchThumbnail;
             DontFetchUnEmbeddableVideos = emdebble;
+            _logger = logger;
 
-            youtubeService = createYS();
+            Reset();
         }
 
         /// <summary>
         /// Returns next/first list of songs.
         /// </summary>
         /// <returns>List with number of search results, 0 in size if none found</returns>
-        public List<YoutubeSong> next()
-        {
-            //create search object
-            SearchResource.ListRequest SR = createSearchResource();
+        //public List<YoutubeSong> next()
+        //{
+        //    //create search object
+        //    SearchResource.ListRequest SR = createSearchResource();
 
-            if (nextToken != null)
-            {
-                //not the first time, use the token to get the rest of the search
-                SR.PageToken = nextToken;
-            }
+        //    if (nextToken != null)
+        //    {
+        //        //not the first time, use the token to get the rest of the search
+        //        SR.PageToken = nextToken;
+        //    }
             
-            //finds informasjons about tracks
-            List<YoutubeSong> tracks = getSearchResult(SR.Execute());
+        //    //finds informasjons about tracks
+        //    List<YoutubeSong> tracks = getSearchResult(SR.Execute());
 
-            return tracks;
-        }
+        //    return tracks;
+        //}
 
-        public List<YoutubeSong> previous()
-        {
-            //create search object
-            SearchResource.ListRequest SR = createSearchResource();
+        //public List<YoutubeSong> previous()
+        //{
+        //    //create search object
+        //    SearchResource.ListRequest SR = createSearchResource();
 
-            if (previousToken == null)
-            {
-                throw new InvalidOperationException("No previous token exists, this is most likely because no next() has been run on this object.");
-            }
-            SR.PageToken = previousToken;
+        //    if (previousToken == null)
+        //    {
+        //        throw new InvalidOperationException("No previous token exists, this is most likely because no next() has been run on this object.");
+        //    }
+        //    SR.PageToken = previousToken;
 
-            //finds informasjons about tracks
-            List<YoutubeSong> tracks = getSearchResult(SR.Execute());
+        //    //finds informasjons about tracks
+        //    List<YoutubeSong> tracks = getSearchResult(SR.Execute());
 
-            return tracks;
-        }
+        //    return tracks;
+        //}
         
         private List<YoutubeSong> getSearchResult(SearchListResponse slr)
         {
@@ -175,13 +185,52 @@ namespace Webplayer.Services.Youtube
         private SearchResource.ListRequest createSearchResource()
         {
             SearchResource.ListRequest sr = youtubeService.Search.List("snippet");
-            sr.Q = SearchWord;
+            sr.Q = Query;
             sr.Type = "video";
             sr.VideoEmbeddable = videoEmbeddable;
-            sr.MaxResults = myQuantity;
+            //sr.MaxResults = myQuantity;
 
             return sr;
         }
+
+
+        public void Dispose()
+        {
+            _sr = null;
+            youtubeService.Dispose();
+            youtubeService = null;
+            _logger.Log("Youtube song searcher disposed", Category.Info, Priority.Low);
+        }
+
+        public bool MoveNext()
+        {
+
+            if (_cache.Count == 0 && nextToken != null)
+            {
+                //not the first time, use the token to get the rest of the search
+                _sr.PageToken = nextToken;
+
+                //finds informasjons about tracks
+                _cache = new Queue<YoutubeSong>(getSearchResult(_sr.Execute()));
+            }
+            else
+            {
+                //First time
+                _cache = new Queue<YoutubeSong>(getSearchResult(_sr.Execute()));
+            }
+
+            Current = _cache.Dequeue();
+
+            return true;
+        }
+
+        public void Reset()
+        {
+            youtubeService = createYS();
+            _sr = createSearchResource();
+        }
+
+        #region static
 
         public static YouTubeService createYS()
         {
@@ -211,5 +260,7 @@ namespace Webplayer.Services.Youtube
             }
             return (bool)searchResponse.Items[0].Status.Embeddable;
         }
+
+        #endregion
     }
 }

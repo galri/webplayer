@@ -30,59 +30,59 @@ namespace Webplayer
         /// Returns the current chosen song.
         /// </summary>
         /// <returns></returns>
-        public Song currentSong()
-        {
-            if (playList.Items.Count == 0)
-            {
-                return null;
-            }
+        //public Song currentSong()
+        //{
+        //    if (playList.Items.Count == 0)
+        //    {
+        //        return null;
+        //    }
 
-            return (Song)playList.Items.CurrentItem;
-        }
+        //    return (Song)playList.Items.CurrentItem;
+        //}
 
-        /// <summary>
-        /// choses the next song and returns it.
-        /// </summary>
-        /// <returns>Return song, or null if the last one</returns>
-        public Song nextSong()
-        {
-            if (playList.SelectedIndex == -1)
-            {
-                //empty
-                return null;
-            }
+        ///// <summary>
+        ///// choses the next song and returns it.
+        ///// </summary>
+        ///// <returns>Return song, or null if the last one</returns>
+        //public Song nextSong()
+        //{
+        //    if (playList.SelectedIndex == -1)
+        //    {
+        //        //empty
+        //        return null;
+        //    }
 
-            //collects the current. and checks if there are more
-            int chosen = playList.SelectedIndex;
-            if (chosen == playList.Items.Count - 1)
-            {
-                return null;
-            }
-            playList.SelectedIndex = chosen + 1;
-            return (Song)playList.Items[chosen + 1];
-        }
+        //    //collects the current. and checks if there are more
+        //    int chosen = playList.SelectedIndex;
+        //    if (chosen == playList.Items.Count - 1)
+        //    {
+        //        return null;
+        //    }
+        //    playList.SelectedIndex = chosen + 1;
+        //    return (Song)playList.Items[chosen + 1];
+        //}
         
-        /// <summary>
-        /// Return song or null if the first one.
-        /// </summary>
-        /// <returns></returns>
-        public Song previousSong()
-        {
-            if (playList.SelectedIndex == -1)
-            {
-                //empty
-                return null;
-            }
+        ///// <summary>
+        ///// Return song or null if the first one.
+        ///// </summary>
+        ///// <returns></returns>
+        //public Song previousSong()
+        //{
+        //    if (playList.SelectedIndex == -1)
+        //    {
+        //        //empty
+        //        return null;
+        //    }
 
-            //collects the current. and checks if the current is the last
-            int chosen = playList.SelectedIndex;
-            if (chosen == 0)
-            {
-                return null;
-            }
-            playList.SelectedIndex = chosen - 1;
-            return (Song)playList.Items[chosen - 1];
-        }
+        //    //collects the current. and checks if the current is the last
+        //    int chosen = playList.SelectedIndex;
+        //    if (chosen == 0)
+        //    {
+        //        return null;
+        //    }
+        //    playList.SelectedIndex = chosen - 1;
+        //    return (Song)playList.Items[chosen - 1];
+        //}
 
         /*
         /// <summary>
