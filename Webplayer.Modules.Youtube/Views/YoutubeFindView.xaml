@@ -5,22 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Webplayer.Modules.Youtube.Views"
              xmlns:models="clr-namespace:Webplayer.Modules.Youtube.Models"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d"  
              prism:ViewModelLocator.AutoWireViewModel="True"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="View" >
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition  Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
+            <Button Command="{Binding FetchMoreResultCommand}" Content="More" DockPanel.Dock="Right" Width="80"/>
             <Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Width="80"/>
             <TextBox Text="{Binding SearchQuery}" DockPanel.Dock="Left" Width="auto"></TextBox>
         </DockPanel>
         <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}">
             <ListView.Resources>
-                <DataTemplate DataType="{x:Type models:YoutubeSong}">
+                <DataTemplate DataType="{x:Type models:YoutubeSong}" x:Key="old">
                     <Border Margin="-15,5,0,0"  CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
                         <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Stretch">
                             <Image Width="75" Height="75" Margin="2" Source="{Binding Path=Picture}" />
@@ -55,7 +58,34 @@
                                 </StackPanel>
                             </Border>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type models:YoutubeSong}">
+                    <Border CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <Image Width="40" Height="40" Margin="2" Source="{Binding Path=Picture}" />
+                                <TextBlock Margin="2" FontSize="14" Text="{Binding Path=Title}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <Button Content="Peek" IsEnabled="False" />
+                                <Button Content="Add" >
+                                    <i:Interaction.Triggers>
+                                        <!-- This event trigger will execute the action when the corresponding event is raised by the ListBox. -->
+                                        <i:EventTrigger EventName="Click">
+                                            <!-- This action will invoke the selected command in the view model and pass the parameters of the event to it. -->
+                                            <prism:InvokeCommandAction Command="{Binding DataContext.AddSongCommand, ElementName=View}"   />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
             </ListView.Resources>
+           
         </ListView>
     </Grid>
 </UserControl>

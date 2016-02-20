@@ -13,9 +13,14 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
         <TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" />
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}" />
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <ContentControl Grid.Column="1" Grid.RowSpan="2" prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" />
     </Grid>
 </Window>

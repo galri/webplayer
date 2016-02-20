@@ -18,12 +18,13 @@ namespace Webplayer.Modules.Youtube.Services
     {
         //private string mySearch;
         private ILoggerFacade _logger;
-        private bool shallFetchThumbnail;
+        private bool shallFetchThumbnail = true;
         private SearchResource.ListRequest.VideoEmbeddableEnum videoEmbeddable;
         private YouTubeService _youtubeService;
         private string nextToken;
         private string previousToken;
         private SearchResource.ListRequest _sr;
+        private string _query;
 
         #region Properties
 
@@ -60,8 +61,20 @@ namespace Webplayer.Modules.Youtube.Services
             }
         }
 
-        public string Query { get; set; }
+        public string Query
+        {
+            get
+            {
+                return _query;
+            }
+            set
+            {
+                _query = value;
 
+                _sr = createSearchResource();
+            }
+        }
+        
         #endregion
 
         /// <summary>
@@ -190,7 +203,6 @@ namespace Webplayer.Modules.Youtube.Services
             else
             {
                 //First time
-                _sr = createSearchResource();
                 res = getSearchResult(_sr.Execute());
             }
             

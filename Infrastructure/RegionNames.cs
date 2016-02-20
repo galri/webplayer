@@ -28,5 +28,10 @@ namespace Infrastructure
         /// Video, album image
         /// </summary>
         public static string InfoRegion = "ToolbarRegion";
+
+        /// <summary>
+        /// Main playlist area.
+        /// </summary>
+        public static string QueueRegion = "QueueRegion";
     }
 }

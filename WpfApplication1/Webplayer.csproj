@@ -333,6 +333,10 @@
       <Project>{0d108196-ddf5-45b0-83c1-331bcf8b3458}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Queue\Webplayer.Modules.Structure.csproj">
+      <Project>{44fa2be4-6bff-4db2-947f-84ea0ed40ccb}</Project>
+      <Name>Webplayer.Modules.Structure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Webplayer.Modules.Youtube\Webplayer.Modules.Youtube.csproj">
       <Project>{114e13ff-12a6-46d3-8345-caf0fd50943a}</Project>
       <Name>Webplayer.Modules.Youtube</Name>

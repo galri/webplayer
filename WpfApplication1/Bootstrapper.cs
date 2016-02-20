@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Prism.Modularity;
 using Webplayer.Modules.Youtube;
+using Queue;
 
 namespace Webplayer
 {
@@ -32,6 +33,7 @@ namespace Webplayer
         {
             base.ConfigureModuleCatalog();
             var module = (ModuleCatalog)ModuleCatalog;
+            module.AddModule(typeof(StructureModule));
             module.AddModule(typeof(YoutubeModule));
         }
     }

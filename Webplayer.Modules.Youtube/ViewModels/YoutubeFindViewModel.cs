@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using Infrastructure;
+using Microsoft.Practices.Unity;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -6,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Webplayer.Modules.Youtube.Models;
 using Webplayer.Modules.Youtube.Services;
@@ -14,6 +18,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
 {
     class YoutubeFindViewModel : BindableBase, IYoutubeFindViewModel
     {
+        private IList<ISongModel> Queue;
         private readonly IYoutubeSongSearchService _songSearchService;
         private ContentType _searchType;
         private ObservableCollection<YoutubeSong> _searchResult = new ObservableCollection<YoutubeSong>();
@@ -50,6 +55,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
             set;
         }
+
+        public ICommand AddSongCommand { get; set; }
 
         public string SearchQuery
         {
@@ -102,11 +109,18 @@ namespace Webplayer.Modules.Youtube.ViewModels
             }
         }
 
-        public YoutubeFindViewModel(IYoutubeSongSearchService songSearchService)
+        public YoutubeFindViewModel(IUnityContainer container, IYoutubeSongSearchService songSearchService)
         {
             _songSearchService = songSearchService;
+            Queue = container.Resolve<IPlaylist>(SharedResourcesNames.QueuePlaylist).Songs;
             SearchCommand = new DelegateCommand(SearchCommandAction);
             FetchMoreResultCommand = new DelegateCommand(FetchMoreResultCommandAction);
+            AddSongCommand = new DelegateCommand<object>(AddSongAction);
+        }
+
+        private void AddSongAction(object param)
+        {
+            Queue.Add( ((ISongModel) ( (Button) ((RoutedEventArgs)param).Source).DataContext ));
         }
 
         private void FetchMoreResultCommandAction()
@@ -120,6 +134,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private void SearchCommandAction()
         {
             _songSearchService.Query = SearchQuery;
+            SearchResult.Clear();
             foreach (var item in _songSearchService.FetchNextSearchResult())
             {
                 SearchResult.Add(item);
