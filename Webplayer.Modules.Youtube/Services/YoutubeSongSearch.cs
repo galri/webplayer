@@ -28,6 +28,20 @@ namespace Webplayer.Modules.Youtube.Services
 
         #region Properties
 
+        public string Query
+        {
+            get
+            {
+                return _query;
+            }
+            set
+            {
+                _query = value;
+
+                _sr = createSearchResource();
+            }
+        }
+
         public bool ShallFetchThumbnail
         {
             get
@@ -60,20 +74,6 @@ namespace Webplayer.Modules.Youtube.Services
                 return false;
             }
         }
-
-        public string Query
-        {
-            get
-            {
-                return _query;
-            }
-            set
-            {
-                _query = value;
-
-                _sr = createSearchResource();
-            }
-        }
         
         #endregion
 
@@ -83,63 +83,49 @@ namespace Webplayer.Modules.Youtube.Services
         /// <param name="quantity">number of search results to return each next</param>
         /// <param name="search">What to search after</param>
         /// <param name="fetchThumbnail">Wether to get album picture or not, may save time</param>
-        public YoutubeSongSearch(ILoggerFacade logger)
+        public YoutubeSongSearch(ILoggerFacade logger, YouTubeService youtubeService)
         {
             _logger = logger;
-            _youtubeService = createYS();
+            _youtubeService = youtubeService;
         }
 
-        /// <summary>
-        /// Returns next/first list of songs.
-        /// </summary>
-        /// <returns>List with number of search results, 0 in size if none found</returns>
-        //public List<YoutubeSong> next()
-        //{
-        //    //create search object
-        //    SearchResource.ListRequest SR = createSearchResource();
+        public IEnumerable<YoutubeSong> FetchNextSearchResult()
+        {
+            List<YoutubeSong> res;
+            if (nextToken != null)
+            {
+                //not the first time, use the token to get the rest of the search
+                _sr.PageToken = nextToken;
 
-        //    if (nextToken != null)
-        //    {
-        //        //not the first time, use the token to get the rest of the search
-        //        SR.PageToken = nextToken;
-        //    }
-            
-        //    //finds informasjons about tracks
-        //    List<YoutubeSong> tracks = getSearchResult(SR.Execute());
+                //finds informasjons about tracks
+                res = getSearchResult(_sr.Execute());
+            }
+            else
+            {
+                //First time
+                res = getSearchResult(_sr.Execute());
+            }
 
-        //    return tracks;
-        //}
+            return res;
+        }
 
-        //public List<YoutubeSong> previous()
-        //{
-        //    //create search object
-        //    SearchResource.ListRequest SR = createSearchResource();
+        public YoutubeSong GetSong(string id)
+        {
+            var searcher = _youtubeService.Videos.List("snippet");
+            searcher.Id = id;
+            var res = searcher.Execute();
+            var video = res.Items.FirstOrDefault();
+            if (video == null)
+                return null;
+            return new YoutubeSong(new BitmapImage(), video.Snippet.Title, video.Id, new TimeSpan());
+        }
 
-        //    if (previousToken == null)
-        //    {
-        //        throw new InvalidOperationException("No previous token exists, this is most likely because no next() has been run on this object.");
-        //    }
-        //    SR.PageToken = previousToken;
-
-        //    //finds informasjons about tracks
-        //    List<YoutubeSong> tracks = getSearchResult(SR.Execute());
-
-        //    return tracks;
-        //}
-        
         private List<YoutubeSong> getSearchResult(SearchListResponse slr)
         {
             List<YoutubeSong> list = new List<YoutubeSong>();
             foreach (SearchResult result in slr.Items)
             {
-                //TODO: will haft to make a new request to get length of video.
-                BitmapImage thumbnail = getPicture(result.Snippet.Thumbnails);
-                list.Add(new YoutubeSong(thumbnail, result.Snippet.Title, result.Id.VideoId, new TimeSpan()) 
-                    { 
-                        Description = result.Snippet.Description,
-                        Embeddable = isEmbeddable(result.Id.VideoId)
-                    }
-                );
+                list.Add(MapSong(result));
 
             }
 
@@ -153,6 +139,18 @@ namespace Webplayer.Modules.Youtube.Services
             return list;
         }
 
+        private YoutubeSong MapSong(SearchResult result)
+        {
+            //TODO: will have to make a new request to get length of video.
+            BitmapImage thumbnail = getPicture(result.Snippet.Thumbnails);
+            var song = new YoutubeSong(thumbnail, result.Snippet.Title, result.Id.VideoId, new TimeSpan())
+            {
+                Description = result.Snippet.Description,
+                Embeddable = isEmbeddable(result.Id.VideoId, _youtubeService)
+            };
+            return song;
+        }
+
         private BitmapImage getPicture(ThumbnailDetails details)
         {
             //TODO: maybe fetch the biggest or what the user wants and not just the default.
@@ -162,7 +160,6 @@ namespace Webplayer.Modules.Youtube.Services
             }
             //sets a default image, since we shall not fetch it from the web.
             return new BitmapImage(new Uri("/Media/NoAlbumArt.png", UriKind.RelativeOrAbsolute));
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -189,38 +186,7 @@ namespace Webplayer.Modules.Youtube.Services
             _logger.Log("Youtube song searcher disposed", Category.Info, Priority.Low);
         }
 
-        public IEnumerable<YoutubeSong> FetchNextSearchResult()
-        {
-            List<YoutubeSong> res;
-            if (nextToken != null)
-            {
-                //not the first time, use the token to get the rest of the search
-                _sr.PageToken = nextToken;
-
-                //finds informasjons about tracks
-                res =getSearchResult(_sr.Execute());
-            }
-            else
-            {
-                //First time
-                res = getSearchResult(_sr.Execute());
-            }
-            
-
-            return res;
-        }
-
-
         #region static
-
-        public static YouTubeService createYS()
-        {
-            return new YouTubeService(new Google.Apis.Services.BaseClientService.Initializer()
-            {
-                ApiKey = "AIzaSyAtuwBQDfoweQqFuxNmXUNH-n70J1KL_54",
-                ApplicationName = "Web playlist"
-            });
-        }
 
         /// <summary>
         /// See whether a video is embeddable or not
@@ -229,9 +195,9 @@ namespace Webplayer.Modules.Youtube.Services
         /// </summary>
         /// <param name="VideoID"></param>
         /// <returns></returns>
-        public static bool isEmbeddable(string VideoID)
+        public static bool isEmbeddable(string VideoID, YouTubeService ys)
         {
-            VideosResource.ListRequest lr = createYS().Videos.List("status");
+            VideosResource.ListRequest lr = ys.Videos.List("status");
             lr.Id = VideoID;
             VideoListResponse searchResponse = lr.Execute();
 

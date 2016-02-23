@@ -133,8 +133,14 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private void SearchCommandAction()
         {
-            _songSearchService.Query = SearchQuery;
             SearchResult.Clear();
+            if (SearchQuery.StartsWith("v="))
+            {
+                var song = _songSearchService.GetSong(SearchQuery.Substring(2));
+                SearchResult.Add(song);
+                return;
+            }
+            _songSearchService.Query = SearchQuery;
             foreach (var item in _songSearchService.FetchNextSearchResult())
             {
                 SearchResult.Add(item);

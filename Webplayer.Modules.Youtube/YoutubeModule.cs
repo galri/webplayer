@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Webplayer.Modules.Youtube.ViewModels;
 using Webplayer.Modules.Youtube.Views;
 using Webplayer.Modules.Youtube.Services;
+using Google.Apis.YouTube.v3;
 
 namespace Webplayer.Modules.Youtube
 {
@@ -28,8 +29,17 @@ namespace Webplayer.Modules.Youtube
 
         public void Initialize()
         {
+            var youtubeService = new YouTubeService(new Google.Apis.Services.BaseClientService.Initializer()
+            {
+                ApiKey = "AIzaSyAtuwBQDfoweQqFuxNmXUNH-n70J1KL_54",
+                ApplicationName = "Web playlist"
+            });
+
+            _container.RegisterInstance<YouTubeService>(youtubeService);
+
             _container.RegisterType<IYoutubeFindViewModel, YoutubeFindViewModel>().
-                RegisterType<IYoutubeSongSearchService, YoutubeSongSearch>();
+                RegisterType<IYoutubeSongSearchService, YoutubeSongSearch>().
+                RegisterType<IYoutubePlaylistSearchService,YoutubePlaylistSearchService>();
 
             _rm.RegisterViewWithRegion(RegionNames.FindRegion, typeof(YoutubeFindView));
         }

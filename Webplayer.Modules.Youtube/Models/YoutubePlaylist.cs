@@ -8,5 +8,8 @@ namespace Webplayer.Modules.Youtube.Models
 {
     class YoutubePlaylist 
     {
+        List<YoutubeSong> Songs { get; set; }
+
+        public string Title { get; set; }
     }
 }

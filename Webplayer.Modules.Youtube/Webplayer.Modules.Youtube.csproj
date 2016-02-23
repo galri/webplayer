@@ -157,7 +157,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Services\IYoutubePlaylistSearchSearchService.cs" />
+    <Compile Include="Services\IYoutubePlaylistSearchService.cs" />
+    <Compile Include="Services\YoutubePlaylistSearchService.cs" />
     <Compile Include="Services\YoutubeSongSearch.cs" />
     <Compile Include="Services\IYoutubeSongSearchService.cs" />
     <Compile Include="ViewModels\IYoutubeFindViewModel.cs" />

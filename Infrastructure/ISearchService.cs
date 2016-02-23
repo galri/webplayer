@@ -14,5 +14,7 @@ namespace Infrastructure
         string Query { get; set; }
 
         IEnumerable<T> FetchNextSearchResult();
+
+        T GetSong(string id);
     }
 }

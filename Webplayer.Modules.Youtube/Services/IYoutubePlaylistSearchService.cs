@@ -10,5 +10,10 @@ namespace Webplayer.Modules.Youtube.Services
 {
     interface IYoutubePlaylistSearchService  
     {
+        string Query { get; set; }
+
+        IEnumerable<YoutubePlaylist> FetchNextSearchResult();
+
+        YoutubePlaylist GetPlaylist(string id);
     }
 }
