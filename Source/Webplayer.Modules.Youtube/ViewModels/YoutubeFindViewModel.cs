@@ -109,6 +109,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
             }
         }
 
+        public string Title { get; set; } = "Youtube";
+
         public YoutubeFindViewModel(IUnityContainer container, IYoutubeSongSearchService songSearchService)
         {
             _songSearchService = songSearchService;
@@ -123,25 +125,32 @@ namespace Webplayer.Modules.Youtube.ViewModels
             Queue.Add( ((ISongModel) ( (Button) ((RoutedEventArgs)param).Source).DataContext ));
         }
 
-        private void FetchMoreResultCommandAction()
+        private async void FetchMoreResultCommandAction()
         {
-            foreach (var item in _songSearchService.FetchNextSearchResult())
+            if (String.IsNullOrEmpty(SearchQuery))
+                return;
+
+            foreach (var item in await _songSearchService.FetchAsync())
             {
                 SearchResult.Add(item);
             }
         }
 
-        private void SearchCommandAction()
+        private async void SearchCommandAction()
         {
+            if (String.IsNullOrEmpty(SearchQuery))
+                return;
+
             SearchResult.Clear();
+            //Search after spesific song
             if (SearchQuery.StartsWith("v="))
             {
-                var song = _songSearchService.GetSong(SearchQuery.Substring(2));
+                var song = await _songSearchService.FetchSongAsync(SearchQuery.Substring(2));
                 SearchResult.Add(song);
                 return;
             }
             _songSearchService.Query = SearchQuery;
-            foreach (var item in _songSearchService.FetchNextSearchResult())
+            foreach (var item in await _songSearchService.FetchAsync())
             {
                 SearchResult.Add(item);
             }

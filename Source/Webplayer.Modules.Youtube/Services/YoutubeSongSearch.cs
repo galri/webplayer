@@ -89,37 +89,6 @@ namespace Webplayer.Modules.Youtube.Services
             _youtubeService = youtubeService;
         }
 
-        public IEnumerable<YoutubeSong> FetchNextSearchResult()
-        {
-            List<YoutubeSong> res;
-            if (nextToken != null)
-            {
-                //not the first time, use the token to get the rest of the search
-                _sr.PageToken = nextToken;
-
-                //finds informasjons about tracks
-                res = getSearchResult(_sr.Execute());
-            }
-            else
-            {
-                //First time
-                res = getSearchResult(_sr.Execute());
-            }
-
-            return res;
-        }
-
-        public YoutubeSong GetSong(string id)
-        {
-            var searcher = _youtubeService.Videos.List("snippet");
-            searcher.Id = id;
-            var res = searcher.Execute();
-            var video = res.Items.FirstOrDefault();
-            if (video == null)
-                return null;
-            return new YoutubeSong(new BitmapImage(), video.Snippet.Title, video.Id, new TimeSpan());
-        }
-
         private List<YoutubeSong> getSearchResult(SearchListResponse slr)
         {
             List<YoutubeSong> list = new List<YoutubeSong>();
@@ -209,5 +178,37 @@ namespace Webplayer.Modules.Youtube.Services
         }
 
         #endregion
+
+
+        public async Task<List<YoutubeSong>> FetchAsync()
+        {
+            List<YoutubeSong> res;
+            if (nextToken != null)
+            {
+                //not the first time, use the token to get the rest of the search
+                _sr.PageToken = nextToken;
+
+                //finds informasjons about tracks
+                res = getSearchResult(await _sr.ExecuteAsync());
+            }
+            else
+            {
+                //First time
+                res = getSearchResult(await _sr.ExecuteAsync());
+            }
+
+            return res;
+        }
+
+        public async Task<YoutubeSong> FetchSongAsync(string id)
+        {
+            var searcher = _youtubeService.Videos.List("snippet");
+            searcher.Id = id;
+            var res = await searcher.ExecuteAsync();
+            var video = res.Items.FirstOrDefault();
+            if (video == null)
+                return null;
+            return new YoutubeSong(new BitmapImage(), video.Snippet.Title, video.Id, new TimeSpan());
+        }
     }
 }

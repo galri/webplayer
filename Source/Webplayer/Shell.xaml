@@ -8,14 +8,19 @@
         xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
         mc:Ignorable="d"
         Title="Shell" Height="300" Width="300">
+    <Window.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="Header" Value="{Binding DataContext.Title}"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="auto" MinHeight="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" MinWidth="100" />
         </Grid.ColumnDefinitions>
         <TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" />
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}" />

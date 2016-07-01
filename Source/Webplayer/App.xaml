@@ -5,13 +5,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/CircualButton.xaml"></ResourceDictionary>
+                <!--<ResourceDictionary Source="Styles/CircualButton.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Styles/PreviousButton.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Styles/PlayPauseButton.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Styles/NextButton.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Styles/StopButton.xaml"></ResourceDictionary>
 
-                <ResourceDictionary Source="Styles/ControllArea.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/ControllArea.xaml"></ResourceDictionary>-->
+                <ResourceDictionary Source="Themes/Office2013/Office2013.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/Office2013/Office2013.MSControls.Toolkit.Implicit.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

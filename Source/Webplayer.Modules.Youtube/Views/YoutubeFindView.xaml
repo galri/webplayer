@@ -29,34 +29,34 @@
                             <Image Width="75" Height="75" Margin="2" Source="{Binding Path=Picture}" />
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Margin="2" FontSize="14" Text="{Binding Path=Title}" TextWrapping="Wrap" Width="100px" />
-                                
+
                                 <!--Need som sort of max length according to width of parent element-->
-                                
-                                        <TextBlock FontSize="10" MinHeight="80" Text="{Binding Path=Description}" Width="100px" TextWrapping="Wrap"/>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Content="Peek" IsEnabled="False" />
-                                            <Button CommandParameter="{ Binding BindsDirectlyToSource=True}" >
-                                                <Button.Style>
-                                                    <Style TargetType="Button">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding BindsDirectlyToSource=True, Path=Embeddable}" Value="True">
-                                                                <Setter Property="IsEnabled" Value="True"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding BindsDirectlyToSource=True, Path=Embeddable}" Value="False">
-                                                                <Setter Property="IsEnabled" Value="False"/>
-                                                                <Setter Property="Content" Value="Video can only be played on youtube" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                        <Style.Setters>
-                                                            <Setter Property="Content" Value="Add"/>
-                                                        </Style.Setters>
-                                                    </Style>
-                                                </Button.Style>
-                                            </Button>
-                                        </StackPanel>
-                                    </StackPanel>
+
+                                <TextBlock FontSize="10" MinHeight="80" Text="{Binding Path=Description}" Width="100px" TextWrapping="Wrap"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Peek" IsEnabled="False" />
+                                    <Button CommandParameter="{ Binding BindsDirectlyToSource=True}" >
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding BindsDirectlyToSource=True, Path=Embeddable}" Value="True">
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding BindsDirectlyToSource=True, Path=Embeddable}" Value="False">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                        <Setter Property="Content" Value="Video can only be played on youtube" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Style.Setters>
+                                                    <Setter Property="Content" Value="Add"/>
+                                                </Style.Setters>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
                                 </StackPanel>
-                            </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type models:YoutubeSong}">
                     <Border CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
@@ -85,7 +85,11 @@
                     </Border>
                 </DataTemplate>
             </ListView.Resources>
-           
+            <!--<ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>-->
         </ListView>
     </Grid>
 </UserControl>
