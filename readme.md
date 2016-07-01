@@ -5,7 +5,7 @@ Made with WPF and Prism 5 framework.
 
 
 #Roadmap.
-0.0.1 youtube search, add songs and playlist with id.
+0.0.1 youtube search, add songs with id. (Done)
 
 0.0.2 reorder playlist.
 
@@ -23,6 +23,6 @@ Made with WPF and Prism 5 framework.
 
 0.1.3 play, pause youtube songs.
 
-0.2.0 youtube playlist.
+0.2.0 youtube playlist search and with id.
 
-0.3.0 spotify playlist.
+0.3.0 spotify playlist search and with id.

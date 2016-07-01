@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Webplayer"
         xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
         mc:Ignorable="d"
-        Title="Shell" Height="300" Width="300">
+        Title="Shell" Height="300" Width="300" WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="Header" Value="{Binding DataContext.Title}"></Setter>
@@ -22,7 +22,7 @@
             <ColumnDefinition />
             <ColumnDefinition Width="auto" MinWidth="100" />
         </Grid.ColumnDefinitions>
-        <TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" />
+        <TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" />
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}" />
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
