@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer", "WpfApplication1\Webplayer.csproj", "{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer", "Webplayer\Webplayer.csproj", "{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{0D108196-DDF5-45B0-83C1-331BCF8B3458}"
 EndProject
