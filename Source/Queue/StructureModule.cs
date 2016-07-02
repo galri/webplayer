@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure;
@@ -27,10 +28,16 @@ namespace Queue
         public void Initialize()
         {
             _container.RegisterInstance<IPlaylist>(SharedResourcesNames.QueuePlaylist, new SimplePlaylist());
+            _container.RegisterInstance<IQueueController>(SharedResourcesNames.QueueController, new QueueController());
+
             _container.RegisterType<IQueueView, QueueView>().
                 RegisterType<IQueueViewModel, QueueViewModel>();
-
             _rm.RegisterViewWithRegion(RegionNames.QueueRegion, typeof(IQueueView));
+
+            var queueController = _container.Resolve<IQueueController>(SharedResourcesNames.QueueController);
+            _container.RegisterType<IStatusView, StatusView>().
+                RegisterType<IStatusViewModel, StatusViewModel>(new InjectionConstructor(queueController));
+            _rm.RegisterViewWithRegion(RegionNames.StatusRegion, typeof (IStatusView));
         }
     }
 }

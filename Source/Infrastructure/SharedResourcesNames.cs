@@ -12,5 +12,7 @@ namespace Infrastructure
         /// playlist that players get songs from.
         /// </summary>
         public static string QueuePlaylist = "queueplaylist";
+
+        public static string QueueController = "queuecontroller";
     }
 }

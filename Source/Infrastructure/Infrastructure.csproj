@@ -63,8 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPlaylist.cs" />
+    <Compile Include="IQueueController.cs" />
     <Compile Include="ISearchService.cs" />
     <Compile Include="ISongModel.cs" />
+    <Compile Include="Models\QueueController.cs" />
     <Compile Include="Models\SimplePlaylist.cs" />
     <Compile Include="Models\BaseSong.cs" />
     <Compile Include="RegionNames.cs" />

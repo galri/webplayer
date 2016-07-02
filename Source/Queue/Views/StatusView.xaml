@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Webplayer.Modules.Structure.Views.StatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Webplayer.Modules.Structure.Views"
+             xmlns:mvvm="http://prismlibrary.com/"
+             mc:Ignorable="d" 
+             d:DesignHeight="113.06" d:DesignWidth="394.03"
+             mvvm:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Command="{Binding PreviousCommand}">Prev</Button>
+        <Button Grid.Column="1" Command="{Binding PlayPauseCommand}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Content" Value="Pause"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPlaying}" Value="false">
+                            <Setter Property="Content" Value="Play"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Grid.Column="2" Command="{Binding NextCommand}">Next</Button>
+    </Grid>
+</UserControl>

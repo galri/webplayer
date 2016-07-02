@@ -62,6 +62,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,10 +85,16 @@
     <Compile Include="Helper\MouseUtilities.cs" />
     <Compile Include="StructureModule.cs" />
     <Compile Include="ViewModels\IQueueViewModel.cs" />
+    <Compile Include="ViewModels\IStatusViewModel.cs" />
     <Compile Include="ViewModels\QueueViewModel.cs" />
+    <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="Views\IQueueView.cs" />
+    <Compile Include="Views\IStatusView.cs" />
     <Compile Include="Views\QueueView.xaml.cs">
       <DependentUpon>QueueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatusView.xaml.cs">
+      <DependentUpon>StatusView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +131,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\QueueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
