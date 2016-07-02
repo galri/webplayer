@@ -13,7 +13,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Queue" />
-        <ListView Grid.Row="1" ItemsSource="{Binding Queue}" >
+        <ListView Grid.Row="1" ItemsSource="{Binding Queue}" Name="Queue">
             
         </ListView>
     </Grid>

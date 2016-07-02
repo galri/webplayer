@@ -77,6 +77,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\DragAdorner.cs" />
+    <Compile Include="Helper\DragDropHelper.cs" />
+    <Compile Include="Helper\ListViewDragDropManager.cs" />
+    <Compile Include="Helper\MouseUtilities.cs" />
     <Compile Include="StructureModule.cs" />
     <Compile Include="ViewModels\IQueueViewModel.cs" />
     <Compile Include="ViewModels\QueueViewModel.cs" />
@@ -109,6 +113,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
