@@ -19,8 +19,7 @@ namespace Webplayer.Modules.Structure.UnitTests
         private StatusViewModel CreateVM(out Mock<IQueueController> mock)
         {
             mock = new Mock<IQueueController>();
-            var p = new Playlist();
-            return new StatusViewModel(mock.Object, p);
+            return new StatusViewModel(mock.Object);
         }
 
         //[Test]

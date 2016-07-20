@@ -11,6 +11,7 @@ namespace Infrastructure.Models
     public class Playlist : BindableBase
     {
         private string _name;
+        private ObservableCollection<BaseSong> _songs = new ObservableCollection<BaseSong>();
 
         public string Name
         {
@@ -31,9 +32,9 @@ namespace Infrastructure.Models
 
         public ObservableCollection<BaseSong> Songs
         {
-            get;
+            get { return _songs; }
 
-            set;
-        } = new ObservableCollection<BaseSong>();
+            set { SetProperty(ref _songs, value); }
+        }
     }
 }

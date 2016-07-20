@@ -31,30 +31,16 @@ namespace Webplayer.Modules.Youtube.Services
 
         public void SaveSong(BaseSong song, int playlistNr, int playlistId)
         {
-            throw new NotImplementedException();
-            //var youtubeSong = ToYoutubeSong(song);
-            //var param = new Dictionary<string, string>()
-            //{
-            //    {"@id", youtubeSong.VideoId}
-            //};
-            //var sql = $"(songid, playlistid, playlistnr) " +
-            //          $"values({youtubeSong.VideoId}, {youtubeSong.PlaylistId}, {playlistNr})";
+            var ySong = ToYoutubeSong(song);
+            var command = _c.CreateCommand();
+            command.CommandText = $"replace into {YoutubeTableName} " +
+                                  $"values (@sid,@nr,@pid,@title)";
+            command.Parameters.Add(new SQLiteParameter("@sid", ySong.VideoId));
+            command.Parameters.Add(new SQLiteParameter("@nr", playlistNr));
+            command.Parameters.Add(new SQLiteParameter("@pid", playlistId));
+            command.Parameters.Add(new SQLiteParameter("@title", ySong.Title));
 
-
-            //_dbService.Replace<YoutubeSong>(Table,sql,new Dictionary<string, string>());
-        }
-
-        public BaseSong LoadSong(string id)
-        {
-            throw new NotImplementedException();
-            //var param = new Dictionary<string, string>()
-            //{
-            //    {"@id", id}
-            //};
-
-            //var items = _dbService.Select<YoutubeSong>(Table, "id = @id", param,Convert);
-
-            //return items.First();
+            var affected = command.ExecuteNonQuery();
         }
 
         public List<BaseSong> LoadSongsBelongingToPlaylist(int playlistId)

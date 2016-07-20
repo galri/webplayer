@@ -8,14 +8,5 @@ namespace Infrastructure
 {
     public static class SharedResourcesNames
     {
-        /// <summary>
-        /// playlist that players get songs from.
-        /// </summary>
-        public static string QueuePlaylist = "queueplaylist";
-
-        /// <summary>
-        /// Controller for controlling next song etc.
-        /// </summary>
-        public static string QueueController = "queuecontroller";
     }
 }

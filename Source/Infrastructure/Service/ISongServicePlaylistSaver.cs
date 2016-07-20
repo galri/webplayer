@@ -26,13 +26,6 @@ namespace Infrastructure.Service
         bool CanSave(BaseSong song);
 
         /// <summary>
-        /// retrive song from <param name="id"></param>.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        BaseSong LoadSong(string id);
-
-        /// <summary>
         /// Returns all song registerd to a playlist. not in order.
         /// </summary>
         /// <param name="playlistId"></param>

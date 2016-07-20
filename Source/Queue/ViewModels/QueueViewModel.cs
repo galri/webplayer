@@ -4,6 +4,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,15 +19,14 @@ namespace Webplayer.Modules.Structure.ViewModels
 {
     class QueueViewModel : BindableBase, IQueueViewModel
     {
-        public Playlist QueuePlaylist { get; set; }
+        public Playlist QueuePlaylist => _queueController.Queue;
 
+        private readonly IQueueController _queueController;
         private readonly IPlaylistService _playlistService;
-        private ObservableCollection<BaseSong> _queue;
 
         public ObservableCollection<BaseSong> Queue
         {
-            get { return _queue; }
-            set { SetProperty(ref _queue, value); }
+            get { return _queueController.Queue.Songs; }
         }
 
         public BaseSong SongPlaying { get; set; }
@@ -35,23 +35,26 @@ namespace Webplayer.Modules.Structure.ViewModels
 
         public ICommand LoadQueueCommand { get; set; }
 
-        public QueueViewModel(Playlist queuePlaylist, IPlaylistService playlistService
-            )
+        public QueueViewModel(IQueueController queueController, 
+            IPlaylistService playlistService)
         {
-            QueuePlaylist = queuePlaylist;
-            Queue = QueuePlaylist.Songs;
+            _queueController = queueController;
             _playlistService = playlistService;
             SaveQueueCommand = new DelegateCommand(SaveAction);
             LoadQueueCommand = new DelegateCommand(LoadAction);
             
+            _queueController.PlaylistChangedEvent += QueueControllerOnPlaylistChangedEvent;
+        }
+
+        private void QueueControllerOnPlaylistChangedEvent(object sender, PlaylistChangedEventArgs playlistChangedEventArgs)
+        {
+            OnPropertyChanged("Queue");
         }
 
         private void LoadAction()
         {
             var playlist = _playlistService.LoadPlaylist("first");
-            QueuePlaylist.Songs = playlist.Songs;
-            QueuePlaylist.Name = playlist.Name;
-            Queue = QueuePlaylist.Songs;
+            _queueController.ChangePlaylist(playlist);
         }
 
         private void SaveAction()

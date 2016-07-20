@@ -13,7 +13,7 @@ namespace Webplayer.Modules.Structure.ViewModels
 {
     interface IQueueViewModel
     {
-        ObservableCollection<BaseSong> Queue { get; set; }
+        ObservableCollection<BaseSong> Queue { get;  }
 
         BaseSong SongPlaying { get; set; }
 

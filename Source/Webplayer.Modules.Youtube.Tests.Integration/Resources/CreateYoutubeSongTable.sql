@@ -3,5 +3,6 @@ CREATE TABLE [YoutubeSong] (
   [songid] nvarchar(100) NOT NULL
 , [playlistnr] int NOT NULL
 , [playlistid] int NOT NULL
+, [title] nchar(100)
 , CONSTRAINT [sqlite_autoindex_YoutubeSong_1] PRIMARY KEY ([songid],[playlistnr],[playlistid])
 );

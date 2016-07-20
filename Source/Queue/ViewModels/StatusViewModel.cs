@@ -32,12 +32,11 @@ namespace Webplayer.Modules.Structure.ViewModels
 
         public IQueueController QueueController { get; }
 
-        public Playlist Queue { get; }
+        public Playlist Queue => QueueController.Queue;
 
-        public StatusViewModel(IQueueController queueController, Playlist queue)
+        public StatusViewModel(IQueueController queueController)
         {
             QueueController = queueController;
-            Queue = queue;
             QueueController.IsPlayingChangedEvent += _queueController_IsPlayingChangedEvent;
             QueueController.CurrentSongChangedEvent += QueueControllerOnCurrentSongChangedEvent;
             PlayPauseCommand = new DelegateCommand(PlayPauseAction);

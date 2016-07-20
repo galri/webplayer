@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Infrastructure.Models;
 
 namespace Infrastructure.Service
@@ -9,6 +10,8 @@ namespace Infrastructure.Service
     /// </summary>
     public interface IQueueController
     {
+        Playlist Queue { get; }
+
         BaseSong CurrentSong { get; set; }
 
         bool IsPlaying { get; set; }
@@ -17,9 +20,15 @@ namespace Infrastructure.Service
 
         event EventHandler<PlayingChangedEventArgs> IsPlayingChangedEvent;
 
+        event EventHandler<PlaylistChangedEventArgs> PlaylistChangedEvent;
+
         void NextSong();
 
         void PreviousSong();
+
+        void AddSongToQueue(BaseSong song);
+
+        void ChangePlaylist(Playlist playlist);
     }
 
      //public delegate void CurrentSongChangedDelegate(ISongModel newSongModel);
@@ -42,5 +51,10 @@ namespace Infrastructure.Service
         {
             CurrentSong = currentSong;
         }
+    }
+
+    public class PlaylistChangedEventArgs : EventArgs
+    {
+        
     }
 }

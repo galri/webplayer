@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Infrastructure.Models;
 using Prism.Mvvm;
 
@@ -6,6 +7,8 @@ namespace Infrastructure.Service
 {
     public class QueueController : BindableBase, IQueueController
     {
+        public Playlist Queue { get; } = new Playlist();
+
         private BaseSong _currentSong;
         private bool _isPlaying;
 
@@ -36,6 +39,9 @@ namespace Infrastructure.Service
         public event EventHandler<SongChangedEventArgs> CurrentSongChangedEvent;
 
         public event EventHandler<PlayingChangedEventArgs> IsPlayingChangedEvent;
+
+        public event EventHandler<PlaylistChangedEventArgs> PlaylistChangedEvent;
+
         public void NextSong()
         {
             throw new System.NotImplementedException();
@@ -49,6 +55,18 @@ namespace Infrastructure.Service
         private void CurrentSongChanged()
         {
             CurrentSongChangedEvent?.Invoke(this, new SongChangedEventArgs(CurrentSong));
+        }
+
+        public void AddSongToQueue(BaseSong song)
+        {
+            Queue.Songs.Add(song);
+        }
+
+        public void ChangePlaylist(Playlist playlist)
+        {
+            Queue.Name = playlist.Name;
+            Queue.Songs = playlist.Songs;
+            PlaylistChangedEvent?.Invoke(this,new PlaylistChangedEventArgs());
         }
     }
 }

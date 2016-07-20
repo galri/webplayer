@@ -31,19 +31,15 @@ namespace Queue
             _container.RegisterInstance(new List<ISongServicePlaylistSaver>());
             _container.RegisterType<IPlaylistService, PlaylistService>();
 
-            _container.RegisterInstance<Playlist>(SharedResourcesNames.QueuePlaylist, 
-                new Playlist());
-            _container.RegisterInstance<IQueueController>(SharedResourcesNames.QueueController, 
-                new QueueController());
+            _container.RegisterInstance<IQueueController>(new QueueController());
 
-            var queueController = _container.Resolve<IQueueController>(SharedResourcesNames.QueueController);
-            var queue = _container.Resolve<Playlist>(SharedResourcesNames.QueuePlaylist);
+            var queueController = _container.Resolve<IQueueController>();
             var playlistService = _container.Resolve<IPlaylistService>();
 
             _container.RegisterType<IQueueView, QueueView>().
-                RegisterType<IQueueViewModel, QueueViewModel>(new InjectionConstructor(queue,playlistService));
+                RegisterType<IQueueViewModel, QueueViewModel>();
             _container.RegisterType<IStatusView, StatusView>().
-                RegisterType<IStatusViewModel, StatusViewModel>(new InjectionConstructor(queueController, queue));
+                RegisterType<IStatusViewModel, StatusViewModel>();
 
             _rm.RegisterViewWithRegion(RegionNames.QueueRegion, typeof(IQueueView));
             _rm.RegisterViewWithRegion(RegionNames.StatusRegion, typeof (IStatusView));

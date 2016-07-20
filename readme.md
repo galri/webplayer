@@ -9,7 +9,7 @@ Made with WPF and Prism 5 framework.
 
 0.0.2 reorder playlist. (Done)
 
-0.0.3 save, load, edit youtube elemets playlist.
+0.0.3 save, load, edit youtube elemets playlist. 
 
 0.0.4 play, pause youtube songs. 
 

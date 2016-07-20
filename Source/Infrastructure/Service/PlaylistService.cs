@@ -29,8 +29,9 @@ namespace Infrastructure.Service
 
         public void SavePlaylist(Playlist playlist)
         {
+            //TODO:handle new playlist
             var playlistId = _playlistDao.GetPlaylistIdFromName(playlist.Name);
-
+            
             foreach (var ssps in Services)
             {
                 var songs = playlist.Songs.Where(t => ssps.CanSave(t)).ToArray();

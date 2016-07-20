@@ -3,6 +3,7 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Infrastructure.Models;
+using Infrastructure.Service;
 using Webplayer.Modules.Youtube.Models;
 using Webplayer.Modules.Youtube.Services;
 
@@ -19,8 +21,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
 {
     class YoutubeFindViewModel : BindableBase, IYoutubeFindViewModel
     {
-        private IList<BaseSong> Queue;
         private readonly IYoutubeSongSearchService _songSearchService;
+        private readonly IQueueController _queueController;
         private ContentType _searchType;
         private ObservableCollection<YoutubeSong> _searchResult = new ObservableCollection<YoutubeSong>();
         private string _searchQuery;
@@ -112,10 +114,12 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         public string Title { get; set; } = "Youtube";
 
-        public YoutubeFindViewModel(IUnityContainer container, IYoutubeSongSearchService songSearchService)
+        public YoutubeFindViewModel(IUnityContainer container, 
+            IYoutubeSongSearchService songSearchService,
+            IQueueController queueController)
         {
             _songSearchService = songSearchService;
-            Queue = container.Resolve<Playlist>(SharedResourcesNames.QueuePlaylist).Songs;
+            _queueController = queueController;
             SearchCommand = new DelegateCommand(SearchCommandAction);
             FetchMoreResultCommand = new DelegateCommand(FetchMoreResultCommandAction);
             AddSongCommand = new DelegateCommand<object>(AddSongAction);
@@ -123,7 +127,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private void AddSongAction(object param)
         {
-            Queue.Add( ((BaseSong) ( (Button) ((RoutedEventArgs)param).Source).DataContext ));
+            _queueController.AddSongToQueue( ((BaseSong) ( (Button) ((RoutedEventArgs)param).Source).DataContext ));
         }
 
         private async void FetchMoreResultCommandAction()
