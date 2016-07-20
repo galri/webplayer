@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer", "Webplayer\Webplayer.csproj", "{D4D9F787-6279-40D9-BF52-4C7CE5A833AB}"
 EndProject
@@ -16,9 +16,22 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE92F9F7-6B16-479A-BA2B-937EBAF2D5F3}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
+		webplayer.db = webplayer.db
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Structure", "Queue\Webplayer.Modules.Structure.csproj", "{44FA2BE4-6BFF-4DB2-947F-84EA0ED40CCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{775D45D7-86A6-481E-BDDA-37BB1E29DCB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests.Integration", "Infrastructure.Test\Infrastructure.Tests.Integration.csproj", "{D7702CDD-B206-41A4-937E-DDA75F6830FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests.Unit", "Infrastructure.UnitTests\Infrastructure.Tests.Unit.csproj", "{6BB54025-1D17-4B01-9F3B-D22D5A3674D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Structure.Tests.Unit", "Webplayer.Modules.Structure.UnitTests\Webplayer.Modules.Structure.Tests.Unit.csproj", "{0DD19AD3-9C14-40DC-8578-5B52A98F422E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Youtube.Tests.Unit", "Webplayer.Modules.Youtube.UnitTests\Webplayer.Modules.Youtube.Tests.Unit.csproj", "{9E6CCDB6-3A78-45B0-BB9F-1311A758D94D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Youtube.Tests.Integration", "Webplayer.Modules.Youtube.Tests.Integration\Webplayer.Modules.Youtube.Tests.Integration.csproj", "{B1E24C67-5513-4220-B8D3-5A16A58FF27A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +59,26 @@ Global
 		{44FA2BE4-6BFF-4DB2-947F-84EA0ED40CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44FA2BE4-6BFF-4DB2-947F-84EA0ED40CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44FA2BE4-6BFF-4DB2-947F-84EA0ED40CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7702CDD-B206-41A4-937E-DDA75F6830FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7702CDD-B206-41A4-937E-DDA75F6830FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7702CDD-B206-41A4-937E-DDA75F6830FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7702CDD-B206-41A4-937E-DDA75F6830FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BB54025-1D17-4B01-9F3B-D22D5A3674D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BB54025-1D17-4B01-9F3B-D22D5A3674D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BB54025-1D17-4B01-9F3B-D22D5A3674D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BB54025-1D17-4B01-9F3B-D22D5A3674D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DD19AD3-9C14-40DC-8578-5B52A98F422E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DD19AD3-9C14-40DC-8578-5B52A98F422E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DD19AD3-9C14-40DC-8578-5B52A98F422E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DD19AD3-9C14-40DC-8578-5B52A98F422E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E6CCDB6-3A78-45B0-BB9F-1311A758D94D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E6CCDB6-3A78-45B0-BB9F-1311A758D94D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E6CCDB6-3A78-45B0-BB9F-1311A758D94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E6CCDB6-3A78-45B0-BB9F-1311A758D94D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E24C67-5513-4220-B8D3-5A16A58FF27A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E24C67-5513-4220-B8D3-5A16A58FF27A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E24C67-5513-4220-B8D3-5A16A58FF27A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E24C67-5513-4220-B8D3-5A16A58FF27A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,5 +87,10 @@ Global
 		{114E13FF-12A6-46D3-8345-CAF0FD50943A} = {1529B56A-7FD4-4291-A811-77980847876E}
 		{C4BCD5A4-71B9-4520-90D9-3A393E89BA09} = {1529B56A-7FD4-4291-A811-77980847876E}
 		{44FA2BE4-6BFF-4DB2-947F-84EA0ED40CCB} = {1529B56A-7FD4-4291-A811-77980847876E}
+		{D7702CDD-B206-41A4-937E-DDA75F6830FA} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
+		{6BB54025-1D17-4B01-9F3B-D22D5A3674D6} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
+		{0DD19AD3-9C14-40DC-8578-5B52A98F422E} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
+		{9E6CCDB6-3A78-45B0-BB9F-1311A758D94D} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
+		{B1E24C67-5513-4220-B8D3-5A16A58FF27A} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
 	EndGlobalSection
 EndGlobal

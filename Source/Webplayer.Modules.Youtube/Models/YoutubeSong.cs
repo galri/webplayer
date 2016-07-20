@@ -1,61 +1,52 @@
 ﻿using Infrastructure.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Infrastructure.Names;
+using System.Data.SQLite;
+using System.Data.SQLite.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Webplayer.Modules.Youtube.Models
 {
-    class YoutubeSong : BaseSong 
+    [Table("YoutubeSong")]
+    public class YoutubeSong : BaseSong 
     {
-        private string myVideoID;
-        private bool myEmbeddable;
-        private string myDescription;
+        [Key]
+        [Column("songid")]
+        public string VideoId { get; set; }
 
-        public string VideoID
-        {
-            get { return myVideoID; }
-            set { myVideoID = value; }
-        }
+        public string Description { get; set; }
 
-        public string Description
-        {
-            get
-            {
-                return myDescription;
-            }
-            set
-            {
-                myDescription = value;
-            }
-        }
+        public bool Embeddable { get; set; }
 
-        public bool Embeddable
-        {
-            get
-            {
-                return myEmbeddable;
-            }
-            set
-            {
-                myEmbeddable = value;
-            }
-        }
+        public Uri Uri => new Uri("https://www.youtube.com/watch?v=" + VideoId);
 
-        public Uri Uri
-        {
-            get
-            {
-                return new Uri("https://www.youtube.com/watch?v=" + VideoID);
-            }
-        }
+        /// <summary>
+        /// Playlist from where the song was imported.
+        /// null if imported from some other way.
+        /// </summary>
+        [Column]
+        public string PlaylistId { get; set; }
+
+        /// <summary>
+        /// Order in playlist. used mostly in linq to sql.
+        /// </summary>
+        [Column]
+        public int PlaylistNr { get; set; }
 
         public YoutubeSong(BitmapImage p, string title, string videoId, TimeSpan t)
             : base(title, p, t)
         {
-            VideoID = videoId;
+            VideoId = videoId;
+        }
+
+        public YoutubeSong() : base ()
+        {
         }
 
         public override string ToString()

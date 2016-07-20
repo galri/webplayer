@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Infrastructure.Names;
 
 namespace Webplayer.Modules.Spotify.Models
 {
@@ -25,7 +26,7 @@ namespace Webplayer.Modules.Spotify.Models
         {
             return Title;
         }
-        // override object.Equals
+
         public override bool Equals(object obj)
         {
             //       

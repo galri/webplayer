@@ -4,6 +4,7 @@ using Prism.Modularity;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using Webplayer.Modules.Youtube.ViewModels;
 using Webplayer.Modules.Youtube.Views;
 using Webplayer.Modules.Youtube.Services;
 using Google.Apis.YouTube.v3;
+using Infrastructure.Models;
+using Infrastructure.Service;
 
 namespace Webplayer.Modules.Youtube
 {
@@ -34,6 +37,10 @@ namespace Webplayer.Modules.Youtube
                 ApiKey = "AIzaSyAtuwBQDfoweQqFuxNmXUNH-n70J1KL_54",
                 ApplicationName = "Web playlist"
             });
+
+            var serviceSaverList = _container.Resolve<List<ISongServicePlaylistSaver>>();
+            var dbConn = _container.Resolve<SQLiteConnection>();
+            serviceSaverList.Add(new YoutubePlaylistService(dbConn));
 
             _container.RegisterInstance<YouTubeService>(youtubeService);
 

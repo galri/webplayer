@@ -2,6 +2,8 @@
 using System.Windows.Data;
 using System.Windows.Input;
 using Infrastructure;
+using Infrastructure.Models;
+using Infrastructure.Service;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -9,7 +11,6 @@ namespace Webplayer.Modules.Structure.ViewModels
 {
     public class StatusViewModel : BindableBase, IStatusViewModel
     {
-        private readonly IQueueController _queueController;
         private bool _isPlaying;
 
         public bool IsPlaying
@@ -19,7 +20,7 @@ namespace Webplayer.Modules.Structure.ViewModels
             {
                 if (SetProperty(ref _isPlaying, value))
                 {
-                    _queueController.IsPlaying = value;
+                    QueueController.IsPlaying = value;
                 }
             }
         }
@@ -27,34 +28,46 @@ namespace Webplayer.Modules.Structure.ViewModels
         public ICommand PreviousCommand { get; set; }
         public ICommand PlayPauseCommand { get; set; }
         public ICommand NextCommand { get; set; }
+        public BaseSong CurrenSong { get; private set; }
 
-        public StatusViewModel(IQueueController queueController)
+        public IQueueController QueueController { get; }
+
+        public Playlist Queue { get; }
+
+        public StatusViewModel(IQueueController queueController, Playlist queue)
         {
-            _queueController = queueController;
-            _queueController.IsPlayingChangedEvent += _queueController_IsPlayingChangedEvent;
+            QueueController = queueController;
+            Queue = queue;
+            QueueController.IsPlayingChangedEvent += _queueController_IsPlayingChangedEvent;
+            QueueController.CurrentSongChangedEvent += QueueControllerOnCurrentSongChangedEvent;
             PlayPauseCommand = new DelegateCommand(PlayPauseAction);
             NextCommand = new DelegateCommand(NextAction);
             PreviousCommand = new DelegateCommand(PreviousAction);
         }
 
+        private void QueueControllerOnCurrentSongChangedEvent(object sender, SongChangedEventArgs songChangedEventArgs)
+        {
+            CurrenSong = songChangedEventArgs.CurrentSong;
+        }
+
+        private void _queueController_IsPlayingChangedEvent(object sender, PlayingChangedEventArgs e)
+        {
+            IsPlaying = e.IsPlaying;
+        }
+
         private void PreviousAction()
         {
-            
+            QueueController.PreviousSong();
         }
 
         private void NextAction()
         {
-            
+            QueueController.NextSong();
         }
 
         private void PlayPauseAction()
         {
-            IsPlaying = !IsPlaying;
-        }
-
-        private void _queueController_IsPlayingChangedEvent(bool playingStatus)
-        {
-            IsPlaying = playingStatus;
+            QueueController.IsPlaying = !QueueController.IsPlaying;
         }
     }
 }

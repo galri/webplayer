@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public class RegionNames
+    public static class RegionNames
     {
         /// <summary>
         /// region for searching after songs

@@ -72,7 +72,7 @@ namespace Webplayer.Services
 
         //        //    YoutubeSong v = (YoutubeSong)song;
         //        //    //yPlayer.setMovie(v.Uri.ToString());
-        //        //    yPlayer.VideoID = v.VideoID;
+        //        //    yPlayer.VideoId = v.VideoId;
         //        //    yPlayer.play();
         //        //}
         //        //else if (song is SpotifySong)

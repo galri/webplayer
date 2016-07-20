@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using Infrastructure.Models;
 using WPF.JoshSmith.Controls.Utilities;
 
 namespace Webplayer.Modules.Structure.Helper
@@ -85,9 +86,9 @@ namespace Webplayer.Modules.Structure.Helper
         {
             if (e.Data.GetDataPresent("myFormat"))
             {
-                ISongModel contact = e.Data.GetData("myFormat") as ISongModel;
+                BaseSong contact = e.Data.GetData("myFormat") as BaseSong;
                 ListView listView = sender as ListView;
-                var source = ((IList<ISongModel>)listView.ItemsSource);
+                var source = ((IList<BaseSong>)listView.ItemsSource);
                 
                 var location = IndexUnderDragCursor;
                 if (location == -1)
@@ -118,7 +119,7 @@ namespace Webplayer.Modules.Structure.Helper
                     return;
 
                 // Find the data behind the ListViewItem
-                ISongModel contact = (ISongModel)listView.ItemContainerGenerator.
+                BaseSong contact = (BaseSong)listView.ItemContainerGenerator.
                     ItemFromContainer(listViewItem);
 
                 // Initialize the drag & drop operation

@@ -11,10 +11,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Queue" />
         <ListView Grid.Row="1" ItemsSource="{Binding Queue}" Name="Queue">
             
         </ListView>
+        <Button Grid.Row="2" Content="Save" Command="{Binding SaveQueueCommand}"></Button>
+        <Button Grid.Row="3" Content="Load" Command="{Binding LoadQueueCommand}"></Button>
     </Grid>
 </UserControl>

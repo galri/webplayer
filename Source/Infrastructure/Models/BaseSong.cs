@@ -7,67 +7,30 @@ using System.Windows.Media.Imaging;
 
 namespace Infrastructure.Models
 {
-    public class BaseSong : ISongModel
+    public abstract class BaseSong
     {
-        private string myTittel;
-        private string myAuthor;
-        private BitmapImage myPicture;
-        private TimeSpan myLength;
+        protected BaseSong()
+        {
+            
+        }
 
-        public BaseSong(string tittel, BitmapImage picture, TimeSpan length)
+        protected BaseSong(string tittel, BitmapImage picture, TimeSpan length)
         {
             Title = tittel;
             Picture = picture;
-            myLength = length;
+            Length = length;
         }
 
-        public string Title
-        {
-            get
-            {
-                return myTittel;
-            }
-            set
-            {
-                myTittel = value;
-            }
-        }
+        public string Title { get; set; }
 
-        public BitmapImage Picture
-        {
-            get
-            {
-                return myPicture;
-            }
-            set
-            {
-                myPicture = value;
-            }
-        }
+        public BitmapImage Picture { get; set; }
 
-        public TimeSpan Length
-        {
-            get
-            {
-                return myLength;
-            }
-            set
-            {
-                myLength = value;
-            }
-        }
+        public TimeSpan Length { get; set; }
 
-        public string Artist
-        {
-            get
-            {
-                return myAuthor;
-            }
-            set
-            {
-                myAuthor = value;
-            }
-        }
+        public string Artist { get; set; }
+
+        public int Order { get; set; }
+        
 
         // override object.Equals
         public override bool Equals(object obj)

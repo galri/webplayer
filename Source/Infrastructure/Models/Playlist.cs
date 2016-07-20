@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Models
 {
-    public class SimplePlaylist : BindableBase, IPlaylist
+    public class Playlist : BindableBase
     {
         private string _name;
 
@@ -29,11 +29,11 @@ namespace Infrastructure.Models
             }
         }
 
-        public ObservableCollection<ISongModel> Songs
+        public ObservableCollection<BaseSong> Songs
         {
             get;
 
             set;
-        } = new ObservableCollection<ISongModel>();
+        } = new ObservableCollection<BaseSong>();
     }
 }

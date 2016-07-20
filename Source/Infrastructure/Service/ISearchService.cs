@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Models;
 
 namespace Infrastructure
 {
     /// <summary>
     /// Interface for service that provide search functinality against music services.
     /// </summary>
-    public interface ISearchService<T> where T : ISongModel
+    public interface ISearchService<T> where T : BaseSong
     {
         string Query { get; set; }
 

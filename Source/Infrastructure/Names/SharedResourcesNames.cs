@@ -13,6 +13,9 @@ namespace Infrastructure
         /// </summary>
         public static string QueuePlaylist = "queueplaylist";
 
+        /// <summary>
+        /// Controller for controlling next song etc.
+        /// </summary>
         public static string QueueController = "queuecontroller";
     }
 }

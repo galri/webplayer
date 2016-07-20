@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Models;
 
-namespace Infrastructure
+namespace Webplayer.Modules.Structure.UnitTests.Helper
 {
-    public interface ISongModel
+    class TestSong : BaseSong
     {
-        string Title { get; set; }
-
-        string Artist { get; set; }
     }
 }

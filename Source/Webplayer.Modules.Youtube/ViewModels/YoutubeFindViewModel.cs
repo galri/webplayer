@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Infrastructure.Models;
 using Webplayer.Modules.Youtube.Models;
 using Webplayer.Modules.Youtube.Services;
 
@@ -18,7 +19,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
 {
     class YoutubeFindViewModel : BindableBase, IYoutubeFindViewModel
     {
-        private IList<ISongModel> Queue;
+        private IList<BaseSong> Queue;
         private readonly IYoutubeSongSearchService _songSearchService;
         private ContentType _searchType;
         private ObservableCollection<YoutubeSong> _searchResult = new ObservableCollection<YoutubeSong>();
@@ -114,7 +115,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
         public YoutubeFindViewModel(IUnityContainer container, IYoutubeSongSearchService songSearchService)
         {
             _songSearchService = songSearchService;
-            Queue = container.Resolve<IPlaylist>(SharedResourcesNames.QueuePlaylist).Songs;
+            Queue = container.Resolve<Playlist>(SharedResourcesNames.QueuePlaylist).Songs;
             SearchCommand = new DelegateCommand(SearchCommandAction);
             FetchMoreResultCommand = new DelegateCommand(FetchMoreResultCommandAction);
             AddSongCommand = new DelegateCommand<object>(AddSongAction);
@@ -122,7 +123,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private void AddSongAction(object param)
         {
-            Queue.Add( ((ISongModel) ( (Button) ((RoutedEventArgs)param).Source).DataContext ));
+            Queue.Add( ((BaseSong) ( (Button) ((RoutedEventArgs)param).Source).DataContext ));
         }
 
         private async void FetchMoreResultCommandAction()

@@ -2,10 +2,14 @@
 using Prism.Unity;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Infrastructure.Dao;
+using Infrastructure.Service;
+using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Webplayer.Modules.Youtube;
 using Queue;
@@ -32,9 +36,21 @@ namespace Webplayer
         protected override void ConfigureModuleCatalog()
         {
             base.ConfigureModuleCatalog();
-            var module = (ModuleCatalog)ModuleCatalog;
+
+             var module = (ModuleCatalog)ModuleCatalog;
             module.AddModule(typeof(StructureModule));
             module.AddModule(typeof(YoutubeModule));
+        }
+
+        protected override void InitializeModules()
+        {
+            
+            var conn = new SQLiteConnection("Data Source=webplayer.db;Version=3;");
+            conn.Open();
+            Container.RegisterInstance<SQLiteConnection>(conn);
+            Container.RegisterType<IPlaylistDao, PlaylistDao>();
+
+            base.InitializeModules();
         }
     }
 }
