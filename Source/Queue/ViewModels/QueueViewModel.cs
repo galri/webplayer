@@ -4,6 +4,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -23,10 +24,7 @@ namespace Webplayer.Modules.Structure.ViewModels
         private readonly IPlaylistService _playlistService;
         private BaseSong _selectSong;
 
-        public ObservableCollection<BaseSong> Queue
-        {
-            get { return _queueController.Queue.Songs; }
-        }
+        public ObservableCollection<BaseSong> Queue { get; private set; } = new ObservableCollection<BaseSong>();
 
         public BaseSong SelectSong
         {
@@ -52,6 +50,40 @@ namespace Webplayer.Modules.Structure.ViewModels
             DeleteSongFromQueueCommand = new DelegateCommand(DeleteQueueSong);
 
             _queueController.PlaylistChangedEvent += QueueControllerOnPlaylistChangedEvent;
+            SetQueue();
+            Queue.CollectionChanged += new NotifyCollectionChangedEventHandler(QueueOnCollectionChanged);
+        }
+
+        ///
+        bool _ignoreQueueUpdates = false;
+        private void QueueOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (!_ignoreQueueUpdates)
+            {
+                _ignoreQueueControllerUpdates = true;
+                _queueController.SetQueueSongs(Queue);
+                //foreach (var song in Queue)
+                //{
+                //    song.PlaylistNr = Queue.IndexOf(song);
+                //}
+                _ignoreQueueControllerUpdates = false;
+            }
+
+        }
+
+        bool _ignoreQueueControllerUpdates = false;
+        private void QueueControllerOnPlaylistChangedEvent(object sender, PlaylistChangedEventArgs playlistChangedEventArgs)
+        {
+            if(!_ignoreQueueControllerUpdates)
+                SetQueue();
+        }
+
+        private void SetQueue()
+        {
+            _ignoreQueueUpdates = true;
+            Queue.Clear();
+            Queue.AddRange(_queueController.Queue.Songs);
+            _ignoreQueueUpdates = false;
         }
 
         private void DeleteQueueSong()
@@ -60,11 +92,6 @@ namespace Webplayer.Modules.Structure.ViewModels
             {
                 _queueController.RemoveSongToQueue(SelectSong);
             }
-        }
-
-        private void QueueControllerOnPlaylistChangedEvent(object sender, PlaylistChangedEventArgs playlistChangedEventArgs)
-        {
-            OnPropertyChanged("Queue");
         }
 
         private void LoadAction()

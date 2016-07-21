@@ -32,20 +32,27 @@ namespace Infrastructure.Service
             //TODO:handle new playlist
             var playlistId = _playlistDao.GetPlaylistIdFromName(playlist.Name);
             
+            //set right order
+            //foreach (var song in playlist.Songs)
+            //{
+            //    playlist.SongsRemoved.Add(song);
+            //    song.PlaylistNr = playlist.Songs.IndexOf(song);
+            //}
+
             foreach (var ssps in Services)
             {
-                var songs = playlist.Songs.Where(t => ssps.CanSave(t)).ToArray();
-                for (int index = 0; index < songs.Length; index++)
+                var removedSongs = playlist.SongsRemoved.Where(t => ssps.CanSave(t)).ToArray();
+                foreach (var song in removedSongs)
                 {
-                    var song = songs[index];
-                    ssps.SaveSong(song,playlist);
+                    ssps.RemoveSong(song, playlist);
                 }
 
-                var removedSongs = playlist.SongsRemoved.Where(t => ssps.CanSave(t)).ToArray();
-                for (int i = 0; i < removedSongs.Length; i++)
+                var songs = playlist.Songs.Where(t => ssps.CanSave(t)).ToArray();
+                foreach (var song in songs)
                 {
-                    var song = removedSongs[i];
-                    ssps.RemoveSong(song,playlist);
+                    ssps.RemoveSong(song, playlist);
+                    song.PlaylistNr = playlist.Songs.IndexOf(song);
+                    ssps.SaveSong(song,playlist);
                 }
             }
 

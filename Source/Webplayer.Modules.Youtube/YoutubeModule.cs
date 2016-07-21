@@ -14,6 +14,7 @@ using Webplayer.Modules.Youtube.Services;
 using Google.Apis.YouTube.v3;
 using Infrastructure.Models;
 using Infrastructure.Service;
+using Prism.Logging;
 
 namespace Webplayer.Modules.Youtube
 {
@@ -40,7 +41,7 @@ namespace Webplayer.Modules.Youtube
 
             var serviceSaverList = _container.Resolve<List<ISongServicePlaylistSaver>>();
             var dbConn = _container.Resolve<SQLiteConnection>();
-            serviceSaverList.Add(new YoutubePlaylistService(dbConn));
+            serviceSaverList.Add(new YoutubePlaylistService(dbConn, _container.Resolve<ILoggerFacade>()));
 
             _container.RegisterInstance<YouTubeService>(youtubeService);
 

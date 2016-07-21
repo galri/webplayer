@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Infrastructure.Models;
 using Prism.Mvvm;
 
@@ -42,7 +44,7 @@ namespace Infrastructure.Service
 
         public event EventHandler<PlaylistChangedEventArgs> PlaylistChangedEvent;
 
-        public QueueController(IPlaylistService service)
+        public QueueController(IPlaylistService service) : this()
         {
             var defaultPlaylist = service.LoadPlaylist("first");
             ChangePlaylist(defaultPlaylist);
@@ -50,7 +52,6 @@ namespace Infrastructure.Service
 
         public QueueController()
         {
-            
         }
 
         public void NextSong()
@@ -72,14 +73,15 @@ namespace Infrastructure.Service
         {
             Queue.Songs.Add(song);
             song.PlaylistId = Queue.Id;
-            song.PlaylistNr = Queue.Songs.IndexOf(song);
+            //song.PlaylistNr = Queue.Songs.IndexOf(song);
             PlaylistChangedEvent?.Invoke(this, new PlaylistChangedEventArgs());
         }
 
         public void ChangePlaylist(Playlist playlist)
         {
             Queue.Name = playlist.Name;
-            Queue.Songs = playlist.Songs;
+            Queue.Songs.Clear();
+            Queue.Songs.AddRange(playlist.Songs);
             Queue.Id = playlist.Id;
             PlaylistChangedEvent?.Invoke(this,new PlaylistChangedEventArgs());
         }
@@ -87,6 +89,13 @@ namespace Infrastructure.Service
         public void RemoveSongToQueue(BaseSong song)
         {
             Queue.Songs.Remove(song);
+            PlaylistChangedEvent?.Invoke(this, new PlaylistChangedEventArgs());
+        }
+
+        public void SetQueueSongs(IList<BaseSong> queue)
+        {
+            Queue.Songs.Clear();
+            Queue.Songs.AddRange(queue);
             PlaylistChangedEvent?.Invoke(this, new PlaylistChangedEventArgs());
         }
     }

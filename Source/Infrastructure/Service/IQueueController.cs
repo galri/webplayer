@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Infrastructure.Models;
 
@@ -30,6 +31,7 @@ namespace Infrastructure.Service
 
         void ChangePlaylist(Playlist playlist);
         void RemoveSongToQueue(BaseSong song);
+        void SetQueueSongs(IList<BaseSong> queue);
     }
 
      //public delegate void CurrentSongChangedDelegate(ISongModel newSongModel);

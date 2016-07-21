@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Infrastructure;
 using Infrastructure.Models;
 using Infrastructure.Service;
+using Prism.Logging;
 using Webplayer.Modules.Youtube.Models;
 
 namespace Webplayer.Modules.Youtube.Services
@@ -18,6 +19,7 @@ namespace Webplayer.Modules.Youtube.Services
     public class YoutubePlaylistService : ISongServicePlaylistSaver
     {
         private readonly SQLiteConnection _c;
+        private readonly ILoggerFacade _logger;
         public const string YoutubeTableName = "YoutubeSong";
         private const string PlaylistIdColumnName = "playlistid";
         private const string PlaylistNrColumnName = "playlistnr";
@@ -26,9 +28,10 @@ namespace Webplayer.Modules.Youtube.Services
 
         public string SongService { get; } = "";
 
-        public YoutubePlaylistService(SQLiteConnection c)
+        public YoutubePlaylistService(SQLiteConnection c, ILoggerFacade logger)
         {
             _c = c;
+            _logger = logger;
         }
 
         public void SaveSong(BaseSong song,Playlist playlist)
@@ -81,7 +84,10 @@ namespace Webplayer.Modules.Youtube.Services
                  
                 var affected = command.ExecuteNonQuery();
 
-                //command.Transaction.Commit();
+                if (affected < 1)
+                {
+                    _logger.Log("No item deleted when trying to remoce youtube song from db",Category.Warn, Priority.High);
+                }
             }
         }
 
@@ -89,9 +95,9 @@ namespace Webplayer.Modules.Youtube.Services
         {
             return new YoutubeSong()
             {
-                VideoId = (string)reader["songid"],
+                VideoId = (string)reader[SongIdColumnName],
                 PlaylistId = (string)reader[PlaylistIdColumnName],
-                Order = (int)reader["playlistnr"],
+                PlaylistNr = (int)reader[PlaylistNrColumnName],
                 Title = (string)reader[SongTitleColumnName],
             };
         }
