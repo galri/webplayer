@@ -62,10 +62,6 @@ namespace Webplayer.Modules.Structure.ViewModels
             {
                 _ignoreQueueControllerUpdates = true;
                 _queueController.SetQueueSongs(Queue);
-                //foreach (var song in Queue)
-                //{
-                //    song.PlaylistNr = Queue.IndexOf(song);
-                //}
                 _ignoreQueueControllerUpdates = false;
             }
 

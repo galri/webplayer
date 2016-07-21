@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Models;
+using Moq;
 using NUnit.Framework.Internal;
 using NUnit.Framework;
+using Prism.Logging;
 using Webplayer.Modules.Youtube.Models;
 using Webplayer.Modules.Youtube.Services;
 using Webplayer.Modules.Youtube.Tests.Integration.Helper;
@@ -20,7 +22,8 @@ namespace Webplayer.Modules.Youtube.Tests.Integration
         {
             //arrange
             var conn = ConnectionHelper.CreateMemoryTable();
-            var service = new YoutubePlaylistService(conn);
+            var loggerStub = new Mock<ILoggerFacade>();
+            var service = new YoutubePlaylistService(conn,loggerStub.Object);
             conn.InsertTestData("Insert into YoutubeSong values ('song1',1,100,'title1')");
             conn.InsertTestData("Insert into YoutubeSong values ('song2',1,200,'title2')");
 
@@ -37,7 +40,8 @@ namespace Webplayer.Modules.Youtube.Tests.Integration
         {
             //arrange
             var conn = ConnectionHelper.CreateMemoryTable();
-            var service = new YoutubePlaylistService(conn);
+            var loggerStub = new Mock<ILoggerFacade>();
+            var service = new YoutubePlaylistService(conn, loggerStub.Object);
             var song = new YoutubeSong
             {
                 Title = "test Song",
@@ -62,7 +66,8 @@ namespace Webplayer.Modules.Youtube.Tests.Integration
         {
             //arrange
             var conn = ConnectionHelper.CreateMemoryTable();
-            var service = new YoutubePlaylistService(conn);
+            var loggerStub = new Mock<ILoggerFacade>();
+            var service = new YoutubePlaylistService(conn, loggerStub.Object);
             var song = new YoutubeSong
             {
                 Title = "test Song",
@@ -91,7 +96,8 @@ namespace Webplayer.Modules.Youtube.Tests.Integration
             var conn = ConnectionHelper.CreateMemoryTable();
             conn.InsertTestData("Insert into YoutubeSong values ('song1',1,100,'title1')");
             conn.InsertTestData("Insert into YoutubeSong values ('song2',2,100,'title2')");
-            var service = new YoutubePlaylistService(conn);
+            var loggerStub = new Mock<ILoggerFacade>();
+            var service = new YoutubePlaylistService(conn, loggerStub.Object);
             var song = new YoutubeSong
             {
                 Title = "title1",
