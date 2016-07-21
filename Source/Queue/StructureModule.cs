@@ -31,10 +31,10 @@ namespace Queue
             _container.RegisterInstance(new List<ISongServicePlaylistSaver>());
             _container.RegisterType<IPlaylistService, PlaylistService>();
 
-            _container.RegisterInstance<IQueueController>(new QueueController());
+            var playlistService = _container.Resolve<IPlaylistService>();
+            _container.RegisterInstance<IQueueController>(new QueueController(playlistService));
 
             var queueController = _container.Resolve<IQueueController>();
-            var playlistService = _container.Resolve<IPlaylistService>();
 
             _container.RegisterType<IQueueView, QueueView>().
                 RegisterType<IQueueViewModel, QueueViewModel>();

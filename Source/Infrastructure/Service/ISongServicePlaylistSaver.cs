@@ -13,9 +13,8 @@ namespace Infrastructure.Service
         /// <param name="playlistNr"></param>
         /// </summary>
         /// <param name="song"></param>
-        /// <param name="playlistNr">number in playlist order</param>
-        /// <param name="playlistId"></param>
-        void SaveSong(BaseSong song, int playlistNr,int playlistId);
+        /// <param name="playlist"></param>
+        void SaveSong(BaseSong song, Playlist playlist);
 
         /// <summary>
         /// Determines if song can be saved with this service.
@@ -31,5 +30,7 @@ namespace Infrastructure.Service
         /// <param name="playlistId"></param>
         /// <returns>songs in no special order.</returns>
         List<BaseSong> LoadSongsBelongingToPlaylist(int playlistId);
+
+        void RemoveSong(BaseSong song, Playlist playlist);
     }
 }

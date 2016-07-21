@@ -40,7 +40,7 @@ namespace Infrastructure.Tests.Unit
             service2.Setup(t => t.LoadSongsBelongingToPlaylist(It.IsAny<int>()))
                 .Returns(new List<BaseSong>() { stubSong2 });
             sqliteService.Services.Add(service2.Object);
-            mock.Setup(t => t.GetPlaylistIdFromName(It.IsAny<string>())).Returns(1);
+            mock.Setup(t => t.GetPlaylistIdFromName(It.IsAny<string>())).Returns("1");
 
             //act
             var loadedPlaylist = sqliteService.LoadPlaylist("");

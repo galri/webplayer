@@ -21,7 +21,7 @@ namespace Infrastructure.Dao
             _conn = conn;
         }
 
-        public int GetPlaylistIdFromName(string name)
+        public string GetPlaylistIdFromName(string name)
         {
             var command = _conn.CreateCommand();
             command.CommandText = $"Select {ColumnPlaylistId} from {TableName} " +
@@ -30,7 +30,7 @@ namespace Infrastructure.Dao
 
             var id = command.ExecuteScalar();
 
-            return int.Parse((string)id);
+            return (string)id;
         }
 
         public List<string> NameOfAllPlaylists()
@@ -48,9 +48,6 @@ namespace Infrastructure.Dao
 
             return playlistNames;
         }
-
-
-
 
         private int ToPlaylist(DbDataReader reader)
         {

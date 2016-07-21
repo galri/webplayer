@@ -24,3 +24,6 @@ Made with WPF and Prism 5 framework.
 0.1.3 play, pause spotify songs.
 
 0.2.0 spotify playlist search and with id.
+
+Bugs
+reordering elemets.

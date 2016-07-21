@@ -31,14 +31,14 @@ namespace Infrastructure.Tests.Integration
             Assert.AreEqual("second",playlistNames[1]);
         }
 
-        [TestCase(1,"first")]
-        [TestCase(2, "second")]
-        public void ReturnCorrectPlaylistIdFromPlayloistName(int expect, string name)
+        [TestCase("1","first")]
+        [TestCase("2", "second")]
+        public void ReturnCorrectPlaylistIdFromPlayloistName(string expect, string name)
         {
             //arragne
             var conn = SQliteConnectionHelper.CreateMemoryPlaylistTable();
-            conn.InsertTestData("insert into playlist values (1,'first')");
-            conn.InsertTestData("insert into playlist values (2,'second')");
+            conn.InsertTestData("insert into playlist values ('1','first')");
+            conn.InsertTestData("insert into playlist values ('2','second')");
             var service = new PlaylistDao(conn);
 
             //assert

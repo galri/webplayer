@@ -15,10 +15,14 @@ namespace Webplayer.Modules.Structure.ViewModels
     {
         ObservableCollection<BaseSong> Queue { get;  }
 
+        BaseSong SelectSong { get; set; }
+
         BaseSong SongPlaying { get; set; }
 
         ICommand SaveQueueCommand { get; }
 
         ICommand LoadQueueCommand { get; set; }
+
+        ICommand DeleteSongFromQueueCommand { get; set; }
     }
 }

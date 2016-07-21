@@ -4,7 +4,7 @@ namespace Infrastructure.Dao
 {
     public interface IPlaylistDao
     {
-        int GetPlaylistIdFromName(string name);
+        string GetPlaylistIdFromName(string name);
 
         List<string> NameOfAllPlaylists();
     }

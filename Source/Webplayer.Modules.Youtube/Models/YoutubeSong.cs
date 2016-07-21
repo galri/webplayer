@@ -26,19 +26,6 @@ namespace Webplayer.Modules.Youtube.Models
 
         public Uri Uri => new Uri("https://www.youtube.com/watch?v=" + VideoId);
 
-        /// <summary>
-        /// Playlist from where the song was imported.
-        /// null if imported from some other way.
-        /// </summary>
-        [Column]
-        public string PlaylistId { get; set; }
-
-        /// <summary>
-        /// Order in playlist. used mostly in linq to sql.
-        /// </summary>
-        [Column]
-        public int PlaylistNr { get; set; }
-
         public YoutubeSong(BitmapImage p, string title, string videoId, TimeSpan t)
             : base(title, p, t)
         {

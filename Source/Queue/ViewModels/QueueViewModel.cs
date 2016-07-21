@@ -19,14 +19,19 @@ namespace Webplayer.Modules.Structure.ViewModels
 {
     class QueueViewModel : BindableBase, IQueueViewModel
     {
-        public Playlist QueuePlaylist => _queueController.Queue;
-
         private readonly IQueueController _queueController;
         private readonly IPlaylistService _playlistService;
+        private BaseSong _selectSong;
 
         public ObservableCollection<BaseSong> Queue
         {
             get { return _queueController.Queue.Songs; }
+        }
+
+        public BaseSong SelectSong
+        {
+            get { return _selectSong; }
+            set { SetProperty(ref _selectSong, value); }
         }
 
         public BaseSong SongPlaying { get; set; }
@@ -35,6 +40,8 @@ namespace Webplayer.Modules.Structure.ViewModels
 
         public ICommand LoadQueueCommand { get; set; }
 
+        public ICommand DeleteSongFromQueueCommand { get; set; }
+
         public QueueViewModel(IQueueController queueController, 
             IPlaylistService playlistService)
         {
@@ -42,8 +49,17 @@ namespace Webplayer.Modules.Structure.ViewModels
             _playlistService = playlistService;
             SaveQueueCommand = new DelegateCommand(SaveAction);
             LoadQueueCommand = new DelegateCommand(LoadAction);
-            
+            DeleteSongFromQueueCommand = new DelegateCommand(DeleteQueueSong);
+
             _queueController.PlaylistChangedEvent += QueueControllerOnPlaylistChangedEvent;
+        }
+
+        private void DeleteQueueSong()
+        {
+            if (SelectSong != null)
+            {
+                _queueController.RemoveSongToQueue(SelectSong);
+            }
         }
 
         private void QueueControllerOnPlaylistChangedEvent(object sender, PlaylistChangedEventArgs playlistChangedEventArgs)
@@ -59,7 +75,7 @@ namespace Webplayer.Modules.Structure.ViewModels
 
         private void SaveAction()
         {
-            _playlistService.SavePlaylist(QueuePlaylist);
+            _playlistService.SavePlaylist(_queueController.Queue);
         }
     }
 }

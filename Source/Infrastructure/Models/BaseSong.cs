@@ -30,9 +30,18 @@ namespace Infrastructure.Models
         public string Artist { get; set; }
 
         public int Order { get; set; }
-        
 
-        // override object.Equals
+        /// <summary>
+        /// Playlist from where the song was imported.
+        /// null if imported from some other way.
+        /// </summary>
+        public virtual string PlaylistId { get; set; }
+
+        /// <summary>
+        /// Order in playlist. used mostly in linq to sql.
+        /// </summary>
+        public virtual int PlaylistNr { get; set; }
+
         public override bool Equals(object obj)
         {
             //       

@@ -20,6 +20,8 @@ namespace Webplayer.Modules.Youtube.Services
         private readonly SQLiteConnection _c;
         public const string YoutubeTableName = "YoutubeSong";
         private const string PlaylistIdColumnName = "playlistid";
+        private const string PlaylistNrColumnName = "playlistnr";
+        private const string SongIdColumnName = "songid";
         private const string SongTitleColumnName = "title";
 
         public string SongService { get; } = "";
@@ -29,15 +31,15 @@ namespace Webplayer.Modules.Youtube.Services
             _c = c;
         }
 
-        public void SaveSong(BaseSong song, int playlistNr, int playlistId)
+        public void SaveSong(BaseSong song,Playlist playlist)
         {
             var ySong = ToYoutubeSong(song);
             var command = _c.CreateCommand();
             command.CommandText = $"replace into {YoutubeTableName} " +
                                   $"values (@sid,@nr,@pid,@title)";
             command.Parameters.Add(new SQLiteParameter("@sid", ySong.VideoId));
-            command.Parameters.Add(new SQLiteParameter("@nr", playlistNr));
-            command.Parameters.Add(new SQLiteParameter("@pid", playlistId));
+            command.Parameters.Add(new SQLiteParameter("@nr", ySong.PlaylistNr));
+            command.Parameters.Add(new SQLiteParameter("@pid", playlist.Id));
             command.Parameters.Add(new SQLiteParameter("@title", ySong.Title));
 
             var affected = command.ExecuteNonQuery();
@@ -63,12 +65,32 @@ namespace Webplayer.Modules.Youtube.Services
             return res;
         }
 
+        public void RemoveSong(BaseSong song, Playlist playlist)
+        {
+            var ySong = ToYoutubeSong(song);
+
+            using (var command = _c.CreateCommand())
+            {
+                command.CommandText = $"delete from {YoutubeTableName} where " +
+                      $"{PlaylistIdColumnName} = @plid and " +
+                      $"{PlaylistNrColumnName} = @plnr and " +
+                      $"{SongIdColumnName} = @songid";
+                command.Parameters.Add(new SQLiteParameter("@plid", playlist.Id));
+                command.Parameters.Add(new SQLiteParameter("@plnr", ySong.PlaylistNr));
+                command.Parameters.Add(new SQLiteParameter("@songid", ySong.VideoId));
+                 
+                var affected = command.ExecuteNonQuery();
+
+                //command.Transaction.Commit();
+            }
+        }
+
         private YoutubeSong Convert(DbDataReader reader)
         {
             return new YoutubeSong()
             {
                 VideoId = (string)reader["songid"],
-                PlaylistId = ((int)reader[PlaylistIdColumnName]).ToString(),
+                PlaylistId = (string)reader[PlaylistIdColumnName],
                 Order = (int)reader["playlistnr"],
                 Title = (string)reader[SongTitleColumnName],
             };

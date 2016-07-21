@@ -42,6 +42,17 @@ namespace Infrastructure.Service
 
         public event EventHandler<PlaylistChangedEventArgs> PlaylistChangedEvent;
 
+        public QueueController(IPlaylistService service)
+        {
+            var defaultPlaylist = service.LoadPlaylist("first");
+            ChangePlaylist(defaultPlaylist);
+        }
+
+        public QueueController()
+        {
+            
+        }
+
         public void NextSong()
         {
             throw new System.NotImplementedException();
@@ -60,13 +71,23 @@ namespace Infrastructure.Service
         public void AddSongToQueue(BaseSong song)
         {
             Queue.Songs.Add(song);
+            song.PlaylistId = Queue.Id;
+            song.PlaylistNr = Queue.Songs.IndexOf(song);
+            PlaylistChangedEvent?.Invoke(this, new PlaylistChangedEventArgs());
         }
 
         public void ChangePlaylist(Playlist playlist)
         {
             Queue.Name = playlist.Name;
             Queue.Songs = playlist.Songs;
+            Queue.Id = playlist.Id;
             PlaylistChangedEvent?.Invoke(this,new PlaylistChangedEventArgs());
+        }
+
+        public void RemoveSongToQueue(BaseSong song)
+        {
+            Queue.Songs.Remove(song);
+            PlaylistChangedEvent?.Invoke(this, new PlaylistChangedEventArgs());
         }
     }
 }

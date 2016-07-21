@@ -38,20 +38,32 @@ namespace Infrastructure.Service
                 for (int index = 0; index < songs.Length; index++)
                 {
                     var song = songs[index];
-                    ssps.SaveSong(song,index,playlistId );
+                    ssps.SaveSong(song,playlist);
+                }
+
+                var removedSongs = playlist.SongsRemoved.Where(t => ssps.CanSave(t)).ToArray();
+                for (int i = 0; i < removedSongs.Length; i++)
+                {
+                    var song = removedSongs[i];
+                    ssps.RemoveSong(song,playlist);
                 }
             }
+
+            playlist.SongsRemoved.Clear();
         }
 
         public Playlist LoadPlaylist(string name)
         {
-            var res = new Playlist();
-            res.Name = name;
-            var id = _playlistDao.GetPlaylistIdFromName(name);
+            var res = new Playlist
+            {
+                Name = name,
+                Id = _playlistDao.GetPlaylistIdFromName(name)
+            };
 
             foreach (var songServicePlaylistSaver in Services)
             {
-                var songs = songServicePlaylistSaver.LoadSongsBelongingToPlaylist(id);
+                var songs = songServicePlaylistSaver.
+                    LoadSongsBelongingToPlaylist(int.Parse(res.Id));
                 res.Songs.AddRange(songs);
             }
 

@@ -16,7 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE92F9F7-6B16-479A-BA2B-937EBAF2D5F3}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
-		webplayer.db = webplayer.db
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Structure", "Queue\Webplayer.Modules.Structure.csproj", "{44FA2BE4-6BFF-4DB2-947F-84EA0ED40CCB}"

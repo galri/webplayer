@@ -13,12 +13,15 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Queue" />
-        <ListView Grid.Row="1" ItemsSource="{Binding Queue}" Name="Queue">
+        <ListView Grid.Row="1" ItemsSource="{Binding Queue}" 
+                  SelectedItem="{Binding SelectSong}" Name="Queue">
             
         </ListView>
         <Button Grid.Row="2" Content="Save" Command="{Binding SaveQueueCommand}"></Button>
         <Button Grid.Row="3" Content="Load" Command="{Binding LoadQueueCommand}"></Button>
+        <Button Grid.Row="4" Content="Delete" Command="{Binding DeleteSongFromQueueCommand}"></Button>
     </Grid>
 </UserControl>

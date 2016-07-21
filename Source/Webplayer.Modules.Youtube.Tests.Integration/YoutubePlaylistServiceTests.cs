@@ -42,14 +42,18 @@ namespace Webplayer.Modules.Youtube.Tests.Integration
             {
                 Title = "test Song",
                 VideoId = "testVideoId",
-
+                PlaylistNr = 1,
+            };
+            var playlist = new Playlist
+            {
+                Id = "1",
             };
 
             //act
-            service.SaveSong(song,2,4);
+            service.SaveSong(song,playlist);
 
             //assert
-            var res = service.LoadSongsBelongingToPlaylist(4);
+            var res = service.LoadSongsBelongingToPlaylist(1);
             Assert.AreEqual("test Song",res.First().Title);
         }
 
@@ -65,15 +69,50 @@ namespace Webplayer.Modules.Youtube.Tests.Integration
                 VideoId = "testVideoId",
 
             };
+            var playlist = new Playlist
+            {
+                Id = "4",
+            };
 
             //act
-            service.SaveSong(song, 2, 4);
-            service.SaveSong(song, 2, 4);
+            service.SaveSong(song, playlist);
+            service.SaveSong(song, playlist);
 
             //assert
             var res = service.LoadSongsBelongingToPlaylist(4);
             Assert.AreEqual("test Song", res.First().Title);
             Assert.AreEqual(1,res.Count);
+        }
+
+        [Test]
+        public void ServiceRemoveCorrectSongsOnRemove()
+        {
+            //arrange
+            var conn = ConnectionHelper.CreateMemoryTable();
+            conn.InsertTestData("Insert into YoutubeSong values ('song1',1,100,'title1')");
+            conn.InsertTestData("Insert into YoutubeSong values ('song2',2,100,'title2')");
+            var service = new YoutubePlaylistService(conn);
+            var song = new YoutubeSong
+            {
+                Title = "title1",
+                VideoId = "song1",
+                PlaylistNr = 1,
+            };
+            var playlist = new Playlist
+            {
+                Id = "100",
+            };
+
+
+            //act
+            service.RemoveSong(song, playlist);
+             
+            //assert
+            var res = service.LoadSongsBelongingToPlaylist(100);
+            Assert.AreEqual(1, res.Count);
+            var firstSongRes = (YoutubeSong)res.First();
+            Assert.AreEqual("title2", firstSongRes.Title);
+            Assert.AreEqual("song2", firstSongRes.VideoId);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Infrastructure.Service
         void AddSongToQueue(BaseSong song);
 
         void ChangePlaylist(Playlist playlist);
+        void RemoveSongToQueue(BaseSong song);
     }
 
      //public delegate void CurrentSongChangedDelegate(ISongModel newSongModel);
