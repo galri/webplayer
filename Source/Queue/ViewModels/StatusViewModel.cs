@@ -47,6 +47,7 @@ namespace Webplayer.Modules.Structure.ViewModels
         private void QueueControllerOnCurrentSongChangedEvent(object sender, SongChangedEventArgs songChangedEventArgs)
         {
             CurrenSong = songChangedEventArgs.CurrentSong;
+            IsPlaying = CurrenSong != null;
         }
 
         private void _queueController_IsPlayingChangedEvent(object sender, PlayingChangedEventArgs e)

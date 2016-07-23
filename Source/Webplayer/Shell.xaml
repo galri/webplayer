@@ -16,7 +16,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="auto" MinHeight="50"/>
+            <RowDefinition Height="auto" MinHeight="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -24,8 +24,7 @@
         </Grid.ColumnDefinitions>
         <TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" />
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}" />
-        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}"
-                HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-        <ContentControl Grid.Column="1" Grid.RowSpan="2" prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" />
+        <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}"/>
+        <ContentControl Grid.Column="1"  prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" />
     </Grid>
 </Window>

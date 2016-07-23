@@ -40,6 +40,8 @@ namespace Webplayer.Modules.Structure.ViewModels
 
         public ICommand DeleteSongFromQueueCommand { get; set; }
 
+        public ICommand PlaySongCommand { get; set; }
+
         public QueueViewModel(IQueueController queueController, 
             IPlaylistService playlistService)
         {
@@ -48,10 +50,17 @@ namespace Webplayer.Modules.Structure.ViewModels
             SaveQueueCommand = new DelegateCommand(SaveAction);
             LoadQueueCommand = new DelegateCommand(LoadAction);
             DeleteSongFromQueueCommand = new DelegateCommand(DeleteQueueSong);
+            PlaySongCommand = new DelegateCommand(PlaySong);
 
             _queueController.PlaylistChangedEvent += QueueControllerOnPlaylistChangedEvent;
             SetQueue();
             Queue.CollectionChanged += new NotifyCollectionChangedEventHandler(QueueOnCollectionChanged);
+        }
+
+        private void PlaySong()
+        {
+            if(SelectSong != null)
+                _queueController.CurrentSong = SelectSong;
         }
 
         ///

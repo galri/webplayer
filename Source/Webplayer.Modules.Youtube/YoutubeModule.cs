@@ -50,6 +50,11 @@ namespace Webplayer.Modules.Youtube
                 RegisterType<IYoutubePlaylistSearchService,YoutubePlaylistSearchService>();
 
             _rm.RegisterViewWithRegion(RegionNames.FindRegion, typeof(YoutubeFindView));
+
+            _container.RegisterType<IVIdeoInfoView, VideoInfoView>();
+            _container.RegisterType<IVideoInfoViewModel, VideoInfoViewModel>();
+            _rm.RegisterViewWithRegion(RegionNames.InfoRegion, typeof (VideoInfoView));
+
         }
     }
 }

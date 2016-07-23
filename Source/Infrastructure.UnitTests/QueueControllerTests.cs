@@ -20,6 +20,7 @@ namespace Infrastructure.Tests.Unit
             var eventRaised = false;
             bool eventResult = false;
             IQueueController controller = new QueueController();
+            controller.CurrentSong = new TestSong();
             controller.IsPlayingChangedEvent += delegate(object sender,PlayingChangedEventArgs status)
             {
                 eventRaised = true;

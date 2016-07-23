@@ -24,5 +24,7 @@ namespace Webplayer.Modules.Structure.ViewModels
         ICommand LoadQueueCommand { get; set; }
 
         ICommand DeleteSongFromQueueCommand { get; set; }
+
+        ICommand PlaySongCommand { get; set; }
     }
 }

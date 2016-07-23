@@ -31,6 +31,9 @@ namespace Infrastructure.Service
             get { return _isPlaying; }
             set
             {
+                if (CurrentSong == null)
+                    value = false;
+
                 if (SetProperty(ref _isPlaying, value))
                 {
                     IsPlayingChangedEvent?.Invoke(this,new PlayingChangedEventArgs(value));
@@ -56,12 +59,20 @@ namespace Infrastructure.Service
 
         public void NextSong()
         {
-            throw new System.NotImplementedException();
+            var index = Queue.Songs.IndexOf(CurrentSong) + 1;
+            if (index < Queue.Songs.Count && index > 0)
+            {
+                CurrentSong = Queue.Songs[index];
+            }
         }
 
         public void PreviousSong()
         {
-            throw new System.NotImplementedException();
+            var index = Queue.Songs.IndexOf(CurrentSong) - 1;
+            if (index != -1)
+            {
+                CurrentSong = Queue.Songs[index];
+            }
         }
 
         private void CurrentSongChanged()
