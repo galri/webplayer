@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Youtube.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Youtube.Tests.Integration", "Webplayer.Modules.Youtube.Tests.Integration\Webplayer.Modules.Youtube.Tests.Integration.csproj", "{B1E24C67-5513-4220-B8D3-5A16A58FF27A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webplayer.Modules.Spotify.Tests.Integration", "Webplayer.Modules.Spotify.Tests.Integration\Webplayer.Modules.Spotify.Tests.Integration.csproj", "{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,14 @@ Global
 		{B1E24C67-5513-4220-B8D3-5A16A58FF27A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1E24C67-5513-4220-B8D3-5A16A58FF27A}.Release|x86.ActiveCfg = Release|Any CPU
 		{B1E24C67-5513-4220-B8D3-5A16A58FF27A}.Release|x86.Build.0 = Release|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Debug|x86.Build.0 = Debug|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Release|x86.ActiveCfg = Release|Any CPU
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,5 +143,6 @@ Global
 		{0DD19AD3-9C14-40DC-8578-5B52A98F422E} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
 		{9E6CCDB6-3A78-45B0-BB9F-1311A758D94D} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
 		{B1E24C67-5513-4220-B8D3-5A16A58FF27A} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
+		{ECCD31F0-0BB8-4E7B-98A7-400DEE070C2E} = {775D45D7-86A6-481E-BDDA-37BB1E29DCB5}
 	EndGlobalSection
 EndGlobal

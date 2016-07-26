@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="Webplayer.Modules.Spotify.Views.SpotifyFindView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Webplayer.Modules.Spotify.Views"
+             xmlns:models="clr-namespace:Webplayer.Modules.Spotify.Models"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mvvm="http://prismlibrary.com/"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             >
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Button Command="{Binding FetchMoreResultCommand}" Content="More" DockPanel.Dock="Right" Width="80"/>
+            <Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Width="80"/>
+            <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Width="auto" >
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
+                </TextBox.InputBindings>
+            </TextBox>
+        </DockPanel>
+        <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}">
+            <ListView.Resources>
+                <DataTemplate DataType="{x:Type models:SpotifySong}" x:Key="old">
+                    <Border Margin="-15,5,0,0"  CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
+                        <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Stretch">
+                            <Image Width="75" Height="75" Margin="2" Source="{Binding Path=Picture}" />
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="2" FontSize="14" Text="{Binding Path=Title}" TextWrapping="Wrap" Width="100px" />
+
+                                <!--Need som sort of max length according to width of parent element-->
+
+                                <TextBlock FontSize="10" MinHeight="80" Text="{Binding Path=Description}" Width="100px" TextWrapping="Wrap"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Peek" IsEnabled="False" />
+                                    <Button CommandParameter="{ Binding BindsDirectlyToSource=True}" >
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding BindsDirectlyToSource=True, Path=Embeddable}" Value="True">
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding BindsDirectlyToSource=True, Path=Embeddable}" Value="False">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                        <Setter Property="Content" Value="Video can only be played on youtube" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Style.Setters>
+                                                    <Setter Property="Content" Value="Add"/>
+                                                </Style.Setters>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type models:SpotifySong}">
+                    <Border CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <Image Width="40" Height="40" Margin="2" Source="{Binding Path=Picture}" />
+                                <TextBlock Margin="2" FontSize="14" Text="{Binding Path=Title}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <Button Content="Peek" IsEnabled="False" />
+                                <Button Content="Add" >
+                                    <i:Interaction.Triggers>
+                                        <!-- This event trigger will execute the action when the corresponding event is raised by the ListBox. -->
+                                        <i:EventTrigger EventName="Click">
+                                            <!-- This action will invoke the selected command in the view model and pass the parameters of the event to it. -->
+                                            <i:InvokeCommandAction Command="{Binding DataContext.AddSongCommand, ElementName=View}"   />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.Resources>
+            <!--<ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>-->
+        </ListView>
+    </Grid>
+</UserControl>

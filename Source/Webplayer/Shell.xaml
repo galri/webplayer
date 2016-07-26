@@ -10,7 +10,7 @@
         Title="Shell" Height="300" Width="300" WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="TabItem">
-            <Setter Property="Header" Value="{Binding DataContext.Title}"></Setter>
+            <Setter Property="Header" Value="{Binding Title}"></Setter>
         </Style>
     </Window.Resources>
     <Grid>

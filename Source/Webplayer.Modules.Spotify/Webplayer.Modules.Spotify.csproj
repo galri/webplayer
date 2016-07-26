@@ -122,8 +122,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Services\ISpotifySongSearch.cs" />
+    <Compile Include="Services\NewSpotifySongService.cs" />
     <Compile Include="Services\SpotifySongService.cs" />
     <Compile Include="SpotifyModule.cs" />
+    <Compile Include="ViewModels\ISpotifyFindViewModel.cs" />
+    <Compile Include="ViewModels\SpotifyFindViewModel.cs" />
+    <Compile Include="Views\ISpoifyFindView.cs" />
+    <Compile Include="Views\SpotifyFindView.xaml.cs">
+      <DependentUpon>SpotifyFindView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SpotifyLocalPlayer.xaml.cs">
       <DependentUpon>SpotifyLocalPlayer.xaml</DependentUpon>
     </Compile>
@@ -139,9 +147,7 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{0d108196-ddf5-45b0-83c1-331bcf8b3458}</Project>
@@ -149,6 +155,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\SpotifyFindView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SpotifyLocalPlayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

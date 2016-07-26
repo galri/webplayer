@@ -10,7 +10,7 @@ namespace Infrastructure
     /// <summary>
     /// Interface for service that provide search functinality against music services.
     /// </summary>
-    public interface ISearchService<T> where T : BaseSong
+    public interface ISearchService<T> : IDisposable where T : BaseSong
     {
         string Query { get; set; }
 

@@ -10,7 +10,7 @@ using Infrastructure.Names;
 
 namespace Webplayer.Modules.Spotify.Models
 {
-    class SpotifySong : BaseSong
+    public class SpotifySong : BaseSong
     {
         private Uri myUri;
 

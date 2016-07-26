@@ -184,9 +184,8 @@
       <HintPath>..\packages\Prism.Unity.6.1.1\lib\net45\Prism.Unity.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism.Wpf, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+    <Reference Include="Prism.Wpf">
       <HintPath>..\packages\Prism.Wpf.6.1.0\lib\net45\Prism.Wpf.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpotifyAPI-NET.2.6.1\lib\SpotifyAPI.dll</HintPath>
@@ -431,6 +430,10 @@
     <ProjectReference Include="..\Queue\Webplayer.Modules.Structure.csproj">
       <Project>{44fa2be4-6bff-4db2-947f-84ea0ed40ccb}</Project>
       <Name>Webplayer.Modules.Structure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Webplayer.Modules.Spotify\Webplayer.Modules.Spotify.csproj">
+      <Project>{C4BCD5A4-71B9-4520-90D9-3A393E89BA09}</Project>
+      <Name>Webplayer.Modules.Spotify</Name>
     </ProjectReference>
     <ProjectReference Include="..\Webplayer.Modules.Youtube\Webplayer.Modules.Youtube.csproj">
       <Project>{114e13ff-12a6-46d3-8345-caf0fd50943a}</Project>

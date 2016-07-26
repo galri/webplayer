@@ -99,6 +99,7 @@
     <Compile Include="Names\RegionNames.cs" />
     <Compile Include="Service\ISongServicePlaylistSaver.cs" />
     <Compile Include="Names\SharedResourcesNames.cs" />
+    <Compile Include="Views\IFindView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

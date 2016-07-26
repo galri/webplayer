@@ -12,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Webplayer.Services.Spotify;
 
-namespace Webplayer.Modules.Youtube.Views
+namespace Webplayer.Modules.Spotify.Views
 {
     /// <summary>
-    /// Interaction logic for YoutubeFindView.xaml
+    /// Interaction logic for SpotifyFindView.xaml
     /// </summary>
-    public partial class YoutubeFindView : UserControl, IYoutubeFindView
+    public partial class SpotifyFindView : ISpoifyFindView
     {
-        public YoutubeFindView()
+        public string Title { get; set; } = "Spotify";
+        public SpotifyFindView()
         {
             InitializeComponent();
         }
-
-        public string Title { get; set; } = "Youtube";
     }
 }

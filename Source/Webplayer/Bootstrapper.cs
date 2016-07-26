@@ -13,6 +13,7 @@ using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Webplayer.Modules.Youtube;
 using Queue;
+using Webplayer.Modules.Spotify;
 
 namespace Webplayer
 {
@@ -40,6 +41,7 @@ namespace Webplayer
              var module = (ModuleCatalog)ModuleCatalog;
             module.AddModule(typeof(StructureModule));
             module.AddModule(typeof(YoutubeModule));
+            module.AddModule(typeof(SpotifyModule));
         }
 
         protected override void InitializeModules()

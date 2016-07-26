@@ -112,8 +112,6 @@ namespace Webplayer.Modules.Youtube.ViewModels
             }
         }
 
-        public string Title { get; set; } = "Youtube";
-
         public YoutubeFindViewModel(IUnityContainer container, 
             IYoutubeSongSearchService songSearchService,
             IQueueController queueController)
