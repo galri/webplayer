@@ -7,8 +7,9 @@
              xmlns:models="clr-namespace:Webplayer.Modules.Spotify.Models"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:prism="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Name="View"
              d:DesignHeight="300" d:DesignWidth="300"
              >
     <Grid Background="AliceBlue">
@@ -80,7 +81,7 @@
                                         <!-- This event trigger will execute the action when the corresponding event is raised by the ListBox. -->
                                         <i:EventTrigger EventName="Click">
                                             <!-- This action will invoke the selected command in the view model and pass the parameters of the event to it. -->
-                                            <i:InvokeCommandAction Command="{Binding DataContext.AddSongCommand, ElementName=View}"   />
+                                            <prism:InvokeCommandAction Command="{Binding DataContext.AddSongCommand, ElementName=View}"   />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </Button>

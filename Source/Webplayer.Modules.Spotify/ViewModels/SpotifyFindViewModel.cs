@@ -9,6 +9,10 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Webplayer.Modules.Spotify.Models;
 using Webplayer.Modules.Spotify.Services;
+using Infrastructure.Service;
+using Infrastructure.Models;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace Webplayer.Modules.Spotify.ViewModels
 {
@@ -16,6 +20,7 @@ namespace Webplayer.Modules.Spotify.ViewModels
     {
         private readonly ISpotifySongSearch _songSearchService;
         private string _query;
+        private IQueueController _queueController;
 
         public string SearchQuery
         {
@@ -35,11 +40,20 @@ namespace Webplayer.Modules.Spotify.ViewModels
 
         public ICommand FetchMoreResultCommand { get; set; }
 
-        public SpotifyFindViewModel(ISpotifySongSearch songSearchService)
+        public DelegateCommand<object> AddSongCommand { get; set; }
+
+        public SpotifyFindViewModel(ISpotifySongSearch songSearchService, IQueueController queueController)
         {
             _songSearchService = songSearchService;
+            _queueController= queueController;
             SearchCommand = new DelegateCommand(SearchAction);
             FetchMoreResultCommand = new DelegateCommand(MoreAction);
+            AddSongCommand = new DelegateCommand<object>(AddAction);
+        }
+
+        private void AddAction(object param)
+        {
+            _queueController.AddSongToQueue(((BaseSong)((Button)((RoutedEventArgs)param).Source).DataContext));
         }
 
         private async void MoreAction()

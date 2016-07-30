@@ -45,9 +45,18 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private void QueueControllerOnIsPlayingChangedEvent(object sender, PlayingChangedEventArgs e)
         {
-            if (e.IsPlaying)
-            {
-                Playing = YoutubePlayerState.playing;;
+            var song = _queueController.CurrentSong as YoutubeSong;
+            if(song != null)
+                {
+
+                if (e.IsPlaying)
+                {
+                    Playing = YoutubePlayerState.playing;;
+                }
+                else
+                {
+                    Playing = YoutubePlayerState.paused;
+                }
             }
             else
             {
@@ -61,6 +70,11 @@ namespace Webplayer.Modules.Youtube.ViewModels
             if (ySong != null)
             {
                 VideoId = ySong.VideoId;
+                Playing = YoutubePlayerState.playing;
+            }
+            else
+            {
+                Playing = YoutubePlayerState.paused;
             }
         }
     }

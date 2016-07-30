@@ -36,8 +36,11 @@ namespace Webplayer.Modules.Spotify
 
             _container.RegisterType<ISpoifyFindView, SpotifyFindView>();
             _container.RegisterType<ISpotifyFindViewModel, SpotifyFindViewModel>();
+            _container.RegisterType<ISpotifyLocalPlayerView, SpotifyLocalPlayerView>();
+            _container.RegisterType<ISpotifyLocalPlayerViewModel, SpotifyLocalPlayerViewModel>();
 
             _regionManager.RegisterViewWithRegion(RegionNames.FindRegion, typeof (ISpoifyFindView));
+            _regionManager.RegisterViewWithRegion(RegionNames.InfoRegion, typeof(ISpotifyLocalPlayerView));
         }
     }
 }

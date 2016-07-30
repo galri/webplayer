@@ -58,8 +58,8 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
@@ -75,7 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpotifyAPI-NET.2.6.1\lib\SpotifyAPI.dll</HintPath>
+      <HintPath>..\packages\SpotifyAPI-NET.2.10.1\lib\SpotifyAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -127,13 +127,19 @@
     <Compile Include="Services\SpotifySongService.cs" />
     <Compile Include="SpotifyModule.cs" />
     <Compile Include="ViewModels\ISpotifyFindViewModel.cs" />
+    <Compile Include="ViewModels\ISpotifyLocalPlayerViewModel.cs" />
     <Compile Include="ViewModels\SpotifyFindViewModel.cs" />
+    <Compile Include="ViewModels\SpotifyLocalPlayerViewModel.cs" />
     <Compile Include="Views\ISpoifyFindView.cs" />
+    <Compile Include="Views\ISpotifyLocalPlayerView.cs" />
     <Compile Include="Views\SpotifyFindView.xaml.cs">
       <DependentUpon>SpotifyFindView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SpotifyLocalPlayer.xaml.cs">
       <DependentUpon>SpotifyLocalPlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpotifyLocalPlayerView.xaml.cs">
+      <DependentUpon>SpotifyLocalPlayerView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -162,6 +168,10 @@
     <Page Include="Views\SpotifyLocalPlayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SpotifyLocalPlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
