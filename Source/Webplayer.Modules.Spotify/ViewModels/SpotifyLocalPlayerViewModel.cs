@@ -100,7 +100,6 @@ namespace Webplayer.Modules.Spotify.ViewModels
             _queueController = queueController;
             _queueController.CurrentSongChangedEvent += QueueControllerOnCurrentSongChangedEvent;
             _queueController.IsPlayingChangedEvent += QueueControllerOnIsPlayingChangedEvent;
-            
         }
 
         private void _api_OnTrackChange(object sender, TrackChangeEventArgs e)

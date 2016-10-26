@@ -30,16 +30,15 @@
                                  Grid.Row="1"
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Bottom"
-                                 PlacementMode="TopAndAlignCentres"
-                                     ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionAccentPopupBox">
+                                 PlacementMode="TopAndAlignCentres">
             <materialDesign:PopupBox.ToggleCheckedContent>
                 <materialDesign:PackIcon Kind="Pencil" Width="24" Height="24" />
             </materialDesign:PopupBox.ToggleCheckedContent>
             <StackPanel>
-                <Button Grid.Row="2" Content="Save" Command="{Binding SaveQueueCommand}"></Button>
-        <Button Grid.Row="3" Content="Load" Command="{Binding LoadQueueCommand}"></Button>
-        <Button Grid.Row="4" Content="Delete" Command="{Binding DeleteSongFromQueueCommand}"></Button>
-        <Button Grid.Row="5" Content="Play" Command="{Binding PlaySongCommand}"/>
+                <!--<Button Grid.Row="2" Content="Save" Command="{Binding SaveQueueCommand}"></Button>
+                <Button Grid.Row="3" Content="Load" Command="{Binding LoadQueueCommand}"></Button>-->
+                <Button Grid.Row="4" Content="Delete" Command="{Binding DeleteSongFromQueueCommand}"></Button>
+                <Button Grid.Row="5" Content="Play" Command="{Binding PlaySongCommand}"/>
             </StackPanel>
         </materialDesign:PopupBox>
     </Grid>

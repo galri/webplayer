@@ -69,7 +69,7 @@ namespace Infrastructure.Service
         public void PreviousSong()
         {
             var index = Queue.Songs.IndexOf(CurrentSong) - 1;
-            if (index != -1)
+            if (index > -1)
             {
                 CurrentSong = Queue.Songs[index];
             }

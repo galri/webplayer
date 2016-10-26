@@ -6,6 +6,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:Webplayer"
         xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
          xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
@@ -15,7 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"					  
         GlowBrush="{DynamicResource AccentColorBrush}"					  
         FontFamily="{StaticResource DefaultFont}"
-        Title="MaterialWindow"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" >
+        Title="MaterialWindow">
     <dockablz:Layout>
         <Grid>
             <ContentControl Margin="5" Padding="0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}" Name="InfoRegion" />
@@ -42,18 +43,20 @@
                     <dragablz:TabablzControl.Style>
                         <Style TargetType="dragablz:TabablzControl">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=ShowSearch,Path=IsChecked}" Value="True">
+                                <DataTrigger Binding="{Binding ElementName=ShowSearch,Path=IsChecked}" Value="false">
                                     <Setter Property="Visibility" Value="Hidden"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </dragablz:TabablzControl.Style>
                 </dragablz:TabablzControl>
-                <ToggleButton Name="ShowSearch" Content="C" Margin="0 0 8 8" Style="{StaticResource MaterialDesignActionLightToggleButton}" IsChecked="True"
-                          ToolTip="MaterialDesignActionLightToggleButton" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                 <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}"  />
                 <ContentControl Grid.Column="1"  prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" Margin="10 0 10 0"/>
             </Grid>
+            <ToggleButton Name="ShowSearch" Margin="8 8 8 8" Style="{StaticResource MaterialDesignActionLightToggleButton}" IsChecked="True"
+                           HorizontalAlignment="Right" VerticalAlignment="Top">
+                <materialDesign:PackIcon Kind="Magnify" />
+            </ToggleButton>
         </Grid>
     </dockablz:Layout>
 </controls:MetroWindow>
