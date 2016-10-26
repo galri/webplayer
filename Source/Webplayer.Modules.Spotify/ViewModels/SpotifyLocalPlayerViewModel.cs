@@ -9,6 +9,9 @@ using Webplayer.Modules.Spotify.Models;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
+using Prism.Regions;
+using Infrastructure;
+using Webplayer.Modules.Spotify.Views;
 
 namespace Webplayer.Modules.Spotify.ViewModels
 {
@@ -27,6 +30,10 @@ namespace Webplayer.Modules.Spotify.ViewModels
                     if(value)
                     {
                         _api.Play();
+
+                        var info = _regionManager.Regions[RegionNames.InfoRegion];
+                        var view = info.Views.First(t => t is ISpotifyLocalPlayerView);
+                        info.Activate(view);
                     }
                     else
                     {
@@ -48,7 +55,7 @@ namespace Webplayer.Modules.Spotify.ViewModels
                     
                 if (IsPlaying)
                 {
-                    if (_localTrack == null || _localTrack.TrackResource.Uri == _currentSong.Uri.ToString())
+                    if (_localTrack == null || _localTrack.TrackResource.Uri != _currentSong.Uri.ToString())
                         _api.PlayURL(_currentSong.Uri.ToString());
                     else
                         _api.Play();
@@ -66,10 +73,12 @@ namespace Webplayer.Modules.Spotify.ViewModels
         private SpotifySong _currentSong;
         private SpotifyLocalAPI _api;
         private Track _localTrack;
+        private IRegionManager _regionManager;
 
-        public SpotifyLocalPlayerViewModel(IQueueController queueController)
+        public SpotifyLocalPlayerViewModel(IQueueController queueController, IRegionManager regionManager)
         {
             _api = new SpotifyLocalAPI();
+            _regionManager = regionManager;
             if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
             {
                 SpotifyLocalAPI.RunSpotifyWebHelper();

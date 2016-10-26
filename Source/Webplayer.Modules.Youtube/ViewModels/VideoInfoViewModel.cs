@@ -7,6 +7,9 @@ using Infrastructure.Service;
 using Prism.Mvvm;
 using Webplayer.Modules.Youtube.Models;
 using YoutubePlayerLib;
+using Infrastructure;
+using Prism.Regions;
+using Webplayer.Modules.Youtube.Views;
 
 namespace Webplayer.Modules.Youtube.ViewModels
 {
@@ -15,11 +18,17 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private readonly IQueueController _queueController;
         private string _videoId;
         private YoutubePlayerState _playing;
+        private IRegionManager _regionManager;
 
         public string VideoId
         {
             get { return _videoId; }
-            set { SetProperty(ref _videoId,value); }
+            set
+            {
+                if (SetProperty(ref _videoId,value))
+                {
+                }
+            }
         }
 
         public YoutubePlayerState Playing
@@ -31,14 +40,21 @@ namespace Webplayer.Modules.Youtube.ViewModels
                 {
                     if(value ==YoutubePlayerState.ended)    
                         _queueController.NextSong();
-                    
+
+                    if (_playing == YoutubePlayerState.playing)
+                    {
+                        var info = _regionManager.Regions[RegionNames.InfoRegion];
+                        var view = info.Views.First(t => t is IVIdeoInfoView);
+                        info.Activate(view);
+                    }
                 }
             }
         }
 
-        public VideoInfoViewModel(IQueueController queueController)
+        public VideoInfoViewModel(IQueueController queueController, IRegionManager manager)
         {
             _queueController = queueController;
+            _regionManager = manager;
             _queueController.CurrentSongChangedEvent += QueueControllerOnCurrentSongChangedEvent;
             _queueController.IsPlayingChangedEvent += QueueControllerOnIsPlayingChangedEvent;
         }

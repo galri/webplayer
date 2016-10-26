@@ -54,7 +54,7 @@ namespace Webplayer.Modules.Youtube
             _container.RegisterType<IVIdeoInfoView, VideoInfoView>();
             _container.RegisterType<IVideoInfoViewModel, VideoInfoViewModel>();
             _rm.RegisterViewWithRegion(RegionNames.InfoRegion, typeof (VideoInfoView));
-
+           
         }
     }
 }
