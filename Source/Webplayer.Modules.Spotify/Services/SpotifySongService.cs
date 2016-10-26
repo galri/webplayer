@@ -137,6 +137,7 @@ namespace Webplayer.Modules.Spotify.Services
                 {
                     //Give a empty picture
                     picture = new BitmapImage();
+                   
                 }
                 //TODO: add real seconds value.
                 SpotifySong newSong = new SpotifySong(node.name.ToString(), picture, TimeSpan.FromSeconds(1), new Uri(node.uri.ToString())) { Artist = node.author };

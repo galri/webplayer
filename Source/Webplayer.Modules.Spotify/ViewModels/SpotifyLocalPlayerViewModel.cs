@@ -74,9 +74,20 @@ namespace Webplayer.Modules.Spotify.ViewModels
             {
                 SpotifyLocalAPI.RunSpotifyWebHelper();
             }
+            if (!SpotifyLocalAPI.IsSpotifyRunning())
+            {
+                SpotifyLocalAPI.RunSpotify();
+            }
             _api.OnTrackChange += _api_OnTrackChange;
+            bool retryConnect;
             _api.ListenForEvents = true;
-            _api.Connect();
+            do
+            {
+                //TODO: urgent need dialog!
+                var connected = _api.Connect();
+                retryConnect = !connected;
+
+            } while (retryConnect);
             _queueController = queueController;
             _queueController.CurrentSongChangedEvent += QueueControllerOnCurrentSongChangedEvent;
             _queueController.IsPlayingChangedEvent += QueueControllerOnIsPlayingChangedEvent;

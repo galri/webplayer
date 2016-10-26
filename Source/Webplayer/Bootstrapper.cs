@@ -14,6 +14,8 @@ using Prism.Modularity;
 using Webplayer.Modules.Youtube;
 using Queue;
 using Webplayer.Modules.Spotify;
+using Prism.Regions;
+using Dragablz;
 
 namespace Webplayer
 {
@@ -23,14 +25,14 @@ namespace Webplayer
     {
         protected override DependencyObject CreateShell()
         {
-            return ServiceLocator.Current.GetInstance<Shell>();
+            return ServiceLocator.Current.GetInstance<MaterialWindow>();
         }
 
         protected override void InitializeShell()
         {
             base.InitializeShell();
 
-            Application.Current.MainWindow = (Shell)this.Shell;
+            Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();
         }
 
@@ -53,6 +55,14 @@ namespace Webplayer
             Container.RegisterType<IPlaylistDao, PlaylistDao>();
 
             base.InitializeModules();
+        }
+
+        protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
+        {
+            RegionAdapterMappings mappings = base.ConfigureRegionAdapterMappings();
+            var regionBehaviorFactory = Container.Resolve<IRegionBehaviorFactory>();
+            mappings.RegisterMapping(typeof(TabablzControl), new TabablzControlRegionAdapter(regionBehaviorFactory));
+            return mappings;
         }
     }
 }

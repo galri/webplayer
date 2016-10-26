@@ -86,6 +86,8 @@ namespace Infrastructure.Service
             song.PlaylistId = Queue.Id;
             //song.PlaylistNr = Queue.Songs.IndexOf(song);
             PlaylistChangedEvent?.Invoke(this, new PlaylistChangedEventArgs());
+            if (CurrentSong == null)
+                CurrentSong = song;
         }
 
         public void ChangePlaylist(Playlist playlist)

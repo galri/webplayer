@@ -9,25 +9,26 @@
              d:DesignHeight="113.06" d:DesignWidth="394.03"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Button Command="{Binding PreviousCommand}">Prev</Button>
-        <Button Grid.Column="1" Command="{Binding PlayPauseCommand}">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Content" Value="Pause"></Setter>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsPlaying}" Value="false">
-                            <Setter Property="Content" Value="Play"></Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button Grid.Column="2" Command="{Binding NextCommand}">Next</Button>
+        <Grid Width="220">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding PreviousCommand}" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">Prev</Button>
+            <Button Grid.Column="1" Command="{Binding PlayPauseCommand}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionDarkButton}">
+                        <Setter Property="Content" Value="Pause"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPlaying}" Value="false">
+                                <Setter Property="Content" Value="Play"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Grid.Column="2" Command="{Binding NextCommand}" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">Next</Button>
+        </Grid>
     </Grid>
 </UserControl>

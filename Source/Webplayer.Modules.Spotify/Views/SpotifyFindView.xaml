@@ -8,6 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" Name="View"
              d:DesignHeight="300" d:DesignWidth="300"
@@ -26,7 +27,7 @@
                 </TextBox.InputBindings>
             </TextBox>
         </DockPanel>
-        <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}">
+        <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.Resources>
                 <DataTemplate DataType="{x:Type models:SpotifySong}" x:Key="old">
                     <Border Margin="-15,5,0,0"  CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
@@ -63,7 +64,7 @@
                         </StackPanel>
                     </Border>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type models:SpotifySong}">
+                <DataTemplate DataType="{x:Type models:SpotifySong}" x:Key="second">
                     <Border CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
                         <Grid>
                             <Grid.RowDefinitions>
@@ -89,12 +90,51 @@
                         </Grid>
                     </Border>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type models:SpotiySong}">
+                    <materialDesign:Card Width="200" Margin="3">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="140" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!--<Image Source="Resources/Chartridge046_small.jpg" Height="140" Width="196" Stretch="UniformToFill" />-->
+                            <Image Height="140" Width="196" Source="{Binding Path=Picture}"  Stretch="UniformToFill" />
+                            <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        Margin="0 0 16 -20">
+                                <materialDesign:PackIcon Kind="Plus" />
+                                <i:Interaction.Triggers>
+                                    <!-- This event trigger will execute the action when the corresponding event is raised by the ListBox. -->
+                                    <i:EventTrigger EventName="Click">
+                                        <!-- This action will invoke the selected command in the view model and pass the parameters of the event to it. -->
+                                        <prism:InvokeCommandAction Command="{Binding DataContext.AddSongCommand, ElementName=View}"   />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <StackPanel Grid.Row="1" Margin="8 24 8 0" >
+                                <TextBlock FontWeight="Bold" Text="{Binding Artist}" />
+                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Title}"/>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
+                                <!--<Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                                    <materialDesign:PackIcon Kind="ShareVariant" />
+                                </Button>
+                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                                    <materialDesign:PackIcon Kind="Heart" />
+                                </Button>-->
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </DataTemplate>
             </ListView.Resources>
-            <!--<ListView.ItemsPanel>
+            <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel></WrapPanel>
                 </ItemsPanelTemplate>
-            </ListView.ItemsPanel>-->
+            </ListView.ItemsPanel>
         </ListView>
     </Grid>
 </UserControl>
