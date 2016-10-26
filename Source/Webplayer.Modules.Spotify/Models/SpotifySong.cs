@@ -14,6 +14,8 @@ namespace Webplayer.Modules.Spotify.Models
     {
         private Uri myUri;
 
+        public string Album { get; set; }
+
         public SpotifySong(string tittel, BitmapImage picture, TimeSpan length, Uri spotifyRessource)
             : base(tittel, picture, length)
         {

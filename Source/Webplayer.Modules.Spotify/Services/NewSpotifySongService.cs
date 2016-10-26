@@ -7,6 +7,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using Webplayer.Modules.Spotify.Models;
+using System.Windows.Media.Imaging;
 
 namespace Webplayer.Modules.Spotify.Services
 {
@@ -69,11 +70,18 @@ namespace Webplayer.Modules.Spotify.Services
             }
         }
 
+        //TODO: make more error proff.......
         private SpotifySong ToSong(FullTrack track)
         {
-            return new SpotifySong(track.Name,null,
+            var thumbNail = new BitmapImage(new Uri(track.Album.Images.First().Url));
+
+            return new SpotifySong(track.Name, thumbNail,
                 TimeSpan.FromMilliseconds(track.DurationMs),
-                new Uri(track.Uri,UriKind.Absolute));
+                new Uri(track.Uri, UriKind.Absolute))
+            {
+                Album = track.Album.Name,
+                Artist = track.Artists.First().Name,
+            };
         }
 
         public Task<SpotifySong> FetchSongAsync(string id)

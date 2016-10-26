@@ -90,7 +90,7 @@
                         </Grid>
                     </Border>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type models:SpotiySong}">
+                <DataTemplate DataType="{x:Type models:SpotifySong}">
                     <materialDesign:Card Width="200" Margin="3">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -114,6 +114,7 @@
                             </Button>
                             <StackPanel Grid.Row="1" Margin="8 24 8 0" >
                                 <TextBlock FontWeight="Bold" Text="{Binding Artist}" />
+                                <TextBlock FontWeight="Bold" Text="{Binding Album}" />
                                 <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Title}"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">

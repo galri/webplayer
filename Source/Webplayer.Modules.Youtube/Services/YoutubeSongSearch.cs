@@ -115,7 +115,8 @@ namespace Webplayer.Modules.Youtube.Services
             var song = new YoutubeSong(thumbnail, result.Snippet.Title, result.Id.VideoId, new TimeSpan())
             {
                 Description = result.Snippet.Description,
-                Embeddable = isEmbeddable(result.Id.VideoId, _youtubeService)
+                Embeddable = isEmbeddable(result.Id.VideoId, _youtubeService),
+                Artist = result.Snippet.ChannelTitle,
             };
             return song;
         }
