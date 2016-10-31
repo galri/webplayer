@@ -10,6 +10,7 @@ using YoutubePlayerLib;
 using Infrastructure;
 using Prism.Regions;
 using Webplayer.Modules.Youtube.Views;
+using System.Windows.Media.Imaging;
 
 namespace Webplayer.Modules.Youtube.ViewModels
 {
@@ -19,6 +20,19 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private string _videoId;
         private YoutubePlayerState _playing;
         private IRegionManager _regionManager;
+        private BitmapImage _videoThumbnail;
+
+        public BitmapImage VideoThumbnail
+        {
+            get
+            {
+                return _videoThumbnail;
+            }
+            set
+            {
+                SetProperty<BitmapImage>(ref _videoThumbnail, value);
+            }
+        }
 
         public string VideoId
         {
@@ -87,6 +101,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
             {
                 VideoId = ySong.VideoId;
                 Playing = YoutubePlayerState.playing;
+                VideoThumbnail = ySong.Picture;
             }
             else
             {

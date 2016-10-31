@@ -9,9 +9,9 @@
              mc:Ignorable="d" 
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="300" d:DesignWidth="300">
-    <!--<local:AspectRatioLayoutDecorator AspectRatio="1.7">-->
+    <Grid>
         <cef:CefYoutubeController Name="Player" VideoId="{Binding VideoId}" 
                                   PlayerState="{Binding Playing, Mode=TwoWay}" 
                                   />
-    <!--</local:AspectRatioLayoutDecorator>-->
+    </Grid>
 </UserControl>

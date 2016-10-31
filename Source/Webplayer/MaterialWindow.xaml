@@ -19,24 +19,18 @@
         Title="MaterialWindow">
     <dockablz:Layout>
         <Grid>
-            <ContentControl Margin="5" Padding="0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}" Name="InfoRegion" />
-            <Grid Margin="32">
+            <Grid Margin="32" >
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="auto" MinHeight="100"/>
+                    <RowDefinition Height="75" />
+                    <RowDefinition Height="275"  />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="auto" MinWidth="100" />
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition Width="480" />
                 </Grid.ColumnDefinitions>
-                <!--<TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" Margin="32" >
-                <TabControl.Style>
-                    <Style TargetType="TabItem" BasedOn="">
-                        <Setter Property="Header" Value="{Binding Title}"></Setter>
-                    </Style>
-                </TabControl.Style>-->
-                <dragablz:TabablzControl BorderThickness="0"
-                                 Margin="0,-1,0,1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" >
+                <dragablz:TabablzControl Grid.RowSpan="3" BorderThickness="0"
+                                 Margin="0,0,5,0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" >
                     <dragablz:TabablzControl.InterTabController>
                         <dragablz:InterTabController />
                     </dragablz:TabablzControl.InterTabController>
@@ -50,13 +44,14 @@
                         </Style>
                     </dragablz:TabablzControl.Style>
                 </dragablz:TabablzControl>
-                <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}"  />
-                <ContentControl Grid.Column="1"  prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" Margin="10 0 10 0"/>
+                <ContentControl Grid.Column="1" Grid.Row="0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" />
+                <ContentControl Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}"  />
+                <ContentControl Grid.Column="1" Grid.Row="2" Margin="0 5 0 0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}" Name="InfoRegion" />
             </Grid>
-            <ToggleButton Name="ShowSearch" Margin="8 8 8 8" Style="{StaticResource MaterialDesignActionLightToggleButton}" IsChecked="True"
+            <!--<ToggleButton Name="ShowSearch" Margin="8 8 8 8" Style="{StaticResource MaterialDesignActionLightToggleButton}" IsChecked="True"
                            HorizontalAlignment="Right" VerticalAlignment="Top">
                 <materialDesign:PackIcon Kind="Magnify" />
-            </ToggleButton>
+            </ToggleButton>-->
         </Grid>
     </dockablz:Layout>
 </controls:MetroWindow>
