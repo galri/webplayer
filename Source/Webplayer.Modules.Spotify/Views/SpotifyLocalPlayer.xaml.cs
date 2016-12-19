@@ -176,7 +176,7 @@ namespace Webplayer.Services.Spotify
         {
             try
             {
-                Thumbnail = song.Picture;
+                Thumbnail = new BitmapImage( song.Picture);
                 /*
                 //gets and sets current song info.
                 pbAlbum.Image = song.Picture;

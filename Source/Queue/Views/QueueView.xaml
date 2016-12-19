@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:models="clr-namespace:Infrastructure.Models;assembly=Infrastructure"
+             xmlns:designtime="clr-namespace:Webplayer.Modules.Structure.DesignTime"
              mc:Ignorable="d" 
+             Name="View"
              d:DesignHeight="300" d:DesignWidth="300"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance designtime:QueueDtVm, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -17,16 +21,45 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="Queue" />
+        <TextBlock Text="{Binding QueueName, StringFormat=Queue name: {0}}" />
         <ListView Grid.Row="1" ItemsSource="{Binding Queue}" 
                   SelectedItem="{Binding SelectSong}" Name="Queue">
-            
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:BaseSong}">
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Width="20" Content="X" Command="{Binding DataContext.DeleteSongFromQueueCommand,ElementName=View}" CommandParameter="{Binding .}" ></Button>
+                        <TextBlock Text="{Binding Title}" DockPanel.Dock="Left"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
+
+        <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="0 0 8 8"
+                        ToolTip="Save"
+                Command="{Binding SaveQueueCommand}"
+                                    Grid.Row="1"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom">
+            <materialDesign:PackIcon Kind="ContentSave" Height="24" Width="24" />
+        </Button>
+
+        <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="0 0 80 8"
+                        ToolTip="Open"
+                Command="{Binding LoadQueueCommand}"
+                                    Grid.Row="1"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom">
+            <materialDesign:PackIcon Kind="OpenInNew" Height="24" Width="24" />
+        </Button>
+
         <!--<Button Grid.Row="2" Content="Save" Command="{Binding SaveQueueCommand}"></Button>
         <Button Grid.Row="3" Content="Load" Command="{Binding LoadQueueCommand}"></Button>
         <Button Grid.Row="4" Content="Delete" Command="{Binding DeleteSongFromQueueCommand}"></Button>
         <Button Grid.Row="5" Content="Play" Command="{Binding PlaySongCommand}"/>-->
-        <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
+        
+        <!--<materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
                                  Grid.Row="1"
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Bottom"
@@ -35,11 +68,11 @@
                 <materialDesign:PackIcon Kind="Pencil" Width="24" Height="24" />
             </materialDesign:PopupBox.ToggleCheckedContent>
             <StackPanel>
-                <!--<Button Grid.Row="2" Content="Save" Command="{Binding SaveQueueCommand}"></Button>
+                --><!--<Button Grid.Row="2" Content="Save" Command="{Binding SaveQueueCommand}"></Button>
                 <Button Grid.Row="3" Content="Load" Command="{Binding LoadQueueCommand}"></Button>-->
-                <Button Grid.Row="4" Content="Delete" Command="{Binding DeleteSongFromQueueCommand}"></Button>
-                <Button Grid.Row="5" Content="Play" Command="{Binding PlaySongCommand}"/>
+                <!--<Button Grid.Row="4" Content="Delete" Command="{Binding DeleteSongFromQueueCommand}"></Button>
+                <Button Grid.Row="5" Content="Play" Command="{Binding PlaySongCommand}"/>--><!--
             </StackPanel>
-        </materialDesign:PopupBox>
+        </materialDesign:PopupBox>-->
     </Grid>
 </UserControl>

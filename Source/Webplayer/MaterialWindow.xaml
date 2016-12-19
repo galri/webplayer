@@ -6,7 +6,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:Webplayer"
         xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
          xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
@@ -17,6 +17,7 @@
         GlowBrush="{DynamicResource AccentColorBrush}"					  
         FontFamily="{StaticResource DefaultFont}"
         Title="MaterialWindow">
+    <materialDesign:DialogHost Identifier="RootDialog">
     <dockablz:Layout>
         <Grid>
             <Grid Margin="32" >
@@ -53,5 +54,6 @@
                 <materialDesign:PackIcon Kind="Magnify" />
             </ToggleButton>-->
         </Grid>
-    </dockablz:Layout>
+        </dockablz:Layout>
+    </materialDesign:DialogHost>
 </controls:MetroWindow>

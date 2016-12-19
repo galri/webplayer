@@ -111,7 +111,7 @@ namespace Webplayer.Modules.Youtube.Services
         private YoutubeSong MapSong(SearchResult result)
         {
             //TODO: will have to make a new request to get length of video.
-            BitmapImage thumbnail = getPicture(result.Snippet.Thumbnails);
+            var thumbnail = getPicture(result.Snippet.Thumbnails);
             var song = new YoutubeSong(thumbnail, result.Snippet.Title, result.Id.VideoId, new TimeSpan())
             {
                 Description = result.Snippet.Description,
@@ -121,15 +121,15 @@ namespace Webplayer.Modules.Youtube.Services
             return song;
         }
 
-        private BitmapImage getPicture(ThumbnailDetails details)
+        private Uri getPicture(ThumbnailDetails details)
         {
             //TODO: maybe fetch the biggest or what the user wants and not just the default.
             if (ShallFetchThumbnail)
             {
-                return new BitmapImage(new Uri(details.Default__.Url));
+                return new Uri(details.Default__.Url);
             }
             //sets a default image, since we shall not fetch it from the web.
-            return new BitmapImage(new Uri("/Media/NoAlbumArt.png", UriKind.RelativeOrAbsolute));
+            return new Uri("/Media/NoAlbumArt.png", UriKind.RelativeOrAbsolute);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace Webplayer.Modules.Youtube.Services
             var video = res.Items.FirstOrDefault();
             if (video == null)
                 return null;
-            return new YoutubeSong(new BitmapImage(), video.Snippet.Title, video.Id, new TimeSpan());
+            return new YoutubeSong(null, video.Snippet.Title, video.Id, new TimeSpan());
         }
     }
 }

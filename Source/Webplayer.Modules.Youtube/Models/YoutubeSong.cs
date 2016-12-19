@@ -26,7 +26,7 @@ namespace Webplayer.Modules.Youtube.Models
 
         public Uri Uri => new Uri("https://www.youtube.com/watch?v=" + VideoId);
 
-        public YoutubeSong(BitmapImage p, string title, string videoId, TimeSpan t)
+        public YoutubeSong(Uri p, string title, string videoId, TimeSpan t)
             : base(title, p, t)
         {
             VideoId = videoId;

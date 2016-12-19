@@ -15,6 +15,8 @@ using System.Windows.Interactivity;
 using Infrastructure.Models;
 using Infrastructure.Service;
 using Prism.Commands;
+using MaterialDesignThemes.Wpf;
+using Webplayer.Modules.Structure.Views;
 
 namespace Webplayer.Modules.Structure.ViewModels
 {
@@ -42,14 +44,28 @@ namespace Webplayer.Modules.Structure.ViewModels
 
         public ICommand PlaySongCommand { get; set; }
 
+        public string QueueName
+        {
+            get
+            {
+                return _queueName;
+            }
+
+            set
+            {
+                SetProperty(ref _queueName, value);
+            }
+        }
+
         public QueueViewModel(IQueueController queueController, 
-            IPlaylistService playlistService)
+            IPlaylistService playlistService, IUnityContainer container)
         {
             _queueController = queueController;
             _playlistService = playlistService;
+            _container = container;
             SaveQueueCommand = new DelegateCommand(SaveAction);
             LoadQueueCommand = new DelegateCommand(LoadAction);
-            DeleteSongFromQueueCommand = new DelegateCommand(DeleteQueueSong);
+            DeleteSongFromQueueCommand = new DelegateCommand<BaseSong>(DeleteQueueSong);
             PlaySongCommand = new DelegateCommand(PlaySong);
 
             _queueController.PlaylistChangedEvent += QueueControllerOnPlaylistChangedEvent;
@@ -77,6 +93,9 @@ namespace Webplayer.Modules.Structure.ViewModels
         }
 
         bool _ignoreQueueControllerUpdates = false;
+        private string _queueName;
+        private IUnityContainer _container;
+
         private void QueueControllerOnPlaylistChangedEvent(object sender, PlaylistChangedEventArgs playlistChangedEventArgs)
         {
             if(!_ignoreQueueControllerUpdates)
@@ -88,25 +107,35 @@ namespace Webplayer.Modules.Structure.ViewModels
             _ignoreQueueUpdates = true;
             Queue.Clear();
             Queue.AddRange(_queueController.Queue.Songs);
+            QueueName = _queueController.Queue.Name;
             _ignoreQueueUpdates = false;
         }
 
-        private void DeleteQueueSong()
+        private void DeleteQueueSong(BaseSong song)
         {
-            if (SelectSong != null)
+            if (song != null)
             {
-                _queueController.RemoveSongToQueue(SelectSong);
+                _queueController.RemoveSongToQueue(song);
             }
         }
 
-        private void LoadAction()
+        private async void LoadAction()
         {
-            var playlist = _playlistService.LoadPlaylist("first");
-            _queueController.ChangePlaylist(playlist);
+            await DialogHost.Show(_container.Resolve<ISelectPlaylistView>(),"RootDialog");
         }
 
-        private void SaveAction()
+        private async void SaveAction()
         {
+            var vm = new NameDialogViewModel()
+            {
+                Name = _queueController.Queue.Name,
+            };
+            var view = new NameDialogView()
+            {
+                DataContext = vm,
+            };
+            var res = await DialogHost.Show(view,"RootDialog");
+            _queueController.Queue.Name = vm.Name;
             _playlistService.SavePlaylist(_queueController.Queue);
         }
     }

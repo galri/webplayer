@@ -14,7 +14,7 @@ namespace Infrastructure.Models
             
         }
 
-        protected BaseSong(string tittel, BitmapImage picture, TimeSpan length)
+        protected BaseSong(string tittel, Uri picture, TimeSpan length)
         {
             Title = tittel;
             Picture = picture;
@@ -23,7 +23,7 @@ namespace Infrastructure.Models
 
         public string Title { get; set; }
 
-        public BitmapImage Picture { get; set; }
+        public Uri Picture { get; set; }
 
         public TimeSpan Length { get; set; }
 

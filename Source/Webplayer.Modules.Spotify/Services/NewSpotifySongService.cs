@@ -17,7 +17,7 @@ namespace Webplayer.Modules.Spotify.Services
         private string _query;
         private SearchItem _searchItem;
         private bool _apiNeedsReseting;
-        private int _nextOffset;
+        private int     _nextOffset;
         private Paging<FullTrack> _page;
 
         public string Query
@@ -73,7 +73,7 @@ namespace Webplayer.Modules.Spotify.Services
         //TODO: make more error proff.......
         private SpotifySong ToSong(FullTrack track)
         {
-            var thumbNail = new BitmapImage(new Uri(track.Album.Images.First().Url));
+            var thumbNail = new Uri(track.Album.Images.First().Url);
 
             return new SpotifySong(track.Name, thumbNail,
                 TimeSpan.FromMilliseconds(track.DurationMs),

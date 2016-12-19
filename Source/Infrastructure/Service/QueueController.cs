@@ -9,10 +9,22 @@ namespace Infrastructure.Service
 {
     public class QueueController : BindableBase, IQueueController
     {
-        public Playlist Queue { get; } = new Playlist();
+        public Playlist Queue
+        {
+            get
+            {
+                return _queue;
+            }
+            private set
+            {
+                if(SetProperty(ref _queue, value))
+                    PlaylistChangedEvent?.Invoke(this, new PlaylistChangedEventArgs());
+            }
+        }
 
         private BaseSong _currentSong;
         private bool _isPlaying;
+        private Playlist _queue;
 
         public BaseSong CurrentSong
         {
@@ -49,7 +61,7 @@ namespace Infrastructure.Service
 
         public QueueController(IPlaylistService service) : this()
         {
-            var defaultPlaylist = service.LoadPlaylist("first");
+            var defaultPlaylist = new Playlist() { Name = "Default" };
             ChangePlaylist(defaultPlaylist);
         }
 
@@ -92,11 +104,12 @@ namespace Infrastructure.Service
 
         public void ChangePlaylist(Playlist playlist)
         {
-            Queue.Name = playlist.Name;
-            Queue.Songs.Clear();
-            Queue.Songs.AddRange(playlist.Songs);
-            Queue.Id = playlist.Id;
-            PlaylistChangedEvent?.Invoke(this,new PlaylistChangedEventArgs());
+            //Queue.Name = playlist.Name;
+            //Queue.Songs.Clear();
+            //Queue.Songs.AddRange(playlist.Songs);
+            //Queue.Id = playlist.Id;
+            Queue = playlist;
+            //PlaylistChangedEvent?.Invoke(this,new PlaylistChangedEventArgs());
         }
 
         public void RemoveSongToQueue(BaseSong song)

@@ -84,6 +84,7 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed" />
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -128,19 +129,31 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignTime\DtSong.cs" />
+    <Compile Include="DesignTime\QueueDtVm.cs" />
     <Compile Include="Helper\DragAdorner.cs" />
     <Compile Include="Helper\DragDropHelper.cs" />
     <Compile Include="Helper\ListViewDragDropManager.cs" />
     <Compile Include="Helper\MouseUtilities.cs" />
     <Compile Include="StructureModule.cs" />
     <Compile Include="ViewModels\IQueueViewModel.cs" />
+    <Compile Include="ViewModels\ISelectPlaylistViewModel.cs" />
     <Compile Include="ViewModels\IStatusViewModel.cs" />
+    <Compile Include="ViewModels\NameDialogViewModel.cs" />
     <Compile Include="ViewModels\QueueViewModel.cs" />
+    <Compile Include="ViewModels\SelectPlaylistViewModel.cs" />
     <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="Views\IQueueView.cs" />
+    <Compile Include="Views\ISelectPlaylistView.cs" />
     <Compile Include="Views\IStatusView.cs" />
+    <Compile Include="Views\NameDialogView.xaml.cs">
+      <DependentUpon>NameDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\QueueView.xaml.cs">
       <DependentUpon>QueueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectPlaylistView.xaml.cs">
+      <DependentUpon>SelectPlaylistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatusView.xaml.cs">
       <DependentUpon>StatusView.xaml</DependentUpon>
@@ -180,7 +193,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\NameDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\QueueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectPlaylistView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

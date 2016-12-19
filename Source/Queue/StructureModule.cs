@@ -29,7 +29,7 @@ namespace Queue
         public void Initialize()
         {
             _container.RegisterInstance(new List<ISongServicePlaylistSaver>());
-            _container.RegisterType<IPlaylistService, PlaylistService>();
+            _container.RegisterType<IPlaylistService, SimplePlaylistService>();
 
             var playlistService = _container.Resolve<IPlaylistService>();
             _container.RegisterInstance<IQueueController>(new QueueController(playlistService));
@@ -40,6 +40,8 @@ namespace Queue
                 RegisterType<IQueueViewModel, QueueViewModel>();
             _container.RegisterType<IStatusView, StatusView>().
                 RegisterType<IStatusViewModel, StatusViewModel>();
+            _container.RegisterType<ISelectPlaylistView, SelectPlaylistView>().
+                RegisterType<ISelectPlaylistViewModel, SelectPlaylistViewModel>();
 
             _rm.RegisterViewWithRegion(RegionNames.QueueRegion, typeof(IQueueView));
             _rm.RegisterViewWithRegion(RegionNames.StatusRegion, typeof (IStatusView));

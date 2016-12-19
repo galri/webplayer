@@ -125,7 +125,7 @@ namespace Webplayer.Modules.Spotify.Services
 
             foreach (var node in tracks)
             {
-                BitmapImage picture;
+                Uri picture;
                 if (ShallFetchThumbnail)
                 {
                     ///find album info
@@ -136,7 +136,7 @@ namespace Webplayer.Modules.Spotify.Services
                 else
                 {
                     //Give a empty picture
-                    picture = new BitmapImage();
+                    picture = new Uri("/Media/NoAlbumArt.png");
                    
                 }
                 //TODO: add real seconds value.

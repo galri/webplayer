@@ -28,6 +28,14 @@ namespace Webplayer.Modules.Youtube.Services
 
         public string SongService { get; } = "";
 
+        public string SongId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public YoutubePlaylistService(SQLiteConnection c, ILoggerFacade logger)
         {
             _c = c;

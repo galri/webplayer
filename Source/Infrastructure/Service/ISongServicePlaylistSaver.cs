@@ -31,6 +31,16 @@ namespace Infrastructure.Service
         /// <returns>songs in no special order.</returns>
         List<BaseSong> LoadSongsBelongingToPlaylist(int playlistId);
 
+        /// <summary>
+        /// removes song.
+        /// </summary>
+        /// <param name="song"></param>
+        /// <param name="playlist"></param>
         void RemoveSong(BaseSong song, Playlist playlist);
+
+        /// <summary>
+        /// Id of song type
+        /// </summary>
+        string SongId { get; }
     }
 }
