@@ -16,19 +16,9 @@ namespace Infrastructure.Service
     }
 
     //TODO: error handling....
-    public class SimplePlaylistService : CustomCreationConverter<BaseSong>, IPlaylistService
+    public class SimplePlaylistService :  IPlaylistService
     {
         private const string SAVELOCATION = "Playlists";
-
-        public override BaseSong Create(Type objectType)
-        {
-            return new TestSong();
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            return existingValue;
-        }
 
         public Playlist LoadPlaylist(string name)
         {

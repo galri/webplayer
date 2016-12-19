@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Infrastructure.Models;
 using Prism.Mvvm;
+using System.Linq;
 
 namespace Infrastructure.Service
 {
@@ -43,8 +44,12 @@ namespace Infrastructure.Service
             get { return _isPlaying; }
             set
             {
-                if (CurrentSong == null)
+                if (CurrentSong == null && Queue.Songs.Count == 0)
                     value = false;
+                else if(CurrentSong == null && value)
+                {
+                    CurrentSong = Queue.Songs.First();
+                }
 
                 if (SetProperty(ref _isPlaying, value))
                 {

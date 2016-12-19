@@ -7,6 +7,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:models="clr-namespace:Infrastructure.Models;assembly=Infrastructure"
              xmlns:designtime="clr-namespace:Webplayer.Modules.Structure.DesignTime"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              Name="View"
              d:DesignHeight="300" d:DesignWidth="300"
@@ -32,6 +33,11 @@
                     </DockPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding PlaySongCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </ListView>
 
         <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
