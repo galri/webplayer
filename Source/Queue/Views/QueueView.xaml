@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding QueueName, StringFormat=Queue name: {0}}" />
+        <TextBlock Padding="10" Text="{Binding QueueName, StringFormat=Queue name: {0}}" />
         <ListView Grid.Row="1" ItemsSource="{Binding Queue}" 
                   SelectedItem="{Binding SelectSong}" Name="Queue">
             <ListView.ItemTemplate>

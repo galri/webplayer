@@ -20,10 +20,10 @@
     <materialDesign:DialogHost Identifier="RootDialog">
     <dockablz:Layout>
         <Grid>
-            <Grid Margin="32" >
+            <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="75" />
+                    <RowDefinition Height="40"/>
+                    <RowDefinition  />
                     <RowDefinition Height="275"  />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -31,8 +31,8 @@
                     <ColumnDefinition Width="480" />
                 </Grid.ColumnDefinitions>
                 <dragablz:TabablzControl Grid.RowSpan="3" BorderThickness="0"
-                                 Margin="0,0,5,0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" >
-                    <dragablz:TabablzControl.InterTabController>
+                                 Padding="5" prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" >
+                    <!--<dragablz:TabablzControl.InterTabController>
                         <dragablz:InterTabController />
                     </dragablz:TabablzControl.InterTabController>
                     <dragablz:TabablzControl.Style>
@@ -43,10 +43,10 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </dragablz:TabablzControl.Style>
+                    </dragablz:TabablzControl.Style>-->
                 </dragablz:TabablzControl>
-                <ContentControl Grid.Column="1" Grid.Row="0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" />
-                <ContentControl Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}"  />
+                <ContentControl Grid.Column="1" Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" />
+                <ContentControl Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}"  />
                 <ContentControl Grid.Column="1" Grid.Row="2" Margin="0 5 0 0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}" Name="InfoRegion" />
             </Grid>
             <!--<ToggleButton Name="ShowSearch" Margin="8 8 8 8" Style="{StaticResource MaterialDesignActionLightToggleButton}" IsChecked="True"

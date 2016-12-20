@@ -6,29 +6,33 @@
              xmlns:local="clr-namespace:Webplayer.Modules.Structure.Views"
              xmlns:mvvm="http://prismlibrary.com/"
              mc:Ignorable="d" 
-             d:DesignHeight="113.06" d:DesignWidth="394.03"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-        <Grid Width="220">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Command="{Binding PreviousCommand}" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">Prev</Button>
-            <Button Grid.Column="1" Command="{Binding PlayPauseCommand}">
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionDarkButton}">
-                        <Setter Property="Content" Value="Pause"></Setter>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsPlaying}" Value="false">
-                                <Setter Property="Content" Value="Play"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Grid.Column="2" Command="{Binding NextCommand}" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">Next</Button>
+    <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2" Height="40"
+                                          Mode="PrimaryMid" DockPanel.Dock="Top">
+
+        <Grid>
+            <Grid Width="220">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding PreviousCommand}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Width="24" Height="24" Content="Prev"></Button>
+                <Button Grid.Column="1" Command="{Binding PlayPauseCommand}" Width="28" Height="28">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                            <Setter Property="Content" Value="Pau"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPlaying}" Value="false">
+                                    <Setter Property="Content" Value="Play"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Width="24" Height="24" Grid.Column="2" Command="{Binding NextCommand}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">Next</Button>
+            </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:ColorZone>
 </UserControl>

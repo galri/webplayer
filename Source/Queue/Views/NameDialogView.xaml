@@ -15,7 +15,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock>New playlist:</TextBlock>
+        <TextBlock>Save playlist:</TextBlock>
         <TextBox wpf:HintAssist.Hint="Name" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
                  Margin="0 6 0 0"
                  FontSize="18" Grid.Row="1">

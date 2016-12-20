@@ -18,10 +18,10 @@
             <RowDefinition  Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0">
+        <DockPanel Grid.Row="0" Height="35">
             <Button Command="{Binding FetchMoreResultCommand}" Content="More" DockPanel.Dock="Right" Width="80"/>
             <Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Width="80"/>
-            <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Width="auto" >
+            <TextBox Padding="2" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Width="auto" >
                 <TextBox.InputBindings>
                     <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
                 </TextBox.InputBindings>
