@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Webplayer.Modules.Spotify.Properties {
+    using System;
     
     
     /// <summary>
@@ -37,7 +38,7 @@ namespace Webplayer.Modules.Spotify.Properties {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if ((resourceMan == null)) {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Webplayer.Modules.Spotify.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
@@ -56,6 +57,16 @@ namespace Webplayer.Modules.Spotify.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap testart {
+            get {
+                object obj = ResourceManager.GetObject("testart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

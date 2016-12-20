@@ -7,8 +7,19 @@
              mc:Ignorable="d"
              xmlns:mvvm="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:dt="clr-namespace:Webplayer.Modules.Spotify.DesignTime"
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=dt:SpitifyLocalViewModel, IsDesignTimeCreatable=True}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <Image Source="{Binding CurrentSong.Picture}" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="{Binding CurrentSong.Artist}" Padding="2"></TextBlock>
+            <TextBlock Text="{Binding CurrentSong.Album}" Padding="2"></TextBlock>
+            <TextBlock Text="{Binding CurrentSong.Title}" Padding="2"></TextBlock>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -101,7 +101,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
             {
                 VideoId = ySong.VideoId;
                 Playing = YoutubePlayerState.playing;
-                VideoThumbnail = new BitmapImage( ySong.Picture);
+                if(ySong.Picture != null)
+                    VideoThumbnail = new BitmapImage( ySong.Picture);
             }
             else
             {
