@@ -22,5 +22,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
         ICommand SearchCommand { get; set; }
 
         ICommand FetchMoreResultCommand { get; set; }
+
+        ICommand PreviewCommand { get; set; }
     }
 }

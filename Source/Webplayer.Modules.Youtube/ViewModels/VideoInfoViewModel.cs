@@ -21,6 +21,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private YoutubePlayerState _playing;
         private IRegionManager _regionManager;
         private BitmapImage _videoThumbnail;
+        private IThreadHelper _threadHelper;
 
         public BitmapImage VideoThumbnail
         {
@@ -59,16 +60,17 @@ namespace Webplayer.Modules.Youtube.ViewModels
                     {
                         var info = _regionManager.Regions[RegionNames.InfoRegion];
                         var view = info.Views.First(t => t is IVIdeoInfoView);
-                        info.Activate(view);
+                        _threadHelper.RunOnUIThread(() =>  info.Activate(view));
                     }
                 }
             }
         }
 
-        public VideoInfoViewModel(IQueueController queueController, IRegionManager manager)
+        public VideoInfoViewModel(IQueueController queueController, IRegionManager manager, IThreadHelper threadHelper)
         {
             _queueController = queueController;
             _regionManager = manager;
+            _threadHelper = threadHelper;
             _queueController.CurrentSongChangedEvent += QueueControllerOnCurrentSongChangedEvent;
             _queueController.IsPlayingChangedEvent += QueueControllerOnIsPlayingChangedEvent;
         }

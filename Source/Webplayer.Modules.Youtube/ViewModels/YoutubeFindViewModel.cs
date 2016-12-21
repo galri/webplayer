@@ -61,6 +61,13 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         public ICommand AddSongCommand { get; set; }
 
+        public ICommand PreviewCommand
+        {
+            get;
+
+            set;
+        }
+
         public string SearchQuery
         {
             get
@@ -121,6 +128,17 @@ namespace Webplayer.Modules.Youtube.ViewModels
             SearchCommand = new DelegateCommand(SearchCommandAction);
             FetchMoreResultCommand = new DelegateCommand(FetchMoreResultCommandAction);
             AddSongCommand = new DelegateCommand<object>(AddSongAction);
+            PreviewCommand = new DelegateCommand<object>(PreviewSong);
+        }
+
+        private void PreviewSong(object obj)
+        {
+            if(_queueController.IsPlaying)
+            {
+                _queueController.IsPlaying = false;
+            }
+
+            //TODO:show mini player
         }
 
         private void AddSongAction(object param)

@@ -110,12 +110,24 @@
                             <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="0 0 16 -20">
-                                <materialDesign:PackIcon Kind="Plus" />
+                                <materialDesign:PackIcon Kind="PlaylistPlus" />
                                 <i:Interaction.Triggers>
                                     <!-- This event trigger will execute the action when the corresponding event is raised by the ListBox. -->
                                     <i:EventTrigger EventName="Click">
                                         <!-- This action will invoke the selected command in the view model and pass the parameters of the event to it. -->
                                         <prism:InvokeCommandAction Command="{Binding DataContext.AddSongCommand, ElementName=View}"   />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        Margin="0 0 75 -20">
+                                <materialDesign:PackIcon Kind="PlayCircle" />
+                                <i:Interaction.Triggers>
+                                    <!-- This event trigger will execute the action when the corresponding event is raised by the ListBox. -->
+                                    <i:EventTrigger EventName="Click">
+                                        <!-- This action will invoke the selected command in the view model and pass the parameters of the event to it. -->
+                                        <prism:InvokeCommandAction Command="{Binding DataContext.PreviewCommand, ElementName=View}"   />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Button>

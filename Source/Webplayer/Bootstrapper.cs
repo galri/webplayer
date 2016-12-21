@@ -53,6 +53,7 @@ namespace Webplayer
             conn.Open();
             Container.RegisterInstance<SQLiteConnection>(conn);
             Container.RegisterType<IPlaylistDao, PlaylistDao>();
+            Container.RegisterInstance<IThreadHelper>(new ThreadHelper(Shell.Dispatcher));
 
             base.InitializeModules();
         }

@@ -10,10 +10,6 @@ using Newtonsoft.Json.Converters;
 
 namespace Infrastructure.Service
 {
-    public class TestSong : BaseSong
-    {
-
-    }
 
     //TODO: error handling....
     public class SimplePlaylistService :  IPlaylistService

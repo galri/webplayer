@@ -88,6 +88,8 @@ namespace Webplayer.Modules.Spotify.ViewModels
                 SpotifyLocalAPI.RunSpotify();
             }
             _api.OnTrackChange += _api_OnTrackChange;
+            _api.OnTrackTimeChange += TrackTimeChanged;
+            _api.OnPlayStateChange += PlayStateChanged;
             bool retryConnect;
             _api.ListenForEvents = true;
             do
@@ -100,6 +102,25 @@ namespace Webplayer.Modules.Spotify.ViewModels
             _queueController = queueController;
             _queueController.CurrentSongChangedEvent += QueueControllerOnCurrentSongChangedEvent;
             _queueController.IsPlayingChangedEvent += QueueControllerOnIsPlayingChangedEvent;
+        }
+
+        private void PlayStateChanged(object sender, PlayStateEventArgs e)
+        {
+            if (!e.Playing)
+            {
+                var state = _api.GetStatus();
+                var length = state.Track.Length;
+                var currentLength = state.PlayingPosition;
+                if(0 == currentLength)
+                {
+                    _queueController.NextSong();
+                }
+            }
+        }
+
+        private void TrackTimeChanged(object sender, TrackTimeChangeEventArgs e)
+        {
+            
         }
 
         private void _api_OnTrackChange(object sender, TrackChangeEventArgs e)
