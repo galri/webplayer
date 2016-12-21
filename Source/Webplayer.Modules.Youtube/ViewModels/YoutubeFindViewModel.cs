@@ -16,6 +16,8 @@ using Infrastructure.Models;
 using Infrastructure.Service;
 using Webplayer.Modules.Youtube.Models;
 using Webplayer.Modules.Youtube.Services;
+using Webplayer.Modules.Youtube.Views;
+using MaterialDesignThemes.Wpf;
 
 namespace Webplayer.Modules.Youtube.ViewModels
 {
@@ -131,14 +133,22 @@ namespace Webplayer.Modules.Youtube.ViewModels
             PreviewCommand = new DelegateCommand<object>(PreviewSong);
         }
 
-        private void PreviewSong(object obj)
+        private async void PreviewSong(object param)
         {
+            var shouldRestartSong = false;
             if(_queueController.IsPlaying)
             {
                 _queueController.IsPlaying = false;
+                shouldRestartSong = true;
             }
+            var song = ((YoutubeSong)((Button)((RoutedEventArgs)param).Source).DataContext);
+            var vm = new YoutubePreviewViewModel(song);
+            var view = new YoutubePreviewView();
+            view.DataContext = vm;
+            await DialogHost.Show(view, "RootDialog");
 
-            //TODO:show mini player
+            if(shouldRestartSong)
+                _queueController.IsPlaying = true;
         }
 
         private void AddSongAction(object param)

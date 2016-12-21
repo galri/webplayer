@@ -227,6 +227,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignTime\Preview.cs" />
     <Compile Include="Models\ContentType.cs" />
     <Compile Include="Models\YoutubePlaylist.cs" />
     <Compile Include="Models\YoutubeSong.cs" />
@@ -250,17 +251,23 @@
     <Compile Include="Services\IYoutubeSongSearchService.cs" />
     <Compile Include="ViewModels\IVideoInfoViewModel.cs" />
     <Compile Include="ViewModels\IYoutubeFindViewModel.cs" />
+    <Compile Include="ViewModels\IYoutubePreviewViewModel.cs" />
     <Compile Include="ViewModels\VideoInfoViewModel.cs" />
     <Compile Include="ViewModels\YoutubeFindViewModel.cs" />
+    <Compile Include="ViewModels\YoutubePreviewViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\IVIdeoInfoViw.cs" />
     <Compile Include="Views\IYoutubeFindView.cs" />
+    <Compile Include="Views\IYoutubePreviewView.cs" />
     <Compile Include="Views\VideoInfoView.xaml.cs">
       <DependentUpon>VideoInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\YoutubeFindView.xaml.cs">
       <DependentUpon>YoutubeFindView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\YoutubePreviewView.xaml.cs">
+      <DependentUpon>YoutubePreviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="YoutubeModule.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -288,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\YoutubeFindView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\YoutubePreviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
