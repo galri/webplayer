@@ -23,6 +23,7 @@
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition  Height="auto"/>
+            <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Height="35">
@@ -34,7 +35,11 @@
                 </TextBox.InputBindings>
             </TextBox>
         </DockPanel>
-        <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="{Binding UploaderFilter.Name}"></TextBlock>
+            <Button Command="{Binding RemoveUploadFilterCommand}">X</Button>
+        </StackPanel>
+        <ListView Grid.Row="3" ItemsSource="{Binding SearchResult}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.Resources>
                 <DataTemplate DataType="{x:Type models:YoutubeSong}" x:Key="old">
                     <Border Margin="-15,5,0,0"  CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
@@ -155,5 +160,14 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
+       
+        <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="0 0 8 8" Grid.Row="2"
+                        ToolTip="Save"
+                Command="{Binding ShowPlaylistSearchCommand}"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom">
+            <materialDesign:PackIcon Kind="Filter" Height="24" Width="24" />
+        </Button>
     </Grid>
 </UserControl>

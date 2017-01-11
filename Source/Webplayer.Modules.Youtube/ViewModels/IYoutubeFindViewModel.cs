@@ -24,5 +24,11 @@ namespace Webplayer.Modules.Youtube.ViewModels
         ICommand FetchMoreResultCommand { get; set; }
 
         ICommand PreviewCommand { get; set; }
+
+        ICommand ShowPlaylistSearchCommand { get; set; }
+
+        ICommand RemoveUploadFilterCommand { get; set; }
+
+        YoutubeUploader UploaderFilter { get; set; }
     }
 }

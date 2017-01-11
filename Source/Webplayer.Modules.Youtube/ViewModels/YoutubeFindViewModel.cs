@@ -29,6 +29,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private ObservableCollection<YoutubeSong> _searchResult = new ObservableCollection<YoutubeSong>();
         private string _searchQuery;
         private bool _canFetchMore = true;
+        private IUnityContainer _container;
+        private YoutubeUploader _uploader;
 
         public bool CanFetchMore
         {
@@ -69,6 +71,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
             set;
         }
+
+        public ICommand ShowPlaylistSearchCommand { get; set; }
 
         public string SearchQuery
         {
@@ -121,16 +125,61 @@ namespace Webplayer.Modules.Youtube.ViewModels
             }
         }
 
+        public YoutubeUploader UploaderFilter
+        {
+            get
+            {
+                return _uploader;
+            }
+
+            set
+            {
+                if(SetProperty(ref _uploader, value))
+                {
+                    SearchResult.Clear();
+                }
+            }
+        }
+
+        public ICommand RemoveUploadFilterCommand
+        {
+            get;
+
+            set;
+        }
+
         public YoutubeFindViewModel(IUnityContainer container, 
             IYoutubeSongSearchService songSearchService,
             IQueueController queueController)
         {
             _songSearchService = songSearchService;
             _queueController = queueController;
+            _container = container;
             SearchCommand = new DelegateCommand(SearchCommandAction);
             FetchMoreResultCommand = new DelegateCommand(FetchMoreResultCommandAction);
             AddSongCommand = new DelegateCommand<object>(AddSongAction);
             PreviewCommand = new DelegateCommand<object>(PreviewSong);
+            RemoveUploadFilterCommand = new DelegateCommand(RemoveUploadFilterAction);
+
+            ShowPlaylistSearchCommand = new DelegateCommand(ShowPlaylistSearchAction);
+        }
+
+        private void RemoveUploadFilterAction()
+        {
+            UploaderFilter = null;
+        }
+
+        private async void ShowPlaylistSearchAction()
+        {
+            var vm = _container.Resolve<IYoutubeFindUploaderViewModel>();
+            var view = new YoutubeFindUploader();
+            view.DataContext = vm;
+            var result = await DialogHost.Show(view, "RootDialog");
+
+            if (result is bool && ((bool)result))
+            {
+                UploaderFilter = vm.SelectedUploader;
+            }
         }
 
         private async void PreviewSong(object param)
@@ -181,6 +230,15 @@ namespace Webplayer.Modules.Youtube.ViewModels
                 return;
             }
             _songSearchService.Query = SearchQuery;
+            if(UploaderFilter != null)
+            {
+                _songSearchService.UploaderId = UploaderFilter.Id;
+            }
+            else
+            {
+                _songSearchService.UploaderId = null;
+            }
+
             foreach (var item in await _songSearchService.FetchAsync())
             {
                 SearchResult.Add(item);

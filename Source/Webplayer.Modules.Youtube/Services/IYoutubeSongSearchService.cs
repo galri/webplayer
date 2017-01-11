@@ -10,6 +10,6 @@ namespace Webplayer.Modules.Youtube.Services
 {
     interface IYoutubeSongSearchService : ISearchService<YoutubeSong>
     {
-        
+        string UploaderId { get; set; }
     }
 }

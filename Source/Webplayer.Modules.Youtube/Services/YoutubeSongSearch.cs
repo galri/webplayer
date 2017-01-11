@@ -25,6 +25,7 @@ namespace Webplayer.Modules.Youtube.Services
         private string previousToken;
         private SearchResource.ListRequest _sr;
         private string _query;
+        private string _uploaderId;
 
         #region Properties
 
@@ -74,7 +75,22 @@ namespace Webplayer.Modules.Youtube.Services
                 return false;
             }
         }
-        
+
+        public string UploaderId
+        {
+            get
+            {
+                return _uploaderId;
+            }
+
+            set
+            {
+                _uploaderId = value;
+                if (_sr != null)
+                    _sr.ChannelId = value;
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -142,6 +158,7 @@ namespace Webplayer.Modules.Youtube.Services
             sr.Q = Query;
             sr.Type = "video";
             sr.VideoEmbeddable = videoEmbeddable;
+            sr.ChannelId = _uploaderId;
             //sr.MaxResults = myQuantity;
 
             return sr;
