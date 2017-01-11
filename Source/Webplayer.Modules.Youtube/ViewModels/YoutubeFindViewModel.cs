@@ -27,10 +27,11 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private readonly IQueueController _queueController;
         private ContentType _searchType;
         private ObservableCollection<YoutubeSong> _searchResult = new ObservableCollection<YoutubeSong>();
-        private string _searchQuery;
+        private string _searchQuery = "";
         private bool _canFetchMore = true;
         private IUnityContainer _container;
         private YoutubeUploader _uploader;
+        private SongSearcOrdering _orderingFilter;
 
         public bool CanFetchMore
         {
@@ -148,6 +149,19 @@ namespace Webplayer.Modules.Youtube.ViewModels
             set;
         }
 
+        public SongSearcOrdering OrderingFilter
+        {
+            get
+            {
+                return _orderingFilter;
+            }
+
+            set
+            {
+                SetProperty(ref _orderingFilter, value);
+            }
+        }
+
         public YoutubeFindViewModel(IUnityContainer container, 
             IYoutubeSongSearchService songSearchService,
             IQueueController queueController)
@@ -207,9 +221,6 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private async void FetchMoreResultCommandAction()
         {
-            if (String.IsNullOrEmpty(SearchQuery))
-                return;
-
             foreach (var item in await _songSearchService.FetchAsync())
             {
                 SearchResult.Add(item);
@@ -218,8 +229,6 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private async void SearchCommandAction()
         {
-            if (String.IsNullOrEmpty(SearchQuery))
-                return;
 
             SearchResult.Clear();
             //Search after spesific song
@@ -230,6 +239,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
                 return;
             }
             _songSearchService.Query = SearchQuery;
+            _songSearchService.Ordering = OrderingFilter;
             if(UploaderFilter != null)
             {
                 _songSearchService.UploaderId = UploaderFilter.Id;

@@ -26,6 +26,7 @@ namespace Webplayer.Modules.Youtube.Services
         private SearchResource.ListRequest _sr;
         private string _query;
         private string _uploaderId;
+        private SongSearcOrdering _ordering;
 
         #region Properties
 
@@ -88,6 +89,37 @@ namespace Webplayer.Modules.Youtube.Services
                 _uploaderId = value;
                 if (_sr != null)
                     _sr.ChannelId = value;
+            }
+        }
+
+        public SongSearcOrdering Ordering
+        {
+            get
+            {
+                return _ordering;
+            }
+            set
+            {
+                _ordering = value;
+                SetOrder(_sr);
+            }
+        }
+
+        private void SetOrder(SearchResource.ListRequest sr)
+        {
+            switch (Ordering)
+            {
+                case SongSearcOrdering.Relevance:
+                    sr.Order = SearchResource.ListRequest.OrderEnum.Relevance;
+                    break;
+                case SongSearcOrdering.Date:
+                    sr.Order = SearchResource.ListRequest.OrderEnum.Date;
+                    break;
+                case SongSearcOrdering.Rating:
+                    sr.Order = SearchResource.ListRequest.OrderEnum.Rating;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -157,10 +189,9 @@ namespace Webplayer.Modules.Youtube.Services
             SearchResource.ListRequest sr = _youtubeService.Search.List("snippet");
             sr.Q = Query;
             sr.Type = "video";
-            sr.VideoEmbeddable = videoEmbeddable;
+            //sr.VideoEmbeddable = videoEmbeddable;
             sr.ChannelId = _uploaderId;
-            //sr.MaxResults = myQuantity;
-
+            SetOrder(sr);
             return sr;
         }
 

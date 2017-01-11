@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Webplayer.Modules.Youtube.Views"
              xmlns:models="clr-namespace:Webplayer.Modules.Youtube.Models"
+             xmlns:services="clr-namespace:Webplayer.Modules.Youtube.Services"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
@@ -17,6 +19,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary>
+                    <ObjectDataProvider MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}"
+        x:Key="SongSearcOrderingData">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="services:SongSearcOrdering" />
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -38,6 +49,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Text="{Binding UploaderFilter.Name}"></TextBlock>
             <Button Command="{Binding RemoveUploadFilterCommand}">X</Button>
+            <ComboBox ItemsSource="{Binding Source={StaticResource SongSearcOrderingData}}" SelectedItem="{Binding OrderingFilter}"></ComboBox>
         </StackPanel>
         <ListView Grid.Row="3" ItemsSource="{Binding SearchResult}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.Resources>

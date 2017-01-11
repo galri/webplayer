@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Webplayer.Modules.Youtube.Models;
+using Webplayer.Modules.Youtube.Services;
 
 namespace Webplayer.Modules.Youtube.ViewModels
 {
@@ -30,5 +31,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
         ICommand RemoveUploadFilterCommand { get; set; }
 
         YoutubeUploader UploaderFilter { get; set; }
+
+        SongSearcOrdering OrderingFilter { get; set; }
     }
 }
