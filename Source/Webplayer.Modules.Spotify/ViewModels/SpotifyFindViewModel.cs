@@ -131,6 +131,8 @@ namespace Webplayer.Modules.Spotify.ViewModels
             {
                 SearchResult.Add(song);
             }
+
+            SearchFieldVisibility = Visibility.Hidden;
         }
     }
 }
