@@ -305,9 +305,6 @@
       <DependentUpon>FlyoutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\TabablzControlRegionAdapter.cs" />
-    <Compile Include="MaterialWindow.xaml.cs">
-      <DependentUpon>MaterialWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
@@ -317,10 +314,6 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="FlyoutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MaterialWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -481,6 +474,10 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{0d108196-ddf5-45b0-83c1-331bcf8b3458}</Project>
       <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MaterialShell\MaterialShell.csproj">
+      <Project>{555a6a33-8642-4c03-9838-9d07377440e4}</Project>
+      <Name>MaterialShell</Name>
     </ProjectReference>
     <ProjectReference Include="..\Queue\Webplayer.Modules.Structure.csproj">
       <Project>{44fa2be4-6bff-4db2-947f-84ea0ed40ccb}</Project>

@@ -25,7 +25,7 @@ namespace Webplayer
     {
         protected override DependencyObject CreateShell()
         {
-            return ServiceLocator.Current.GetInstance<MaterialWindow>();
+            return ServiceLocator.Current.GetInstance<MaterialWindowView>();
         }
 
         protected override void InitializeShell()

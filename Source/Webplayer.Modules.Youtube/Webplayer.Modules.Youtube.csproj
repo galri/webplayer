@@ -230,6 +230,7 @@
     <Compile Include="DesignTime\Preview.cs" />
     <Compile Include="DesignTime\YoutubeFindUploaderDt.cs" />
     <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Models\YoutubeApiSettings.cs" />
     <Compile Include="Models\YoutubePlaylist.cs" />
     <Compile Include="Models\YoutubeSong.cs" />
     <Compile Include="Models\YoutubeUploader.cs" />
@@ -247,6 +248,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\IYoutubePlaylistSearchService.cs" />
+    <Compile Include="Services\YoutubeAccountService.cs" />
     <Compile Include="Services\YoutubePlaylistService.cs" />
     <Compile Include="Services\YoutubePlaylistSearchService.cs" />
     <Compile Include="Services\YoutubeSongSearch.cs" />
@@ -284,12 +286,18 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="client_secrets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="YoutubeApplicationSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

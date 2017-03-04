@@ -20,5 +20,7 @@ namespace Webplayer.Modules.Youtube.Services
         Relevance,
         Date,
         Rating,
+        Alphabetical,
+        ViewCount,
     }
 }

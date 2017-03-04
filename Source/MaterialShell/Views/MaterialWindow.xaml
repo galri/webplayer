@@ -1,0 +1,65 @@
+﻿<controls:MetroWindow x:Class="Webplayer.MaterialWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:Webplayer"
+        xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:prism="http://www.codeplex.com/prism"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+         xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+        mc:Ignorable="d"
+        WindowTransitionsEnabled="False"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"					  
+        GlowBrush="{DynamicResource AccentColorBrush}"					  
+        FontFamily="{StaticResource DefaultFont}"
+        Title="Webplayer" prism:ViewModelLocator.AutoWireViewModel="True">
+    <controls:MetroWindow.InputBindings>
+        <KeyBinding Command="{x:Static ApplicationCommands.Find}"></KeyBinding>
+    </controls:MetroWindow.InputBindings>
+    <controls:MetroWindow.CommandBindings>
+        <CommandBinding Command="Find" Executed="CommandBinding_Executed"></CommandBinding>
+    </controls:MetroWindow.CommandBindings>
+    <materialDesign:DialogHost Identifier="RootDialog">
+    <dockablz:Layout>
+        <Grid>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition  />
+                    <RowDefinition Height="275"  />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition Width="480" />
+                </Grid.ColumnDefinitions>
+                <dragablz:TabablzControl Grid.RowSpan="3" BorderThickness="0"
+                                 Padding="5" prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" >
+                    <!--<dragablz:TabablzControl.InterTabController>
+                        <dragablz:InterTabController />
+                    </dragablz:TabablzControl.InterTabController>
+                    <dragablz:TabablzControl.Style>
+                        <Style TargetType="dragablz:TabablzControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=ShowSearch,Path=IsChecked}" Value="false">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dragablz:TabablzControl.Style>-->
+                </dragablz:TabablzControl>
+                <ContentControl Grid.Column="1" Grid.Row="1" prism:RegionManager.RegionName="{x:Static inf:RegionNames.QueueRegion}" />
+                <ContentControl Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusRegion}"  />
+                <ContentControl Grid.Column="1" Grid.Row="2" Margin="0 5 0 0" prism:RegionManager.RegionName="{x:Static inf:RegionNames.InfoRegion}" Name="InfoRegion" />
+            </Grid>
+            <!--<ToggleButton Name="ShowSearch" Margin="8 8 8 8" Style="{StaticResource MaterialDesignActionLightToggleButton}" IsChecked="True"
+                           HorizontalAlignment="Right" VerticalAlignment="Top">
+                <materialDesign:PackIcon Kind="Magnify" />
+            </ToggleButton>-->
+        </Grid>
+        </dockablz:Layout>
+    </materialDesign:DialogHost>
+</controls:MetroWindow>

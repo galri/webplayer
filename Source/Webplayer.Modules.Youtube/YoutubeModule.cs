@@ -15,6 +15,10 @@ using Google.Apis.YouTube.v3;
 using Infrastructure.Models;
 using Infrastructure.Service;
 using Prism.Logging;
+using Google.Apis.Services;
+using System.IO;
+using Newtonsoft.Json;
+using Webplayer.Modules.Youtube.Models;
 
 namespace Webplayer.Modules.Youtube
 {
@@ -33,10 +37,13 @@ namespace Webplayer.Modules.Youtube
 
         public void Initialize()
         {
-            var youtubeService = new YouTubeService(new Google.Apis.Services.BaseClientService.Initializer()
+            var applicationSettingsData = File.ReadAllText("YoutubeApplicationSettings.json");
+            var applicationSettings = JsonConvert.DeserializeObject<YoutubeApiSettings>(applicationSettingsData);
+
+            var youtubeService = new YouTubeService(new BaseClientService.Initializer
             {
-                ApiKey = "AIzaSyAtuwBQDfoweQqFuxNmXUNH-n70J1KL_54",
-                ApplicationName = "Web playlist"
+                ApiKey = applicationSettings.ApiKey,
+                ApplicationName = applicationSettings.ApplicationName,
             });
 
             var serviceSaverList = _container.Resolve<List<ISongServicePlaylistSaver>>();
@@ -58,7 +65,10 @@ namespace Webplayer.Modules.Youtube
             _container.RegisterType<IVIdeoInfoView, VideoInfoView>();
             _container.RegisterType<IVideoInfoViewModel, VideoInfoViewModel>();
             _rm.RegisterViewWithRegion(RegionNames.InfoRegion, typeof (VideoInfoView));
-           
+
+            //var ys = new YoutubeAccountService();
+            //ys.Login();
+
         }
     }
 }

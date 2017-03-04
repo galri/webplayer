@@ -23,7 +23,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
 {
     class YoutubeFindViewModel : BindableBase, IYoutubeFindViewModel
     {
-        private readonly IYoutubeSongSearchService _songSearchService;
+        private IYoutubeSongSearchService _songSearchService;
         private readonly IQueueController _queueController;
         private ContentType _searchType;
         private ObservableCollection<YoutubeSong> _searchResult = new ObservableCollection<YoutubeSong>();
@@ -238,6 +238,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
                 SearchResult.Add(song);
                 return;
             }
+            _songSearchService = _container.Resolve<IYoutubeSongSearchService>();
             _songSearchService.Query = SearchQuery;
             _songSearchService.Ordering = OrderingFilter;
             if(UploaderFilter != null)

@@ -5,29 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Webplayer.Modules.Spotify.Views"
              xmlns:models="clr-namespace:Webplayer.Modules.Spotify.Models"
+             xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" Name="View"
-             d:DesignHeight="300" d:DesignWidth="300"
-             >
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="AliceBlue">
-        <Grid.RowDefinitions>
-            <RowDefinition  Height="auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Height="35">
-            <Button Command="{Binding FetchMoreResultCommand}" Content="More" DockPanel.Dock="Right" Width="80"/>
-            <Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Width="80"/>
-            <TextBox Padding="2" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Width="auto" >
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
-                </TextBox.InputBindings>
-            </TextBox>
-        </DockPanel>
-        <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.ScrollChanged="ListView_ScrollChanged">
             <ListView.Resources>
                 <DataTemplate DataType="{x:Type models:SpotifySong}" x:Key="old">
                     <Border Margin="-15,5,0,0"  CornerRadius="2" BorderBrush="Black" BorderThickness="2px" >
@@ -137,5 +126,36 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="4 0 18 6">
+            <Button Margin="4" Command="{Binding FetchMoreResultCommand}" 
+                Style="{StaticResource MaterialDesignFloatingActionButton}">
+                <materialDesign:PackIcon Kind="MagnifyPlus" Height="24" Width="24" />
+            </Button>
+            <Button Margin="4" Command="{Binding SearchCommand}" 
+                Style="{StaticResource MaterialDesignFloatingActionButton}">
+                <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
+            </Button>
+        </StackPanel>
+        <Grid Visibility="{Binding SearchFieldVisibility,Mode=TwoWay}" 
+              Name="SearchBorder" Background="#AAffffff">
+            <Border BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0.9" 
+                Width="150" Height="50" CornerRadius="8" Background="White">
+                <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                     Width="100" Height="30" VerticalAlignment="Center"
+                     materialDesign:HintAssist.Hint="Search"
+                     Name="SearchField"
+                     Background="White" LostFocus="TextBox_LostFocus">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <inf:FocusTextfieldWhenAppearingBehaviour></inf:FocusTextfieldWhenAppearingBehaviour>
+                        <inf:MoveFocusOnEscapeBehaviour  />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

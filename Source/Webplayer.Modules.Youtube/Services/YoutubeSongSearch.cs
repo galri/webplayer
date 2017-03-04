@@ -118,6 +118,12 @@ namespace Webplayer.Modules.Youtube.Services
                 case SongSearcOrdering.Rating:
                     sr.Order = SearchResource.ListRequest.OrderEnum.Rating;
                     break;
+                case SongSearcOrdering.Alphabetical:
+                    sr.Order = SearchResource.ListRequest.OrderEnum.Title;
+                    break;
+                case SongSearcOrdering.ViewCount:
+                    sr.Order = SearchResource.ListRequest.OrderEnum.ViewCount;
+                    break;
                 default:
                     break;
             }

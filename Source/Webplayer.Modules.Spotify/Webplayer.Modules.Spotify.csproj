@@ -153,6 +153,7 @@
     <Compile Include="Services\ISpotifySongSearch.cs" />
     <Compile Include="Services\NewSpotifySongService.cs" />
     <Compile Include="Services\SpotifySongService.cs" />
+    <Compile Include="Services\SpotifyUserService.cs" />
     <Compile Include="SpotifyModule.cs" />
     <Compile Include="ViewModels\ISpotifyFindViewModel.cs" />
     <Compile Include="ViewModels\ISpotifyLocalPlayerViewModel.cs" />

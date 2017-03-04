@@ -109,6 +109,9 @@
   <ItemGroup>
     <Compile Include="Dao\IPlaylistDao.cs" />
     <Compile Include="Dao\PlaylistDao.cs" />
+    <Compile Include="FocusTextfieldWhenAppearingBehaviour.cs" />
+    <Compile Include="GlobalCommands.cs" />
+    <Compile Include="MoveFocusOnEscapeBehaviour.cs" />
     <Compile Include="Names\SongServicesNames.cs" />
     <Compile Include="Service\IDialogService.cs" />
     <Compile Include="Service\IPlaylistService.cs" />

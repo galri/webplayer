@@ -13,14 +13,19 @@ using Infrastructure.Service;
 using Infrastructure.Models;
 using System.Windows.Controls;
 using System.Windows;
+using Prism;
+using Infrastructure;
 
 namespace Webplayer.Modules.Spotify.ViewModels
 {
-    class SpotifyFindViewModel : BindableBase, ISpotifyFindViewModel
+    class SpotifyFindViewModel : BindableBase, ISpotifyFindViewModel, IActiveAware
     {
+
+        private bool _isActive;
         private readonly ISpotifySongSearch _songSearchService;
         private string _query;
         private IQueueController _queueController;
+        private Visibility _searchFieldVisibility = Visibility.Hidden;
 
         public string SearchQuery
         {
@@ -40,8 +45,41 @@ namespace Webplayer.Modules.Spotify.ViewModels
 
         public ICommand FetchMoreResultCommand { get; set; }
 
+        public ICommand FocusSearchFieldCommand { get; set; }
+
         public DelegateCommand<object> AddSongCommand { get; set; }
 
+        public Visibility SearchFieldVisibility
+        {
+            get
+            {
+                return _searchFieldVisibility;
+            }
+            set
+            {
+                SetProperty(ref _searchFieldVisibility, value);
+            }
+        }
+
+        #region IActiveAware
+        public bool IsActive
+        {
+            get
+            {
+                return _isActive;
+            }
+
+            set
+            {
+                if (value == _isActive)
+                    return;
+                _isActive = value;
+                IsActiveChanged?.Invoke(this, new EventArgs());
+            }
+        }
+
+        public event EventHandler IsActiveChanged;
+        #endregion
         public SpotifyFindViewModel(ISpotifySongSearch songSearchService, IQueueController queueController)
         {
             _songSearchService = songSearchService;
@@ -49,6 +87,13 @@ namespace Webplayer.Modules.Spotify.ViewModels
             SearchCommand = new DelegateCommand(SearchAction);
             FetchMoreResultCommand = new DelegateCommand(MoreAction);
             AddSongCommand = new DelegateCommand<object>(AddAction);
+            FocusSearchFieldCommand = new DelegateCommand(FocusAction);
+            GlobalCommands.ShowSearchFieldInActiveCommand.RegisterCommand(FocusSearchFieldCommand);
+        }
+
+        private void FocusAction()
+        {
+            SearchFieldVisibility = Visibility.Visible;
         }
 
         private void AddAction(object param)
@@ -58,14 +103,21 @@ namespace Webplayer.Modules.Spotify.ViewModels
 
         private async void MoreAction()
         {
-            foreach (var song in await _songSearchService.FetchAsync())
-            {
-                SearchResult.Add(song);
-            }
+            if (_songSearchService != null && _songSearchService.Query != null)
+                foreach (var song in await _songSearchService.FetchAsync())
+                {
+                    SearchResult.Add(song);
+                }
         }
 
         private async void SearchAction()
         {
+            if(SearchFieldVisibility != Visibility.Visible)
+            {
+                SearchFieldVisibility = Visibility.Visible;
+                return;
+            }
+
             SearchResult.Clear();
 
             if(string.IsNullOrWhiteSpace(SearchQuery))

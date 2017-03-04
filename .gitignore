@@ -232,3 +232,9 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+
+# Webplayer files
+# api secret files etc.
+client_secrets.json
+YoutubeApplicationSettings.json

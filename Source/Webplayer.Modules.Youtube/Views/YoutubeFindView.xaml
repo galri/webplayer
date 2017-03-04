@@ -175,7 +175,7 @@
        
         <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
                         Margin="0 0 8 8" Grid.Row="2"
-                        ToolTip="Save"
+                        ToolTip="Uploader"
                 Command="{Binding ShowPlaylistSearchCommand}"
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Bottom">
