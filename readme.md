@@ -3,6 +3,9 @@ Play music services like youtube and spotify in the same playlist. in Early deve
 
 Made with WPF and Prism 5 framework.
 
+prism docs: http://prismlibrary.readthedocs.io/en/latest/WPF/09-Communication/#communicating-between-loosely-coupled-components-using-the-prism-library-for-wpf
+and older: https://msdn.microsoft.com/en-us/library/gg405494(v=pandp.40).aspx
+
 
 #Roadmap.
 0.0.1 youtube search, add songs with id. (Done)
