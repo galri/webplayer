@@ -53,6 +53,7 @@ namespace Webplayer.Modules.Youtube
             _container.RegisterInstance<YouTubeService>(youtubeService);
 
             _container.RegisterType<IYoutubeFindViewModel, YoutubeFindViewModel>().
+                RegisterType<IYoutubeFindView,YoutubeFindView>().
                 RegisterType<IYoutubeSongSearchService, YoutubeSongSearch>().
                 RegisterType<IYoutubePlaylistSearchService,YoutubePlaylistSearchService>();
 
@@ -60,7 +61,7 @@ namespace Webplayer.Modules.Youtube
                 RegisterType<IYoutubeFindUploaderViewModel, YoutubeFindUploaderViewModel>().
                 RegisterType<IYoutubeChannelService, YoutubeChannelService>();
 
-              _rm.RegisterViewWithRegion(RegionNames.FindRegion, typeof(YoutubeFindView));
+              _rm.RegisterViewWithRegion(RegionNames.FindRegion, typeof(IYoutubeFindView));
 
             _container.RegisterType<IVIdeoInfoView, VideoInfoView>();
             _container.RegisterType<IVideoInfoViewModel, VideoInfoViewModel>();

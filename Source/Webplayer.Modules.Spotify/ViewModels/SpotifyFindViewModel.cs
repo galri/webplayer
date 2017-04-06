@@ -71,15 +71,14 @@ namespace Webplayer.Modules.Spotify.ViewModels
 
             set
             {
-                if (value == _isActive)
-                    return;
-                _isActive = value;
-                IsActiveChanged?.Invoke(this, new EventArgs());
+                if(SetProperty(ref _isActive, value))
+                    IsActiveChanged?.Invoke(this, new EventArgs());
             }
         }
 
         public event EventHandler IsActiveChanged;
         #endregion
+
         public SpotifyFindViewModel(ISpotifySongSearch songSearchService, IQueueController queueController)
         {
             _songSearchService = songSearchService;
@@ -93,6 +92,8 @@ namespace Webplayer.Modules.Spotify.ViewModels
 
         private void FocusAction()
         {
+            if (!IsActive)
+                return;
             SearchFieldVisibility = Visibility.Visible;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Infrastructure;
+using Prism;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Webplayer.Modules.Spotify.Views
     public partial class SpotifyFindView : ISpoifyFindView
     {
         public string Title { get; set; } = "Spotify";
-        
+
         //public Visibility SearchFieldVisibility
         //{
         //    get { return (Visibility)GetValue(SearchFieldVisibilityProperty); }
@@ -46,7 +47,7 @@ namespace Webplayer.Modules.Spotify.Views
         //        view.SearchField.Dispatcher.BeginInvoke(new Action(() => 
         //        {
         //            Keyboard.Focus(view.SearchField);
-                    
+
         //        }),System.Windows.Threading.DispatcherPriority.Render );
         //    }
         //}
@@ -55,7 +56,6 @@ namespace Webplayer.Modules.Spotify.Views
         {
             InitializeComponent();
         }
-
 
         private void ListView_ScrollChanged(object sender, RoutedEventArgs e)
         {

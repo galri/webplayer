@@ -18,10 +18,11 @@ using Webplayer.Modules.Youtube.Models;
 using Webplayer.Modules.Youtube.Services;
 using Webplayer.Modules.Youtube.Views;
 using MaterialDesignThemes.Wpf;
+using Prism;
 
 namespace Webplayer.Modules.Youtube.ViewModels
 {
-    class YoutubeFindViewModel : BindableBase, IYoutubeFindViewModel
+    class YoutubeFindViewModel : BindableBase, IYoutubeFindViewModel, IActiveAware
     {
         private IYoutubeSongSearchService _songSearchService;
         private readonly IQueueController _queueController;
@@ -32,6 +33,10 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private IUnityContainer _container;
         private YoutubeUploader _uploader;
         private SongSearcOrdering _orderingFilter;
+        private Visibility _searchFieldVisibility = Visibility.Hidden;
+        private bool _isActive;
+
+        public event EventHandler IsActiveChanged;
 
         public bool CanFetchMore
         {
@@ -72,6 +77,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
             set;
         }
+
+        public ICommand FocusSearchFieldCommand { get; set; }
 
         public ICommand ShowPlaylistSearchCommand { get; set; }
 
@@ -162,6 +169,34 @@ namespace Webplayer.Modules.Youtube.ViewModels
             }
         }
 
+        public Visibility SearchFieldVisibility
+        {
+            get
+            {
+                return _searchFieldVisibility;
+            }
+            set
+            {
+                SetProperty(ref _searchFieldVisibility, value);
+            }
+        }
+
+        public bool IsActive
+        {
+            get
+            {
+                return _isActive;
+            }
+
+            set
+            {
+                if(SetProperty(ref _isActive, value))
+                {
+                    IsActiveChanged?.Invoke(this, new EventArgs());
+                }
+            }
+        }
+
         public YoutubeFindViewModel(IUnityContainer container, 
             IYoutubeSongSearchService songSearchService,
             IQueueController queueController)
@@ -174,8 +209,17 @@ namespace Webplayer.Modules.Youtube.ViewModels
             AddSongCommand = new DelegateCommand<object>(AddSongAction);
             PreviewCommand = new DelegateCommand<object>(PreviewSong);
             RemoveUploadFilterCommand = new DelegateCommand(RemoveUploadFilterAction);
+            FocusSearchFieldCommand = new DelegateCommand(FocusSearchFieldAction);
 
             ShowPlaylistSearchCommand = new DelegateCommand(ShowPlaylistSearchAction);
+            GlobalCommands.ShowSearchFieldInActiveCommand.RegisterCommand(FocusSearchFieldCommand);
+        }
+
+        private void FocusSearchFieldAction()
+        {
+            if (!IsActive)
+                return;
+            SearchFieldVisibility = Visibility.Visible;
         }
 
         private void RemoveUploadFilterAction()
@@ -229,6 +273,11 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private async void SearchCommandAction()
         {
+            if (SearchFieldVisibility != Visibility.Visible)
+            {
+                SearchFieldVisibility = Visibility.Visible;
+                return;
+            }
 
             SearchResult.Clear();
             //Search after spesific song
@@ -236,6 +285,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
             {
                 var song = await _songSearchService.FetchSongAsync(SearchQuery.Substring(2));
                 SearchResult.Add(song);
+                SearchFieldVisibility = Visibility.Hidden;
                 return;
             }
             _songSearchService = _container.Resolve<IYoutubeSongSearchService>();
@@ -254,6 +304,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
             {
                 SearchResult.Add(item);
             }
+            SearchFieldVisibility = Visibility.Hidden;
         }
     }
 }
