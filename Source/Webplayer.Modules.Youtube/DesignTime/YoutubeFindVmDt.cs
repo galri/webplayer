@@ -47,7 +47,7 @@ namespace Webplayer.Modules.Youtube.DesignTime
 
         public ICommand RemoveUploadFilterCommand { get; set; }
 
-        public YoutubeUploader UploaderFilter { get; set; }
+        public YoutubeUploader UploaderFilter { get; set; } = new YoutubeUploader() { Name = "MrSuicideSheep" };
 
         public SongSearcOrdering OrderingFilter { get; set; }
     }

@@ -29,10 +29,5 @@ namespace Webplayer.Modules.Youtube.Views
         {
             get; set;
         } = "Youtube";
-
-        private void SearchField_LostFocus(object sender, RoutedEventArgs e)
-        {
-            SearchBorder.Visibility = Visibility.Hidden;
-        }
     }
 }

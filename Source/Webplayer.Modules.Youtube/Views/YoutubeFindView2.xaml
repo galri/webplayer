@@ -8,13 +8,20 @@
              xmlns:designTimeVMs="clr-namespace:Webplayer.Modules.Youtube.DesignTime"
              xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:services="clr-namespace:Webplayer.Modules.Youtube.Services"
+             xmlns:converters="clr-namespace:Webplayer.Modules.Youtube.Converters"
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" Name="View"
-             d:DesignHeight="398" d:DesignWidth="496"
+             d:DesignHeight="417" d:DesignWidth="513"
              d:DataContext="{d:DesignInstance designTimeVMs:YoutubeFindVmDt, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <converters:CollapseWhenNoFIlterConverter x:Key="CollapseWhenNoFIlterConverter" />
+        <converters:CollapseWhenFIlterConverter x:Key="CollapseWhenFIlterConverter" />
+    </UserControl.Resources>
     <Grid Background="AliceBlue">
         <ListView Grid.Row="2" ItemsSource="{Binding SearchResult}" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -92,20 +99,59 @@
         <Grid Visibility="{Binding SearchFieldVisibility,Mode=TwoWay}" 
               Name="SearchBorder" Background="#AAffffff">
             <Border BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0.9" 
-                Width="150" Height="50" CornerRadius="8" Background="White">
-                <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
-                     Width="100" Height="30" VerticalAlignment="Center"
+                Width="300" CornerRadius="8" Background="White" Height="110">
+                <Grid>
+                    <Grid.Resources>
+                        <ObjectDataProvider MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}"
+        x:Key="SongSearcOrderingData">
+                            <ObjectDataProvider.MethodParameters>
+                                <x:Type TypeName="services:SongSearcOrdering" />
+                            </ObjectDataProvider.MethodParameters>
+                        </ObjectDataProvider>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                     Margin="10" VerticalAlignment="Center"
                      materialDesign:HintAssist.Hint="Search"
                      Name="SearchField"
-                     Background="White" LostFocus="SearchField_LostFocus">
-                    <TextBox.InputBindings>
-                        <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
-                    </TextBox.InputBindings>
-                    <i:Interaction.Behaviors>
-                        <inf:FocusTextfieldWhenAppearingBehaviour></inf:FocusTextfieldWhenAppearingBehaviour>
-                        <inf:MoveFocusOnEscapeBehaviour  />
-                    </i:Interaction.Behaviors>
-                </TextBox>
+                     Background="White">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <inf:FocusTextfieldWhenAppearingBehaviour></inf:FocusTextfieldWhenAppearingBehaviour>
+                            <inf:MoveFocusOnEscapeBehaviour  />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <ComboBox Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center"
+                              ItemsSource="{Binding Source={StaticResource SongSearcOrderingData}}" 
+                              SelectedItem="{Binding OrderingFilter}"/>
+                    <Grid Grid.Row="1" Grid.Column="0" >
+                        <TextBlock Text="{Binding UploaderFilter.Name}" Margin="10"
+                                        TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                        Visibility="{Binding UploaderFilter, Converter={StaticResource CollapseWhenNoFIlterConverter}}"/>
+                            <Button Command="{Binding RemoveUploadFilterCommand}" Margin="10"
+                                Width="40" Height="30" HorizontalAlignment="Right"
+                                    Visibility="{Binding UploaderFilter, Converter={StaticResource CollapseWhenNoFIlterConverter}}"
+                                    FontSize="12" Foreground="White">X</Button>
+                        <Button Margin="10" Command="{Binding ShowPlaylistSearchCommand}"
+                                 Visibility="{Binding UploaderFilter, Converter={StaticResource CollapseWhenFIlterConverter}}"
+                                ToolTip="Filter by uploader">
+                            <materialDesign:PackIcon Kind="Filter" Height="24" Width="24" />
+                        </Button>
+                    </Grid>
+                    <Button Grid.Column="1" Grid.Row="1" Margin="10" Command="{Binding SearchCommand}" >
+                        <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
+                    </Button>
+                </Grid>
             </Border>
         </Grid>
     </Grid>

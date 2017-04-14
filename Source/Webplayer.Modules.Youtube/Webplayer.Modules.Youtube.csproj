@@ -227,6 +227,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\CollapseWhenFIlterConverter.cs" />
+    <Compile Include="Converters\CollapseWhenNoFIlterConverter.cs" />
     <Compile Include="DesignTime\Preview.cs" />
     <Compile Include="DesignTime\YoutubeFindVmDt.cs" />
     <Compile Include="Models\ContentType.cs" />
