@@ -13,7 +13,7 @@
              xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d" 
              Height="500" Width="450"
-             
+             FocusManager.FocusedElement="{Binding ElementName=SearchField}"
              d:DataContext="{d:DesignInstance dt:YoutubeFindUploaderDt, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -23,22 +23,27 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="AliceBlue">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition  Height="auto"/>
-            <RowDefinition  />
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Height="35">
-            <Button Command="{Binding MoreCommand}" Content="More" DockPanel.Dock="Right" Width="80"/>
-            <Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Width="80"/>
-            <TextBox Padding="2" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Width="auto" >
+        <Grid Grid.Row="0" Height="35" Margin="10">
+            <!--<Button Command="{Binding MoreCommand}" Content="More" DockPanel.Dock="Right" Width="80"/>-->
+            <TextBox Padding="2" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                     DockPanel.Dock="Left" Width="auto" Name="SearchField" 
+                     materialDesign:HintAssist.Hint="Search for uploader">
                 <TextBox.InputBindings>
                     <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
                 </TextBox.InputBindings>
             </TextBox>
-        </DockPanel>
-        <ListView Grid.Row="1" ItemsSource="{Binding Uploaders}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedUploader}">
+            <Button Command="{Binding SearchCommand}" Content="Search" HorizontalAlignment="Right" Width="80"/>
+        </Grid>
+        <ListView Grid.Row="1" ItemsSource="{Binding Uploaders}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  SelectedItem="{Binding SelectedUploader}">
+            <ListView.Style>
+                <Style TargetType="ListView"></Style>
+            </ListView.Style>
             <ListView.Resources>
                 <DataTemplate DataType="{x:Type models:YoutubeUploader}">
                     <materialDesign:Card Width="200" Margin="3">
@@ -51,8 +56,8 @@
                             <!--<Image Source="Resources/Chartridge046_small.jpg" Height="140" Width="196" Stretch="UniformToFill" />-->
                             <Image Height="140" Width="196" Source="{Binding Path=Thumbnail}"  Stretch="UniformToFill" />
                             <StackPanel Grid.Row="1" Margin="8 24 8 0" >
-                                <TextBlock FontWeight="Bold" Text="{Binding Name}" />
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Description}"/>
+                                <Label FontWeight="Bold" Content="{Binding Name}" />
+                                <Label  VerticalAlignment="Center" Content="{Binding Description}"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
                             </StackPanel>
@@ -66,21 +71,25 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button IsCancel="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static wpf:DialogHost.CloseDialogCommand}">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,18,10" Height="60"
+                    VerticalAlignment="Bottom">
+            <Button Command="{Binding MoreCommand}" Content="More" DockPanel.Dock="Right" 
+                    Style="{DynamicResource MaterialDesignFloatingActionButton}" ToolTip="Get more results"/>
+            <!--<Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Style="{DynamicResource MaterialDesignFloatingActionButton}"/>-->
+            <Button IsCancel="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    Command="{x:Static wpf:DialogHost.CloseDialogCommand}" ToolTip="Abort">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>
-                Close
+                <materialDesign:PackIcon Kind="Close" Height="24" Width="24" />
             </Button>
 
-            <Button IsDefault="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static wpf:DialogHost.CloseDialogCommand}">
+            <Button IsDefault="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    Command="{x:Static wpf:DialogHost.CloseDialogCommand}" ToolTip="Select Uploader">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
-                Select
+                <materialDesign:PackIcon Kind="Select" Height="24" Width="24" />
             </Button>
         </StackPanel>
     </Grid>

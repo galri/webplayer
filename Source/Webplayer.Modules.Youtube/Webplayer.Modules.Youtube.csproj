@@ -230,6 +230,7 @@
     <Compile Include="Converters\CollapseWhenFIlterConverter.cs" />
     <Compile Include="Converters\CollapseWhenNoFIlterConverter.cs" />
     <Compile Include="DesignTime\Preview.cs" />
+    <Compile Include="DesignTime\YoutubeFindUploaderDt.cs" />
     <Compile Include="DesignTime\YoutubeFindVmDt.cs" />
     <Compile Include="Models\ContentType.cs" />
     <Compile Include="Models\YoutubeApiSettings.cs" />

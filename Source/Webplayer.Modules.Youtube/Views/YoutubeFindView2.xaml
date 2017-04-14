@@ -61,8 +61,8 @@
                                 </i:Interaction.Triggers>
                             </Button>
                             <StackPanel Grid.Row="1" Margin="8 24 8 0" >
-                                <TextBlock FontWeight="Bold" Text="{Binding Artist}" />
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Title}"/>
+                                <Label FontWeight="Bold" Content="{Binding Artist}" />
+                                <Label VerticalAlignment="Center" Content="{Binding Title}"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
                                 <!--<Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
