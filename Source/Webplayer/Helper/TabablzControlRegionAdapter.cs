@@ -12,7 +12,10 @@ namespace Webplayer
         public TabablzControlRegionAdapter(IRegionBehaviorFactory regionBehaviorFactory) : base(regionBehaviorFactory) { }
         protected override void Adapt(IRegion region, TabablzControl regionTarget)
         {
-            region.ActiveViews.CollectionChanged += (s, e) =>
+
+            var r = (SingleActiveRegion)region;
+            r.Views.CollectionChanged += (s, e) =>
+            //region.ActiveViews.CollectionChanged += (s, e) =>
             {
                 switch (e.Action)
                 {
@@ -26,7 +29,6 @@ namespace Webplayer
                             tb.Header = title;
                             tb.Content = e.NewItems[0];
                             regionTarget.Items.Insert(regionTarget.Items.Count, tb);
-                            regionTarget.SelectedIndex = regionTarget.Items.Count - 1;
                         }
                         break;
                     case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
@@ -40,16 +42,24 @@ namespace Webplayer
                                     regionTarget.Items.Remove(tab);
                                 }
                             }
-                            regionTarget.SelectedIndex = regionTarget.Items.Count - 1;
                         }
                         break;
                 }
             };
+            regionTarget.SelectionChanged += (s, e) =>
+            {
+                r.Activate(((TabItem)regionTarget.SelectedItem).Content);
+            };
+        }
+
+        private void RegionTarget_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override IRegion CreateRegion()
         {
-            return new AllActiveRegion();
+            return new SingleActiveRegion();
         }
     }
 }
