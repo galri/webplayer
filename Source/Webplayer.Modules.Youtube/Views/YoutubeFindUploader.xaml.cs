@@ -18,9 +18,9 @@ namespace Webplayer.Modules.Youtube.Views
     /// <summary>
     /// Interaction logic for YoutubeFindUploader.xaml
     /// </summary>
-    public partial class YoutubeFindUploader : IYoutubeFindUploader
+    public partial class YoutubeFindUploaderView : IYoutubeFindUploader
     {
-        public YoutubeFindUploader()
+        public YoutubeFindUploaderView()
         {
             InitializeComponent();
         }

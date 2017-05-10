@@ -98,61 +98,6 @@
         </StackPanel>
         <Grid Visibility="{Binding SearchFieldVisibility,Mode=TwoWay}" 
               Name="SearchBorder" Background="#AAffffff">
-            <Border BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0.9" 
-                Width="300" CornerRadius="8" Background="White" Height="110">
-                <Grid>
-                    <Grid.Resources>
-                        <ObjectDataProvider MethodName="GetValues"
-        ObjectType="{x:Type sys:Enum}"
-        x:Key="SongSearcOrderingData">
-                            <ObjectDataProvider.MethodParameters>
-                                <x:Type TypeName="services:SongSearcOrdering" />
-                            </ObjectDataProvider.MethodParameters>
-                        </ObjectDataProvider>
-                    </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="10" VerticalAlignment="Center"
-                     materialDesign:HintAssist.Hint="Search"
-                     Name="SearchField"
-                     Background="White">
-                        <TextBox.InputBindings>
-                            <KeyBinding Command="{Binding SearchCommand}" Key="Enter" />
-                        </TextBox.InputBindings>
-                        <i:Interaction.Behaviors>
-                            <inf:FocusTextfieldWhenAppearingBehaviour></inf:FocusTextfieldWhenAppearingBehaviour>
-                            <inf:MoveFocusOnEscapeBehaviour  />
-                        </i:Interaction.Behaviors>
-                    </TextBox>
-                    <ComboBox Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center"
-                              ItemsSource="{Binding Source={StaticResource SongSearcOrderingData}}" 
-                              SelectedItem="{Binding OrderingFilter}"/>
-                    <Grid Grid.Row="1" Grid.Column="0" >
-                        <TextBlock Text="{Binding UploaderFilter.Name}" Margin="10"
-                                        TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                        Visibility="{Binding UploaderFilter, Converter={StaticResource CollapseWhenNoFIlterConverter}}"/>
-                            <Button Command="{Binding RemoveUploadFilterCommand}" Margin="10"
-                                Width="40" Height="30" HorizontalAlignment="Right"
-                                    Visibility="{Binding UploaderFilter, Converter={StaticResource CollapseWhenNoFIlterConverter}}"
-                                    FontSize="12" Foreground="White">X</Button>
-                        <Button Margin="10" Command="{Binding ShowPlaylistSearchCommand}"
-                                 Visibility="{Binding UploaderFilter, Converter={StaticResource CollapseWhenFIlterConverter}}"
-                                ToolTip="Filter by uploader">
-                            <materialDesign:PackIcon Kind="Filter" Height="24" Width="24" />
-                        </Button>
-                    </Grid>
-                    <Button Grid.Column="1" Grid.Row="1" Margin="10" Command="{Binding SearchCommand}" >
-                        <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
-                    </Button>
-                </Grid>
-            </Border>
         </Grid>
     </Grid>
 </UserControl>

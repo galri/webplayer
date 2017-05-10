@@ -28,10 +28,6 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         ICommand ShowPlaylistSearchCommand { get; set; }
 
-        ICommand RemoveUploadFilterCommand { get; set; }
 
-        YoutubeUploader UploaderFilter { get; set; }
-
-        SongSearcOrdering OrderingFilter { get; set; }
     }
 }

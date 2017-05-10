@@ -229,6 +229,8 @@
   <ItemGroup>
     <Compile Include="Converters\CollapseWhenFIlterConverter.cs" />
     <Compile Include="Converters\CollapseWhenNoFIlterConverter.cs" />
+    <Compile Include="Converters\CollapsIfNotNull.cs" />
+    <Compile Include="Converters\SearchDialogVisibiltyConverter.cs" />
     <Compile Include="DesignTime\Preview.cs" />
     <Compile Include="DesignTime\YoutubeFindUploaderDt.cs" />
     <Compile Include="DesignTime\YoutubeFindVmDt.cs" />
@@ -261,16 +263,19 @@
     <Compile Include="ViewModels\IYoutubeFindUploaderViewModel.cs" />
     <Compile Include="ViewModels\IYoutubeFindViewModel.cs" />
     <Compile Include="ViewModels\IYoutubePreviewViewModel.cs" />
+    <Compile Include="ViewModels\IYoutubeSearchDialogViewModel.cs" />
     <Compile Include="ViewModels\VideoInfoViewModel.cs" />
     <Compile Include="ViewModels\YoutubeFindUploaderViewModel.cs" />
     <Compile Include="ViewModels\YoutubeFindViewModel.cs" />
     <Compile Include="ViewModels\YoutubePreviewViewModel.cs" />
+    <Compile Include="ViewModels\YoutubeSearchDialogViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\IVIdeoInfoViw.cs" />
     <Compile Include="Views\IYoutubeFindUploader.cs" />
     <Compile Include="Views\IYoutubeFindView.cs" />
     <Compile Include="Views\IYoutubePreviewView.cs" />
+    <Compile Include="Views\IYoutubeSearchDialogView.cs" />
     <Compile Include="Views\VideoInfoView.xaml.cs">
       <DependentUpon>VideoInfoView.xaml</DependentUpon>
     </Compile>
@@ -285,6 +290,9 @@
     </Compile>
     <Compile Include="Views\YoutubePreviewView.xaml.cs">
       <DependentUpon>YoutubePreviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\YoutubeSearchDialogView.xaml.cs">
+      <DependentUpon>YoutubeSearchDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="YoutubeModule.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -330,6 +338,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\YoutubePreviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\YoutubeSearchDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

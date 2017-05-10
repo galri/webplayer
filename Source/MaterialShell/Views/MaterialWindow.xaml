@@ -23,8 +23,8 @@
     <controls:MetroWindow.CommandBindings>
         <CommandBinding Command="Find" Executed="CommandBinding_Executed"></CommandBinding>
     </controls:MetroWindow.CommandBindings>
-    <materialDesign:DialogHost Identifier="RootDialog">
-    <dockablz:Layout>
+    <materialDesign:DialogHost Identifier="RootDialog" CloseOnClickAway="True">
+        <dockablz:Layout>
         <Grid>
             <Grid >
                 <Grid.RowDefinitions>

@@ -19,6 +19,7 @@ using Webplayer.Modules.Youtube.Services;
 using Webplayer.Modules.Youtube.Views;
 using MaterialDesignThemes.Wpf;
 using Prism;
+using Prism.Logging;
 
 namespace Webplayer.Modules.Youtube.ViewModels
 {
@@ -35,6 +36,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private SongSearcOrdering _orderingFilter;
         private Visibility _searchFieldVisibility = Visibility.Hidden;
         private bool _isActive;
+        private ILoggerFacade _logger;
 
         public event EventHandler IsActiveChanged;
 
@@ -199,11 +201,12 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         public YoutubeFindViewModel(IUnityContainer container, 
             IYoutubeSongSearchService songSearchService,
-            IQueueController queueController)
+            IQueueController queueController, ILoggerFacade logger)
         {
             _songSearchService = songSearchService;
             _queueController = queueController;
             _container = container;
+            _logger = logger;
             SearchCommand = new DelegateCommand(SearchCommandAction);
             FetchMoreResultCommand = new DelegateCommand(FetchMoreResultCommandAction);
             AddSongCommand = new DelegateCommand<object>(AddSongAction);
@@ -229,15 +232,15 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private async void ShowPlaylistSearchAction()
         {
-            var vm = _container.Resolve<IYoutubeFindUploaderViewModel>();
-            var view = new YoutubeFindUploader();
-            view.DataContext = vm;
+            //var vm = _container.Resolve<IYoutubeFindUploaderViewModel>();
+            var view = new YoutubeFindUploaderView();
+            //view.DataContext = vm;
             var result = await DialogHost.Show(view, "RootDialog");
 
-            if (result is bool && ((bool)result))
-            {
-                UploaderFilter = vm.SelectedUploader;
-            }
+            //if (result is bool && ((bool)result))
+            //{
+            //    UploaderFilter = vm.SelectedUploader;
+            //}
         }
 
         private async void PreviewSong(object param)
@@ -273,38 +276,71 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private async void SearchCommandAction()
         {
-            if (SearchFieldVisibility != Visibility.Visible)
-            {
-                SearchFieldVisibility = Visibility.Visible;
-                return;
-            }
+            //if (SearchFieldVisibility != Visibility.Visible)
+            //{
+            //    SearchFieldVisibility = Visibility.Visible;
+            //    return;
+            //}
 
-            SearchResult.Clear();
-            //Search after spesific song
-            if (SearchQuery.StartsWith("v="))
-            {
-                var song = await _songSearchService.FetchSongAsync(SearchQuery.Substring(2));
-                SearchResult.Add(song);
-                SearchFieldVisibility = Visibility.Hidden;
-                return;
-            }
-            _songSearchService = _container.Resolve<IYoutubeSongSearchService>();
-            _songSearchService.Query = SearchQuery;
-            _songSearchService.Ordering = OrderingFilter;
-            if(UploaderFilter != null)
-            {
-                _songSearchService.UploaderId = UploaderFilter.Id;
-            }
-            else
-            {
-                _songSearchService.UploaderId = null;
-            }
+            //SearchResult.Clear();
+            ////Search after spesific song
+            //if (SearchQuery.StartsWith("v="))
+            //{
+            //    var song = await _songSearchService.FetchSongAsync(SearchQuery.Substring(2));
+            //    SearchResult.Add(song);
+            //    SearchFieldVisibility = Visibility.Hidden;
+            //    return;
+            //}
+            //_songSearchService = _container.Resolve<IYoutubeSongSearchService>();
+            //_songSearchService.Query = SearchQuery;
+            //_songSearchService.Ordering = OrderingFilter;
+            //if(UploaderFilter != null)
+            //{
+            //    _songSearchService.UploaderId = UploaderFilter.Id;
+            //}
+            //else
+            //{
+            //    _songSearchService.UploaderId = null;
+            //}
 
-            foreach (var item in await _songSearchService.FetchAsync())
+            //foreach (var item in await _songSearchService.FetchAsync())
+            //{
+            //    SearchResult.Add(item);
+            //}
+            //SearchFieldVisibility = Visibility.Hidden;
+            try
             {
-                SearchResult.Add(item);
+                var view = _container.Resolve<IYoutubeSearchDialogView>();
+                var result = await DialogHost.Show(view, "RootDialog");
+                bool resultBool = false;
+                if (result is bool)
+                    resultBool = (bool)result;
+
+                if (resultBool)
+                {
+                    SearchResult.Clear();
+                    var vm = ((UserControl)view).DataContext as IYoutubeSearchDialogViewModel;
+                    if (vm == null)
+                        return;
+
+                    _songSearchService.Query = vm.SearchQuery;
+                    if (vm.SelectedUploader != null)
+                    {
+                        _logger.Log($"Filtering Youtube search on uploader{vm.SelectedUploader.Id}", Category.Debug, Priority.Low);
+                        _songSearchService.UploaderId = vm.SelectedUploader.Id;
+                    }
+                    FetchMoreResultCommandAction();
+                }
+                else
+                {
+                    _logger.Log($"Youtube search dialog abort", Category.Debug, Priority.Low);
+                }
             }
-            SearchFieldVisibility = Visibility.Hidden;
+            catch (Exception e)
+            {
+                MessageBox.Show("Error occured searching for youtube result");
+                _logger.Log(e.Message, Category.Debug, Priority.Low);
+            }
         }
     }
 }

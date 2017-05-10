@@ -61,6 +61,9 @@ namespace Webplayer.Modules.Youtube
                 RegisterType<IYoutubeFindUploaderViewModel, YoutubeFindUploaderViewModel>().
                 RegisterType<IYoutubeChannelService, YoutubeChannelService>();
 
+            _container.RegisterType<IYoutubeSearchDialogView, YoutubeSearchDialogView>().
+                RegisterType<IYoutubeSearchDialogViewModel, YoutubeSearchDialogViewModel>();
+
               _rm.RegisterViewWithRegion(RegionNames.FindRegion, typeof(IYoutubeFindView));
 
             _container.RegisterType<IVIdeoInfoView, VideoInfoView>();

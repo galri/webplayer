@@ -1,0 +1,181 @@
+﻿<UserControl x:Class="Webplayer.Modules.Youtube.Views.YoutubeSearchDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:services="clr-namespace:Webplayer.Modules.Youtube.Services"
+             xmlns:inf="clr-namespace:Infrastructure;assembly=Infrastructure"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:views="clr-namespace:Webplayer.Modules.Youtube.Views"
+             xmlns:convs="clr-namespace:Webplayer.Modules.Youtube.Converters"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:models="clr-namespace:Webplayer.Modules.Youtube.Models"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:local="clr-namespace:Webplayer.Modules.Youtube.Views"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" Background="Transparent" Name="UC" Width="300" Height="135">
+    <UserControl.Resources>
+        <convs:CollapseWhenFIlterConverter x:Key="CWF" />
+        <convs:CollapseWhenNoFIlterConverter x:Key="CWnF" />
+        <convs:SearchDialogVisibiltyConverter x:Key="sdv" />
+        <convs:FindUploaderDialogVisibiltyConverter x:Key="FUdv" />
+        <convs:CollapsIfNotNull x:Key="CINN" />
+    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ShowingUploaderView, ElementName=UC}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" To="490" Duration="0:0:0.50" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" To="500" Duration="0:0:0.50" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" To="300" Duration="0:0:0.50" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" To="135" Duration="0:0:0.50" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+    <Grid>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>-->
+        <Grid Grid.Row="1"
+              Visibility="{Binding ShowingUploaderView, ElementName=UC, Converter={StaticResource FUdv}}">
+            <Grid Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="auto"/>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Height="35" Margin="10">
+                    <!--<Button Command="{Binding MoreCommand}" Content="More" DockPanel.Dock="Right" Width="80"/>-->
+                    <TextBox Padding="2" Text="{Binding UploaderSearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                     DockPanel.Dock="Left" Width="auto"  
+                     materialDesign:HintAssist.Hint="Search for uploader">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding SearchUploaderCommand}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Command="{Binding SearchUploaderCommand}" Content="Search" HorizontalAlignment="Right" Width="80"/>
+                </Grid>
+                <ListView Grid.Row="1" ItemsSource="{Binding Uploaders}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  SelectedItem="{Binding SelectedUploader}" Padding="10">
+                    <ListView.Style>
+                        <Style TargetType="ListView"></Style>
+                    </ListView.Style>
+                    <ListView.Resources>
+                        <DataTemplate DataType="{x:Type models:YoutubeUploader}">
+                            <materialDesign:Card Width="200" Margin="5">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="140" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <!--<Image Source="Resources/Chartridge046_small.jpg" Height="140" Width="196" Stretch="UniformToFill" />-->
+                                    <Image Height="140" Width="196" Source="{Binding Path=Thumbnail}"  Stretch="UniformToFill" />
+                                    <StackPanel Grid.Row="1" Margin="8 24 8 0" >
+                                        <Label FontWeight="Bold" Content="{Binding Name}" />
+                                        <Label  VerticalAlignment="Center" Content="{Binding Description}"/>
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.Resources>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,25,10" Height="60"
+                    VerticalAlignment="Bottom">
+                    <Button Command="{Binding MoreUploadersCommand}" Content="More" DockPanel.Dock="Right" 
+                    Style="{DynamicResource MaterialDesignFloatingActionButton}" ToolTip="Get more results"/>
+                    <!--<Button Command="{Binding SearchCommand}" Content="Search" DockPanel.Dock="Right" Style="{DynamicResource MaterialDesignFloatingActionButton}"/>-->
+                    <!--<Button IsCancel="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                     ToolTip="Abort" Click="Button_Click_1">
+                        <materialDesign:PackIcon Kind="Close" Height="24" Width="24" />
+                    </Button>-->
+
+                    <Button IsDefault="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    ToolTip="Select Uploader" Click="Button_Click_1">
+                        <materialDesign:PackIcon Kind="Select" Height="24" Width="24" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Border BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0.9" 
+                CornerRadius="8" Background="White"
+            Visibility="{Binding ShowingUploaderView, ElementName=UC, Converter={StaticResource sdv}}">
+            <Grid>
+                <Grid.Resources>
+                    <ObjectDataProvider MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}"
+                        x:Key="SongSearcOrderingData">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="services:SongSearcOrdering" />
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                     Margin="10,14,10,13" VerticalAlignment="Center"
+                     materialDesign:HintAssist.Hint="Search"
+                     Name="SearchField"
+                     Background="White" Height="27">
+                    <!--<TextBox.InputBindings>
+                        <KeyBinding Key="Enter" />
+                    </TextBox.InputBindings>-->
+                    <i:Interaction.Behaviors>
+                        <inf:FocusTextfieldWhenAppearingBehaviour></inf:FocusTextfieldWhenAppearingBehaviour>
+                        <inf:MoveFocusOnEscapeBehaviour  />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <ComboBox Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center"
+                              ItemsSource="{Binding Source={StaticResource SongSearcOrderingData}}" 
+                              SelectedItem="{Binding OrderingFilter}"/>
+                <Grid Grid.Row="1" Grid.Column="0" >
+                    <TextBlock Text="{Binding SelectedUploader.Name}" Margin="10"
+                                        TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                    <Button Command="{Binding RemoveUploadFilterCommand}" Margin="10"
+                                Width="40" Height="30" HorizontalAlignment="Right"
+                                    FontSize="12" Foreground="White">X</Button>
+                    <Button Margin="10" Click="Button_Click"
+                                ToolTip="Filter by uploader" 
+                            Visibility="{Binding SelectedUploader, Converter={StaticResource CINN}}">
+                        <materialDesign:PackIcon Kind="Filter" Height="24" Width="24" />
+                    </Button>
+                </Grid>
+                <Button Grid.Column="1" Grid.Row="1" Margin="10" Command="{x:Static wpf:DialogHost.CloseDialogCommand}" >
+                    <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
