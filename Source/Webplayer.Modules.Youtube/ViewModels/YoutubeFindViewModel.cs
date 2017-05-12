@@ -34,7 +34,6 @@ namespace Webplayer.Modules.Youtube.ViewModels
         private IUnityContainer _container;
         private YoutubeUploader _uploader;
         private SongSearcOrdering _orderingFilter;
-        private Visibility _searchFieldVisibility = Visibility.Hidden;
         private bool _isActive;
         private ILoggerFacade _logger;
 
@@ -171,18 +170,6 @@ namespace Webplayer.Modules.Youtube.ViewModels
             }
         }
 
-        public Visibility SearchFieldVisibility
-        {
-            get
-            {
-                return _searchFieldVisibility;
-            }
-            set
-            {
-                SetProperty(ref _searchFieldVisibility, value);
-            }
-        }
-
         public bool IsActive
         {
             get
@@ -222,7 +209,7 @@ namespace Webplayer.Modules.Youtube.ViewModels
         {
             if (!IsActive)
                 return;
-            SearchFieldVisibility = Visibility.Visible;
+            SearchCommand.Execute(null);
         }
 
         private void RemoveUploadFilterAction()

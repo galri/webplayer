@@ -96,8 +96,5 @@
                 <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
             </Button>
         </StackPanel>
-        <Grid Visibility="{Binding SearchFieldVisibility,Mode=TwoWay}" 
-              Name="SearchBorder" Background="#AAffffff">
-        </Grid>
     </Grid>
 </UserControl>
