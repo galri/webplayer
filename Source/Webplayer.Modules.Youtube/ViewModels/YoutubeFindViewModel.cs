@@ -255,46 +255,22 @@ namespace Webplayer.Modules.Youtube.ViewModels
 
         private async void FetchMoreResultCommandAction()
         {
-            foreach (var item in await _songSearchService.FetchAsync())
+            try
             {
-                SearchResult.Add(item);
+
+                foreach (var item in await _songSearchService.FetchAsync())
+                {
+                    SearchResult.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+                //TODO:write can fetchhmore method....
             }
         }
 
         private async void SearchCommandAction()
         {
-            //if (SearchFieldVisibility != Visibility.Visible)
-            //{
-            //    SearchFieldVisibility = Visibility.Visible;
-            //    return;
-            //}
-
-            //SearchResult.Clear();
-            ////Search after spesific song
-            //if (SearchQuery.StartsWith("v="))
-            //{
-            //    var song = await _songSearchService.FetchSongAsync(SearchQuery.Substring(2));
-            //    SearchResult.Add(song);
-            //    SearchFieldVisibility = Visibility.Hidden;
-            //    return;
-            //}
-            //_songSearchService = _container.Resolve<IYoutubeSongSearchService>();
-            //_songSearchService.Query = SearchQuery;
-            //_songSearchService.Ordering = OrderingFilter;
-            //if(UploaderFilter != null)
-            //{
-            //    _songSearchService.UploaderId = UploaderFilter.Id;
-            //}
-            //else
-            //{
-            //    _songSearchService.UploaderId = null;
-            //}
-
-            //foreach (var item in await _songSearchService.FetchAsync())
-            //{
-            //    SearchResult.Add(item);
-            //}
-            //SearchFieldVisibility = Visibility.Hidden;
             try
             {
                 var view = _container.Resolve<IYoutubeSearchDialogView>();

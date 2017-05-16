@@ -155,12 +155,18 @@
     <Compile Include="Services\SpotifySongService.cs" />
     <Compile Include="Services\SpotifyUserService.cs" />
     <Compile Include="SpotifyModule.cs" />
+    <Compile Include="ViewModels\ISpotifyFindSingleViewModel.cs" />
     <Compile Include="ViewModels\ISpotifyFindViewModel.cs" />
     <Compile Include="ViewModels\ISpotifyLocalPlayerViewModel.cs" />
+    <Compile Include="ViewModels\SpotifyFindSingleViewModel.cs" />
     <Compile Include="ViewModels\SpotifyFindViewModel.cs" />
     <Compile Include="ViewModels\SpotifyLocalPlayerViewModel.cs" />
     <Compile Include="Views\ISpoifyFindView.cs" />
+    <Compile Include="Views\ISpotifyFindSingleView.cs" />
     <Compile Include="Views\ISpotifyLocalPlayerView.cs" />
+    <Compile Include="Views\SpotifyFindSingleView.xaml.cs">
+      <DependentUpon>SpotifyFindSingleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SpotifyFindView.xaml.cs">
       <DependentUpon>SpotifyFindView.xaml</DependentUpon>
     </Compile>
@@ -194,6 +200,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\SpotifyFindSingleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SpotifyFindView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

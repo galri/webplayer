@@ -8,17 +8,20 @@ using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using Webplayer.Modules.Spotify.Models;
 using System.Windows.Media.Imaging;
+using Prism.Logging;
 
 namespace Webplayer.Modules.Spotify.Services
 {
     public class NewSpotifySongService : ISpotifySongSearch
     {
+        private const string TAG = "NewSpotifySongService";
         private readonly SpotifyWebAPI _api;
         private string _query;
         private SearchItem _searchItem;
         private bool _apiNeedsReseting;
-        private int     _nextOffset;
+        private int _nextOffset;
         private Paging<FullTrack> _page;
+        private ILoggerFacade _logger;
 
         public string Query
         {
@@ -30,9 +33,10 @@ namespace Webplayer.Modules.Spotify.Services
             }
         }
 
-        public NewSpotifySongService(SpotifyWebAPI api)
+        public NewSpotifySongService(SpotifyWebAPI api,ILoggerFacade logger)
         {
             _api = api;
+            _logger = logger;
         }
 
         public async Task<List<SpotifySong>> FetchAsync()
@@ -46,9 +50,6 @@ namespace Webplayer.Modules.Spotify.Services
             }
             else
             {
-                //int resultCount = 20;
-                //_searchItem = await _api.SearchItemsAsync(Query, SearchType.Artist, resultCount, _nextOffset);
-                //_nextOffset += resultCount;
                  _page = await _api.GetNextPageAsync<FullTrack>(_searchItem.Tracks);
             }
 
@@ -84,9 +85,56 @@ namespace Webplayer.Modules.Spotify.Services
             };
         }
 
-        public Task<SpotifySong> FetchSongAsync(string id)
+        public async Task<SpotifySong> FetchSongAsync(string id)
         {
-            throw new NotImplementedException();
+            var parsed = ParseId(id);
+            var result = await _api.GetTrackAsync(parsed);
+            //Must be a better way to check this
+            if(result.HasError() && result.Error.Message == "invalid id")
+            {
+                throw new ArgumentException(nameof(id));
+            }
+            else if(result.HasError())
+            {
+                _logger.Log($"{TAG}Unknown error {result.Error.Status} {result.Error.Message}", Prism.Logging.Category.Debug, Priority.Medium);
+                throw new Exception("unknown error");
+            }
+            var song = ToSong(result);
+            return song;
+        }
+
+        private string ParseId(string id)
+        {
+            try
+            {
+                _logger.Log($"{TAG} trying to resolve spotify id", Prism.Logging.Category.Info, Priority.Low);
+
+                //example spotify:track:01wtyqu6JITgDWi4jKdk0R
+                if (id.Count(t => t == ':') == 2)
+                {
+                    var items = id.Split(':');
+                    var toReturn = items.Last();
+                    _logger.Log($"{TAG} colon returning {toReturn} from {id}", Prism.Logging.Category.Info, Priority.Low);
+                    return toReturn;
+                }
+
+                //example share uri https://open.spotify.com/track/01wtyqu6JITgDWi4jKdk0R
+                Uri uriResult;
+                if (Uri.TryCreate(id, UriKind.Absolute, out uriResult))
+                {
+                    var toReturn = uriResult.Segments.Last();
+                    _logger.Log($"{TAG} uri returning {toReturn} from {id}", Prism.Logging.Category.Info, Priority.Low);
+                    return toReturn;
+                }
+
+            }
+            catch (Exception)
+            {
+                _logger.Log($"{TAG} Unable to resolve spotify id {id}", Prism.Logging.Category.Exception, Priority.High);
+            }
+
+            _logger.Log($"{TAG} Unable to resolve spotify id {id}", Prism.Logging.Category.Info, Priority.Low);
+            return id;
         }
 
         public void Dispose()

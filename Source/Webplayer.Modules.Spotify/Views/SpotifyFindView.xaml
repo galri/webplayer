@@ -129,12 +129,18 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Margin="4 0 18 6">
+            <Button Margin="4" Style="{StaticResource MaterialDesignFloatingActionButton}" 
+                   Command="{Binding SearchSingleCommand}" ToolTip="Fetch one from id">
+                <materialDesign:PackIcon Kind="Numeric1Box" Height="24" Width="24"/>
+            </Button>
             <Button Margin="4" Command="{Binding FetchMoreResultCommand}" 
-                Style="{StaticResource MaterialDesignFloatingActionButton}">
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="More Result from search">
                 <materialDesign:PackIcon Kind="MagnifyPlus" Height="24" Width="24" />
             </Button>
             <Button Margin="4" Command="{Binding SearchCommand}" 
-                Style="{StaticResource MaterialDesignFloatingActionButton}">
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="New Search">
                 <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
             </Button>
         </StackPanel>

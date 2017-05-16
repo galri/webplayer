@@ -15,6 +15,9 @@ using System.Windows.Controls;
 using System.Windows;
 using Prism;
 using Infrastructure;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Practices.Unity;
+using Webplayer.Modules.Spotify.Views;
 
 namespace Webplayer.Modules.Spotify.ViewModels
 {
@@ -26,6 +29,7 @@ namespace Webplayer.Modules.Spotify.ViewModels
         private string _query;
         private IQueueController _queueController;
         private Visibility _searchFieldVisibility = Visibility.Hidden;
+        private IUnityContainer _container;
 
         public string SearchQuery
         {
@@ -48,6 +52,8 @@ namespace Webplayer.Modules.Spotify.ViewModels
         public ICommand FocusSearchFieldCommand { get; set; }
 
         public DelegateCommand<object> AddSongCommand { get; set; }
+
+        public ICommand SearchSingleCommand { get; }
 
         public Visibility SearchFieldVisibility
         {
@@ -79,8 +85,10 @@ namespace Webplayer.Modules.Spotify.ViewModels
         public event EventHandler IsActiveChanged;
         #endregion
 
-        public SpotifyFindViewModel(ISpotifySongSearch songSearchService, IQueueController queueController)
+        public SpotifyFindViewModel(ISpotifySongSearch songSearchService, IQueueController queueController,
+            IUnityContainer container)
         {
+            _container = container;
             _songSearchService = songSearchService;
             _queueController= queueController;
             SearchCommand = new DelegateCommand(SearchAction);
@@ -88,6 +96,16 @@ namespace Webplayer.Modules.Spotify.ViewModels
             AddSongCommand = new DelegateCommand<object>(AddAction);
             FocusSearchFieldCommand = new DelegateCommand(FocusAction);
             GlobalCommands.ShowSearchFieldInActiveCommand.RegisterCommand(FocusSearchFieldCommand);
+            SearchSingleCommand = new DelegateCommand(SingleSearchAction);
+        }
+
+        private async void SingleSearchAction()
+        {
+            var v = _container.Resolve<ISpotifyFindSingleView>();
+            await DialogHost.Show(v, "RootDialog");
+            var result = ((ISpotifyFindSingleViewModel)((UserControl)v).DataContext).Result;
+            SearchResult.Clear();
+            SearchResult.Add(result);
         }
 
         private void FocusAction()

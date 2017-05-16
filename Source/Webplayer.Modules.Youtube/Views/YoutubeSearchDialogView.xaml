@@ -146,9 +146,6 @@
                      materialDesign:HintAssist.Hint="Search"
                      Name="SearchField"
                      Background="White" Height="27">
-                    <!--<TextBox.InputBindings>
-                        <KeyBinding Key="Enter" />
-                    </TextBox.InputBindings>-->
                     <i:Interaction.Behaviors>
                         <inf:FocusTextfieldWhenAppearingBehaviour></inf:FocusTextfieldWhenAppearingBehaviour>
                         <inf:MoveFocusOnEscapeBehaviour  />
