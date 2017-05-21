@@ -170,6 +170,8 @@ namespace Webplayer.Modules.Youtube.ViewModels
             }
         }
 
+        public ICommand SearchSingleCommand { get; }
+
         public bool IsActive
         {
             get
@@ -200,9 +202,18 @@ namespace Webplayer.Modules.Youtube.ViewModels
             PreviewCommand = new DelegateCommand<object>(PreviewSong);
             RemoveUploadFilterCommand = new DelegateCommand(RemoveUploadFilterAction);
             FocusSearchFieldCommand = new DelegateCommand(FocusSearchFieldAction);
-
+            SearchSingleCommand = new DelegateCommand(SingleSearchAction);
             ShowPlaylistSearchCommand = new DelegateCommand(ShowPlaylistSearchAction);
             GlobalCommands.ShowSearchFieldInActiveCommand.RegisterCommand(FocusSearchFieldCommand);
+        }
+
+        private async void SingleSearchAction()
+        {
+            var v = _container.Resolve<YoutubeFindSingleView>();
+            await DialogHost.Show(v, "RootDialog");
+            var result = ((YoutubeFindSingleViewModel)((UserControl)v).DataContext).Result;
+            SearchResult.Clear();
+            SearchResult.Add(result);
         }
 
         private void FocusSearchFieldAction()

@@ -258,12 +258,25 @@ namespace Webplayer.Modules.Youtube.Services
         public async Task<YoutubeSong> FetchSongAsync(string id)
         {
             var searcher = _youtubeService.Videos.List("snippet");
-            searcher.Id = id;
+            searcher.Id = FindId(id);
             var res = await searcher.ExecuteAsync();
             var video = res.Items.FirstOrDefault();
             if (video == null)
-                return null;
-            return new YoutubeSong(null, video.Snippet.Title, video.Id, new TimeSpan());
+                throw new ArgumentException(nameof(id));
+            return new YoutubeSong(getPicture(video.Snippet.Thumbnails), video.Snippet.Title, video.Id, new TimeSpan());
+        }
+
+        private string FindId(string id)
+        {
+            Uri uriResult = null;
+            if (Uri.TryCreate(id, UriKind.Absolute, out uriResult))
+            {
+                var vLocation = uriResult.Query.IndexOf("v=");
+
+                return new string(uriResult.Query.Substring(vLocation +2).TakeWhile(t => t != '&').ToArray());
+            }
+
+            return id;
         }
     }
 }

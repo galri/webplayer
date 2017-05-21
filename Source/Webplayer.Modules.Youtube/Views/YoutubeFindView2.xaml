@@ -87,8 +87,9 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Margin="4 0 18 6">
-            <Button Margin="4" Style="{StaticResource MaterialDesignFloatingActionButton}" 
-                    IsEnabled="False" ToolTip="Fetch one from id">
+            <Button Margin="4" Command="{Binding SearchSingleCommand}"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}" 
+                    ToolTip="Fetch one from id">
                 <materialDesign:PackIcon Kind="Numeric1Box" Height="24" Width="24"/>
             </Button>
             <Button Margin="4" Command="{Binding FetchMoreResultCommand}" 
