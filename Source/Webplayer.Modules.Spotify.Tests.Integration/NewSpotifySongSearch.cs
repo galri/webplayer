@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SpotifyAPI.Web;
 using Webplayer.Modules.Spotify.Services;
+using Prism.Logging;
+using Moq;
 
 namespace Webplayer.Modules.Spotify.Tests.Integration
 {
@@ -17,7 +19,7 @@ namespace Webplayer.Modules.Spotify.Tests.Integration
             var api = new SpotifyWebAPI();
             api.UseAuth = false;
 
-            return new NewSpotifySongService(api);
+            return new NewSpotifySongService(api, new Mock<ILoggerFacade>().Object);
         }
 
         [Test]
