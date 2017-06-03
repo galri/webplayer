@@ -15,11 +15,10 @@ namespace Webplayer.Modules.Spotify.Services
     public class NewSpotifySongService : ISpotifySongSearch
     {
         private const string TAG = "NewSpotifySongService";
-        private readonly SpotifyWebAPI _api;
+        private readonly SpotifyWebAPIProvider _api;
         private string _query;
         private SearchItem _searchItem;
         private bool _apiNeedsReseting;
-        private int _nextOffset;
         private Paging<FullTrack> _page;
         private ILoggerFacade _logger;
 
@@ -33,7 +32,7 @@ namespace Webplayer.Modules.Spotify.Services
             }
         }
 
-        public NewSpotifySongService(SpotifyWebAPI api,ILoggerFacade logger)
+        public NewSpotifySongService(SpotifyWebAPIProvider api,ILoggerFacade logger)
         {
             _api = api;
             _logger = logger;
@@ -43,14 +42,13 @@ namespace Webplayer.Modules.Spotify.Services
         {
             if (_apiNeedsReseting)
             {
-                _nextOffset = 0;
-                _searchItem = await _api.SearchItemsAsync(Query, SearchType.Track);
+                _searchItem = await _api.Api.SearchItemsAsync(Query, SearchType.Track);
                 CheckForPageError(_searchItem);
                 _page = _searchItem.Tracks;
             }
             else
             {
-                 _page = await _api.GetNextPageAsync<FullTrack>(_searchItem.Tracks);
+                 _page = await _api.Api.GetNextPageAsync<FullTrack>(_searchItem.Tracks);
             }
 
             var result = new List<SpotifySong>();
@@ -88,7 +86,7 @@ namespace Webplayer.Modules.Spotify.Services
         public async Task<SpotifySong> FetchSongAsync(string id)
         {
             var parsed = ParseId(id);
-            var result = await _api.GetTrackAsync(parsed);
+            var result = await _api.Api.GetTrackAsync(parsed);
             //Must be a better way to check this
             if(result.HasError() && result.Error.Message == "invalid id")
             {

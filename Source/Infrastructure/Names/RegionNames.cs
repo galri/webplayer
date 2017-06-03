@@ -18,9 +18,8 @@ namespace Infrastructure
         /// </summary>
         public static string ToolbarRegion = "ToolbarRegion";
 
-
         /// <summary>
-        /// Hoe long the song has been playing, play, pause etc..
+        /// How long the song has been playing, play, pause etc..
         /// </summary>
         public static string StatusRegion = "StatusRegion";
 

@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="NewSpotifySongSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpotifyUserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

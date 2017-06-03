@@ -38,6 +38,11 @@
                 </Grid.ColumnDefinitions>
                 <dragablz:TabablzControl Grid.RowSpan="3" BorderThickness="0"
                                  Padding="5" prism:RegionManager.RegionName="{x:Static inf:RegionNames.FindRegion}" SelectedIndex="0" >
+                        <!--<dragablz:TabablzControl.ItemTemplate>
+                            <DataTemplate >
+                                <controls:TransitioningContentControl Transition="Up"/>
+                            </DataTemplate>
+                        </dragablz:TabablzControl.ItemTemplate>-->
                     <!--<dragablz:TabablzControl.InterTabController>
                         <dragablz:InterTabController />
                     </dragablz:TabablzControl.InterTabController>

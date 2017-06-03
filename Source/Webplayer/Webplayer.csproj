@@ -305,6 +305,7 @@
       <DependentUpon>FlyoutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\TabablzControlRegionAdapter.cs" />
+    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>

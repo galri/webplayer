@@ -26,11 +26,7 @@ namespace Infrastructure.Models
 
             set
             {
-                if(_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged(() => Name);
-                }
+                SetProperty(ref _name, value);
             }
         }
 

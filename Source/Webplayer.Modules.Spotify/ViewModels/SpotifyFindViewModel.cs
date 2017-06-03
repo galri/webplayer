@@ -18,18 +18,23 @@ using Infrastructure;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Practices.Unity;
 using Webplayer.Modules.Spotify.Views;
+using Prism.Regions;
+using Prism.Logging;
 
 namespace Webplayer.Modules.Spotify.ViewModels
 {
     class SpotifyFindViewModel : BindableBase, ISpotifyFindViewModel, IActiveAware
     {
-
+        private const string Tag = "SpotifyFindViewModel";
         private bool _isActive;
         private readonly ISpotifySongSearch _songSearchService;
         private string _query;
         private IQueueController _queueController;
         private Visibility _searchFieldVisibility = Visibility.Hidden;
         private IUnityContainer _container;
+        private readonly IRegionManager _regionManager;
+        private ILoggerFacade _logger;
+        private IDialogService _dialogService;
 
         public string SearchQuery
         {
@@ -54,6 +59,8 @@ namespace Webplayer.Modules.Spotify.ViewModels
         public DelegateCommand<object> AddSongCommand { get; set; }
 
         public ICommand SearchSingleCommand { get; }
+
+        public ICommand ShowAccountCommand { get; set; }
 
         public Visibility SearchFieldVisibility
         {
@@ -86,8 +93,11 @@ namespace Webplayer.Modules.Spotify.ViewModels
         #endregion
 
         public SpotifyFindViewModel(ISpotifySongSearch songSearchService, IQueueController queueController,
-            IUnityContainer container)
+            IUnityContainer container,IRegionManager regionManager, ILoggerFacade logger, IDialogService dialogService)
         {
+            _dialogService = dialogService;
+            _logger = logger;
+            _regionManager = regionManager;
             _container = container;
             _songSearchService = songSearchService;
             _queueController= queueController;
@@ -97,6 +107,13 @@ namespace Webplayer.Modules.Spotify.ViewModels
             FocusSearchFieldCommand = new DelegateCommand(FocusAction);
             GlobalCommands.ShowSearchFieldInActiveCommand.RegisterCommand(FocusSearchFieldCommand);
             SearchSingleCommand = new DelegateCommand(SingleSearchAction);
+            ShowAccountCommand = new DelegateCommand(ExecuteFindAccount);
+        }
+
+        private void ExecuteFindAccount()
+        {
+            var acount = _regionManager.Regions["SpotTrans"].Views.OfType<ISpotifyAcountView>();
+            _regionManager.Regions["SpotTrans"].Activate(acount.First());
         }
 
         private async void SingleSearchAction()
@@ -142,13 +159,18 @@ namespace Webplayer.Modules.Spotify.ViewModels
             if(string.IsNullOrWhiteSpace(SearchQuery))
                 return;
 
-            //TODO:Check for link or uri
-
-            _songSearchService.Query = SearchQuery;
-
-            foreach (var song in await _songSearchService.FetchAsync())
+            try
             {
-                SearchResult.Add(song);
+                _songSearchService.Query = SearchQuery;
+                foreach (var song in await _songSearchService.FetchAsync())
+                {
+                    SearchResult.Add(song);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Log($"{Tag} FetchFetchSongs error {ex.Message}", Category.Exception, Priority.High);
+                _dialogService.ShowError("Spotify search", ex.Message);
             }
 
             SearchFieldVisibility = Visibility.Hidden;

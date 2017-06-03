@@ -16,6 +16,7 @@ using Queue;
 using Webplayer.Modules.Spotify;
 using Prism.Regions;
 using Dragablz;
+using Webplayer.Services;
 
 namespace Webplayer
 {
@@ -53,6 +54,7 @@ namespace Webplayer
             conn.Open();
             Container.RegisterInstance<SQLiteConnection>(conn);
             Container.RegisterType<IPlaylistDao, PlaylistDao>();
+            Container.RegisterType<IDialogService, DialogService>();
             Container.RegisterInstance<IThreadHelper>(new ThreadHelper(Shell.Dispatcher));
 
             base.InitializeModules();
