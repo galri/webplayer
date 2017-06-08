@@ -19,6 +19,7 @@ using Google.Apis.Services;
 using System.IO;
 using Newtonsoft.Json;
 using Webplayer.Modules.Youtube.Models;
+using Prism.Mvvm;
 
 namespace Webplayer.Modules.Youtube
 {
@@ -66,13 +67,19 @@ namespace Webplayer.Modules.Youtube
 
               _rm.RegisterViewWithRegion(RegionNames.FindRegion, typeof(IYoutubeFindView));
 
-            _container.RegisterType<IVIdeoInfoView, VideoInfoView>();
+            //_container.RegisterType<IVIdeoInfoView, VideoInfoView>();
+            _container.RegisterType<IVIdeoInfoView, YoutubeLibView>();
             _container.RegisterType<IVideoInfoViewModel, VideoInfoViewModel>();
-            _rm.RegisterViewWithRegion(RegionNames.InfoRegion, typeof (VideoInfoView));
-
+            _rm.RegisterViewWithRegion(RegionNames.InfoRegion, typeof (YoutubeLibView));
+            
             //var ys = new YoutubeAccountService();
             //ys.Login();
 
+        }
+
+        public static void ConfigureViewModelLocator(IUnityContainer container)
+        {
+            ViewModelLocationProvider.Register(typeof(YoutubeLibView).ToString(), () => container.Resolve<IVideoInfoViewModel>());
         }
     }
 }

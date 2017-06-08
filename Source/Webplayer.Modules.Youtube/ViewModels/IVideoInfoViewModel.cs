@@ -1,11 +1,16 @@
-﻿using YoutubePlayerLib;
+﻿using System.ComponentModel;
+using System.Windows.Input;
+using Webplayer.Modules.Youtube.Models;
+using YoutubePlayerLib;
 
 namespace Webplayer.Modules.Youtube.ViewModels
 {
-    public interface IVideoInfoViewModel
+    public interface IVideoInfoViewModel : INotifyPropertyChanged
     {
-        string VideoId { get; set; } 
+        YoutubeSong Video { get; set; }
 
-        YoutubePlayerState Playing { get; set; }
+        bool Playing { get; set; }
+
+        ICommand NextCommand { get; set; }
     }
 }

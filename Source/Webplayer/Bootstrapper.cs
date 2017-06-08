@@ -67,5 +67,11 @@ namespace Webplayer
             mappings.RegisterMapping(typeof(TabablzControl), new TabablzControlRegionAdapter(regionBehaviorFactory));
             return mappings;
         }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            base.ConfigureViewModelLocator();
+            YoutubeModule.ConfigureViewModelLocator(Container);
+        }
     }
 }

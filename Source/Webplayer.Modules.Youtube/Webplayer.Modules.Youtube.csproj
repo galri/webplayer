@@ -120,6 +120,10 @@
       <HintPath>..\packages\Google.Apis.YouTube.v3.1.13.1.529\lib\portable-net45+netcore45+wpa81+wp8\Google.Apis.YouTube.v3.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="libvideo, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nefarius-VideoLibrary.1.4.0\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\libvideo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -296,6 +300,9 @@
     <Compile Include="Views\YoutubeFindView2.xaml.cs">
       <DependentUpon>YoutubeFindView2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\YoutubeLibView.xaml.cs">
+      <DependentUpon>YoutubeLibView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\YoutubePreviewView.xaml.cs">
       <DependentUpon>YoutubePreviewView.xaml</DependentUpon>
     </Compile>
@@ -346,6 +353,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\YoutubeFindView2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\YoutubeLibView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
